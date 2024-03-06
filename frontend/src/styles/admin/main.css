@@ -21,6 +21,9 @@
 .top-7{
     top:7px;
 }
+.body-wrap {
+    width: 100%;
+}
 .disabled-certi {
     display: inline-block;
     padding: 6px 12px;
