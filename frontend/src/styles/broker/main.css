@@ -1,0 +1,43 @@
+.custom-margin-top {
+    margin-top: 6%;
+}
+
+.book-btn {
+    position: relative;
+    left: 37%;
+    right: 50%;
+}
+
+.carousel-control-next-icon {
+    color: black !important;
+}
+
+.carousel-control-prev-icon {
+    color: black !important;
+}
+
+.slide-img {
+    height: 500px !important;
+    object-fit: contain;
+}
+
+.top-7 {
+    top: 7px;
+}
+
+.spinner {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+}
+
+.no-data {
+    position: absolute;
+    top: 45%;
+    left: 43%;
+}
+
+.no-image {
+    text-align: center;
+    margin-top: 10px;
+}

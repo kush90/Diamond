@@ -1,0 +1,57 @@
+.custom-margin-top {
+    margin-top: 6%;
+}
+
+.logo-text {
+    font-size: 15px;
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.custom-td {
+    border-bottom: #eee 1px solid;
+    padding: 10px;
+}
+.no-border {
+    border:0px !important;
+}
+.mt-20 {
+    margin-top:20px;
+}
+.top-7{
+    top:7px;
+}
+.disabled-certi {
+    display: inline-block;
+    padding: 6px 12px;
+    color:none;
+    cursor: not-allowed;
+    background-color: #3b71ca;
+    width: 100%;
+}
+@media print {
+    body * {
+        visibility: hidden;
+    }
+
+    #printTable,
+    #printTable * {
+        visibility: visible;
+    }
+
+    #printTable {
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+}
+@media (min-width: 768px) and (max-width: 1199.98px) { 
+    .custom-margin-top {
+        margin-top: 10% !important;
+    }
+}
+@media (min-width: 200px) and (max-width: 767px) { 
+    .custom-margin-top {
+        margin-top: 20% !important;
+    }
+}
