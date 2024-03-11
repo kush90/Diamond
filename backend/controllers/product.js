@@ -1,9 +1,11 @@
 const Product = require('../models/product');
 const mongoose = require('mongoose');
 const { deleteImage } = require('../middleware/fileUpload');
+const Noti = require('../models/notification');
+const socket = require('../middleware/socket');
 
 const create = async (req, res) => {
-    const { name, productNumber, description, shortDescription , price, categoryId } = req.body;
+    const { name, productNumber, description, shortDescription, price, categoryId } = req.body;
     // const prefix = "BAC";
     // const totalProducts = await Product.countDocuments();
     // let index = 1;
@@ -38,14 +40,14 @@ const create = async (req, res) => {
         return res.status(400).json({ error: 'Please fill in all the fields', emptyFields })
     }
     try {
-        const imageInfo = await req.files.files.map((file) => {
+        const imageInfo = await req.files?.files?.map((file) => {
             return {
                 path: file.path,
                 name: file.filename,
                 type: file.mimetype
             }
         });
-        const certificate = await req.files.certificate.map((file) => {
+        const certificate = await req.files?.certificate.map((file) => {
             return {
                 path: file.path,
                 name: file.filename,
@@ -53,7 +55,9 @@ const create = async (req, res) => {
             }
         });
         const createdBy = req.user._id;
-        const product = await Product.create({productNumber, name, description, shortDescription, categoryId, price, createdBy, "images": imageInfo,certificate });
+        const product = await Product.create({ productNumber, name, description, shortDescription, categoryId, price, createdBy, "images": imageInfo, certificate });
+        const noti = await Noti.create({ noti: 'New product is available now!', createdBy:null });
+        socket.emitNewNoti(noti)
         const newProduct = await product.populate('categoryId');
         res.status(200).json({ data: newProduct, message: 'Product is successfully created.' })
     } catch (error) {
@@ -83,7 +87,7 @@ const update = async (req, res) => {
         }
         if (req.files.certificate !== undefined && req.files.certificate?.length > 0) {
             req.files.certificate.map((file) => {
-                certificate.push( {
+                certificate.push({
                     path: file.path,
                     name: file.filename,
                     type: file.mimetype
@@ -99,7 +103,7 @@ const update = async (req, res) => {
             return res.status(404).json({ error: 'No such product' })
         }
         const product = await Product.findOneAndUpdate({ _id: id }, {
-            ...req.body, "images": imageInfo,certificate
+            ...req.body, "images": imageInfo, certificate
         }, { new: true }).populate('categoryId');;
         res.status(200).json({ data: product, message: 'Product is successfully updated.' })
     } catch (error) {
@@ -110,7 +114,7 @@ const update = async (req, res) => {
 
 const getAll = async (req, res) => {
     try {
-        let query = {status:'active'};
+        let query = { status: 'active' };
         if (Object.keys(req.query).length !== 0) {
 
             // Check if req.query.name is present and not empty

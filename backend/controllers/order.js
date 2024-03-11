@@ -1,6 +1,8 @@
+const mongoose = require('mongoose')
 const Order = require('../models/order');
 const Product = require('../models/product');
-const mongoose = require('mongoose')
+const Noti = require('../models/notification');
+const socket = require('../middleware/socket');
 
 const create = async (req, res) => {
     const { product } = req.body;
@@ -29,8 +31,12 @@ const create = async (req, res) => {
 
     try {
         const userId = req.user._id;
-
         const order = await Order.create({ product, referenceNo, index, "broker": userId });
+        const newOrder = await order.populate(['broker', 'product']);
+        if (req.body?.type == 'book') {
+            const noti = await Noti.create({ sender: newOrder.broker.name, noti: 'is secured the deal of the product Number of', item: newOrder.product.productNumber, createdBy: newOrder.product.createdBy });
+            socket.emitNewNoti(noti)
+        }
         if (order) await Product.findOneAndUpdate({ _id: product }, { status: 'pending' });
         res.status(200).json({ data: order, message: 'Order is successfully created.' })
     } catch (error) {
@@ -57,10 +63,24 @@ const update = async (req, res) => {
                 }
             });
         }
-
+        console.log(req.body);
         const order = await Order.findOneAndUpdate({ _id: id }, {
             ...req.body, "receipt": imageInfo
         }, { new: true });
+        const newOrder = await order.populate(['broker', 'product']);
+        console.log(newOrder)
+        if (req.body.status === 'toDeliver') {
+            const noti = await Noti.create({ sender: newOrder.broker.name, noti: `has confrimed the order under reference no '${newOrder.referenceNo}' and provided the delivery address of the buyer`, createdBy: newOrder.product.createdBy });
+            socket.emitNewNoti(noti)
+        }
+        else if (req.body.status === 'delivered') {
+            const noti = await Noti.create({ noti: `The order reference '${newOrder.referenceNo}' has been develivered to the buyer`, createdBy: newOrder.broker._id });
+            socket.emitNewNoti(noti)
+        }
+        else if (req.body.status === 'doneDeal') {
+            const noti = await Noti.create({ noti: `The order reference '${newOrder.referenceNo}' has processed a payment of 10% commission to the broker`, createdBy: newOrder.broker._id });
+            socket.emitNewNoti(noti)
+        }
         if (req.files !== undefined && req.files?.length > 0 && order) {
             await Product.findOneAndUpdate({ _id: order.product }, { status: 'sold' })
         }

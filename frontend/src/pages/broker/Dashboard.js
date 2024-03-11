@@ -18,7 +18,7 @@ const BrokerDashboard = () => {
     const book = async (value) => {
         try {
             setLoading(true);
-            let response = await post('api/order/create', { product: value._id });
+            let response = await post('api/order/create', { product: value._id,'type':'book' });
             if (response.status === 200) {
                 setLoading(false);
                 toast.success('You have secured this deal to sell!');

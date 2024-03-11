@@ -12,26 +12,41 @@
     border-bottom: #eee 1px solid;
     padding: 10px;
 }
+
 .no-border {
-    border:0px !important;
+    border: 0px !important;
 }
+
 .mt-20 {
-    margin-top:20px;
+    margin-top: 20px;
 }
-.top-7{
-    top:7px;
+
+.top-7 {
+    top: 7px;
 }
+
 .body-wrap {
     width: 100%;
 }
+
 .disabled-certi {
     display: inline-block;
     padding: 6px 12px;
-    color:none;
+    color: none;
     cursor: not-allowed;
     background-color: #3b71ca;
     width: 100%;
 }
+
+.noti-count {
+    top: -10px !important;
+}
+
+.dropdown-menu {
+    max-height: 500px !important;
+    overflow-y: auto !important;
+}
+
 @media print {
     body * {
         visibility: hidden;
@@ -48,12 +63,14 @@
         top: 0;
     }
 }
-@media (min-width: 768px) and (max-width: 1199.98px) { 
+
+@media (min-width: 768px) and (max-width: 1199.98px) {
     .custom-margin-top {
         margin-top: 10% !important;
     }
 }
-@media (min-width: 200px) and (max-width: 767px) { 
+
+@media (min-width: 200px) and (max-width: 767px) {
     .custom-margin-top {
         margin-top: 20% !important;
     }

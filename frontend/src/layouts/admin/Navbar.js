@@ -12,28 +12,90 @@ import {
     MDBNavbarItem,
     MDBNavbarLink,
     MDBCollapse,
-    MDBNavbarToggler
+    MDBNavbarToggler,
+    MDBBadge
 } from 'mdb-react-ui-kit';
 import { useLocation, useNavigate } from "react-router-dom";
 
 import logo from '../../assets/logo.png';
 import '../../styles/admin/main.css';
-import { clearStorage, getStorage } from '../../Helper';
+import { clearStorage, getStorage, createStorage } from '../../Helper';
+import { get } from '../../Api';
+import { useWebSocket } from '../../context';
 
 
-export default function Navbar() {
+const Navbar = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const [openToggle, setOpenToggle] = React.useState('');
     const [user, setUser] = React.useState('');
-
+    const [noti, setNoti] = React.useState([]);
+    const { socket } = useWebSocket();
     useEffect(() => {
         setUser(JSON.parse(getStorage('user')));
-    }, [])
+        const storedNoti = JSON.parse(getStorage('noti'));
+        if (storedNoti) {
+            setNoti([...storedNoti]); // Set noti state if it's available in local storage
+        }
+        if (socket) {
+            getNotiData();
+            socket.on('new-noti', (data) => {
+                setNoti((prevNoti) => {
+                    if (data.createdBy === user.id) {
+                        const existingNotificationIndex = prevNoti.findIndex(notification => notification._id === data._id);
+                        if (existingNotificationIndex !== -1) {
+                            // If the notification exists, remove it
+                            const updatedNoti = [...prevNoti];
+                            updatedNoti.splice(existingNotificationIndex, 1);
+                            // Add the new notification
+                            const newNoti = [data, ...updatedNoti];
+                            // Store in local storage
+                            createStorage('noti', newNoti);
+                            // Update state
+                            return newNoti;
+                        } else {
+                            // If the notification is new, add it to the existing notifications
+                            const newNoti = [data, ...prevNoti];
+                            // Store in local storage
+                            createStorage('noti', newNoti);
+                            // Update state
+                            return newNoti;
+                        }
+                    }
+                    else {
+                        return prevNoti;
+                    }
+                });
+            });
+        }
+        return () => {
+            // Clean up socket event listener
+            if (socket) {
+                socket.off('new-noti');
+            }
+        };
+    }, [socket, user.id]);
+
+    const getNotiData = async () => {
+        try {
+            const response = await get('api/notification/getAll');
+            if (response.status === 200) {
+                // Set state with filtered notifications
+                setNoti(response.data.data);
+                // Update local storage with filtered notifications
+                createStorage('noti', response.data.data);
+            }
+        } catch (error) {
+            // Handle errors
+        }
+    };
+
+
     const logout = () => {
         clearStorage('user');
         setUser('')
         navigate('/');
+        clearStorage('noti')
     }
     return (
         <div>
@@ -82,7 +144,31 @@ export default function Navbar() {
                                 <MDBNavbarLink style={{ display: user.type != 'Broker' ? 'none' : '' }} active={location.pathname === '/admin/broker/deal'} href='/admin/broker/deal'>Deals</MDBNavbarLink>
                             </MDBNavbarItem>
                         </MDBNavbarNav>
+                        <MDBDropdown color="primary" >
+                            <MDBDropdownToggle color='link' caret="true">
+                                <MDBBadge className='noti-count' pill color='danger'>{noti?.length >= 10 ? noti?.length + '+' : noti?.length}</MDBBadge>
+                                <span>
+                                    <MDBIcon fas icon='bell'></MDBIcon>
+                                </span>
+                            </MDBDropdownToggle>
+                            <MDBDropdownMenu>
+                                {
+                                    (noti && noti.length > 0) ? noti.map((item, index) => {
+                                        return (
+                                            <MDBDropdownItem className='text-wrap' key={index} link >{item?.sender?.toUpperCase()} {item.noti} 
 
+                                                {item.item && (
+                                                    <span> ({item.item})</span>
+                                                )}
+                                            </MDBDropdownItem>
+                                        )
+
+
+                                    }) :
+                                        <MDBDropdownItem link >No Notification!</MDBDropdownItem>
+                                }
+                            </MDBDropdownMenu>
+                        </MDBDropdown>
 
                         <MDBDropdown color="primary" >
                             <MDBDropdownToggle color='link' caret="true">
@@ -100,3 +186,4 @@ export default function Navbar() {
         </div>
     );
 }
+export default Navbar
