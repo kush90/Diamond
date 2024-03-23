@@ -109,12 +109,14 @@ const ProductForm = (props) => {
         certiRef.current.value = null;
     }
     const imageUpload = (e) => {
-        setImages(e.target.files)
+        let files = e.target.files;
+        let newImages = [...images];
         let newArr = imgUrl;
-        for (let i = 0; i < e.target.files.length; i++) {
-
-            newArr.unshift({ name: e.target.files[i].name, type: e.target.files[i].type, path: URL.createObjectURL(e.target.files[i]), new: true });
+        for (let i = 0; i < files.length; i++) {
+            newImages.push(files[i]);
+            newArr.unshift({ name: files[i].name, type:files[i].type, path: URL.createObjectURL(files[i]), new: true });
         }
+        setImages(newImages)
         setImgUrl(newArr)
     }
     const certificateUpload = (e) => {
@@ -229,7 +231,7 @@ const ProductForm = (props) => {
                             <MDBBtn color='secondary' onClick={() => toggleOpenClose('close')}>
                                 Close
                             </MDBBtn>
-                            <MDBBtn disabled={(!name || !description || !price || !categoryId)}
+                            <MDBBtn disabled={(!name || !description || !price || !categoryId || certificateUrl.length === 0 || imgUrl.length === 0)}
                                 onClick={() => toggleOpenClose('save')} >Submit</MDBBtn>
                         </MDBModalFooter>
                     </MDBModalContent>

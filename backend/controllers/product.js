@@ -40,12 +40,13 @@ const create = async (req, res) => {
         return res.status(400).json({ error: 'Please fill in all the fields', emptyFields })
     }
     try {
-        const imageInfo = await req.files?.files?.map((file) => {
-            return {
+        let imageInfo = [];
+        req.files?.files?.map((file) => {
+            imageInfo.push({
                 path: file.path,
                 name: file.filename,
                 type: file.mimetype
-            }
+            })
         });
         const certificate = await req.files?.certificate.map((file) => {
             return {
