@@ -35,7 +35,7 @@ const Navbar = () => {
         setUser(JSON.parse(getStorage('user')));
         const storedNoti = JSON.parse(getStorage('noti'));
         if (storedNoti) {
-            setNoti([...storedNoti]); // Set noti state if it's available in local storage
+            setNoti(...storedNoti.slice(0, 10)); // Set noti state if it's available in local storage
         }
         if (socket) {
             getNotiData();
@@ -48,14 +48,14 @@ const Navbar = () => {
                             const updatedNoti = [...prevNoti];
                             updatedNoti.splice(existingNotificationIndex, 1);
                             // Add the new notification
-                            const newNoti = [data, ...updatedNoti];
+                            const newNoti = [data, ...updatedNoti.slice(0, 9)];
                             // Store in local storage
                             createStorage('noti', newNoti);
                             // Update state
                             return newNoti;
                         } else {
                             // If the notification is new, add it to the existing notifications
-                            const newNoti = [data, ...prevNoti];
+                            const newNoti = [data, ...prevNoti.slice(0, 9)];
                             // Store in local storage
                             createStorage('noti', newNoti);
                             // Update state
@@ -126,22 +126,22 @@ const Navbar = () => {
 
                         <MDBNavbarNav className='me-auto'>
                             <MDBNavbarItem className='active'>
-                                <MDBNavbarLink style={{ display: user.type == 'Broker' ? 'none' : '' }} active={location.pathname === '/admin'} aria-current='page' href='/admin'>
+                                <MDBNavbarLink style={{ display: user.type === 'Broker' ? 'none' : '' }} active={location.pathname === '/admin'} aria-current='page' href='/admin'>
                                     Home
                                 </MDBNavbarLink>
                             </MDBNavbarItem>
 
                             <MDBNavbarItem>
-                                <MDBNavbarLink style={{ display: user.type == 'Broker' ? 'none' : '' }} active={location.pathname === '/admin/order'} href='/admin/order'>Order</MDBNavbarLink>
+                                <MDBNavbarLink style={{ display: user.type === 'Broker' ? 'none' : '' }} active={location.pathname === '/admin/order'} href='/admin/order'>Order</MDBNavbarLink>
                             </MDBNavbarItem>
                             <MDBNavbarItem>
-                                <MDBNavbarLink style={{ display: user.type == 'Broker' ? 'none' : '' }} active={location.pathname === '/admin/user'} href='/admin/user'>User</MDBNavbarLink>
+                                <MDBNavbarLink style={{ display: user.type === 'Broker' ? 'none' : '' }} active={location.pathname === '/admin/user'} href='/admin/user'>User</MDBNavbarLink>
                             </MDBNavbarItem>
                             <MDBNavbarItem>
-                                <MDBNavbarLink style={{ display: user.type != 'Broker' ? 'none' : '' }} active={location.pathname === '/admin/broker/dashboard'} href='/admin/broker/dashboard'>Home</MDBNavbarLink>
+                                <MDBNavbarLink style={{ display: user.type !== 'Broker' ? 'none' : '' }} active={location.pathname === '/admin/broker/dashboard'} href='/admin/broker/dashboard'>Home</MDBNavbarLink>
                             </MDBNavbarItem>
                             <MDBNavbarItem>
-                                <MDBNavbarLink style={{ display: user.type != 'Broker' ? 'none' : '' }} active={location.pathname === '/admin/broker/deal'} href='/admin/broker/deal'>Deals</MDBNavbarLink>
+                                <MDBNavbarLink style={{ display: user.type !== 'Broker' ? 'none' : '' }} active={location.pathname === '/admin/broker/deal'} href='/admin/broker/deal'>Deals</MDBNavbarLink>
                             </MDBNavbarItem>
                         </MDBNavbarNav>
                         <MDBDropdown color="primary" >
