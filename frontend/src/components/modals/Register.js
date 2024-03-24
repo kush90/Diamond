@@ -22,6 +22,7 @@ const Register = (props) => {
     const [password, setPassword] = React.useState('');
     const [email, setEmail] = React.useState('');
     const [phoneNo, setPhoneNo] = React.useState('');
+    const [address, setAddress] = React.useState('');
     const [profile, setProfile] = React.useState([]);
     const [imgUrl, setImgUrl] = React.useState([]);
     const ref = useRef();
@@ -56,6 +57,7 @@ const Register = (props) => {
         newFormData.append('password', password)
         newFormData.append('phoneNo', phoneNo)
         newFormData.append('email', email)
+        newFormData.append('address',address)
         for (const file of profile) {
             newFormData.append('files', file);
         }
@@ -77,6 +79,8 @@ const Register = (props) => {
                             <MDBInput wrapperClass='custom-input' required onChange={(e) => setPassword(e.target.value)} value={password} label='Password' />
                             <MDBInput wrapperClass='custom-input' required onChange={(e) => setPhoneNo(e.target.value)} value={phoneNo} label='Phone No' />
                             <MDBInput wrapperClass='custom-input' required onChange={(e) => setEmail(e.target.value)} value={email} label='Email' />
+                            <MDBInput wrapperClass='custom-input'  onChange={(e) => setAddress(e.target.value)} value={address} label='Address' />
+
                             <label htmlFor="file-upload" className="custom-file-upload">
                                 <i className="fa fa-cloud-upload"></i> <span>Upload Profile Image</span>
                             </label>

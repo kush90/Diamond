@@ -94,7 +94,7 @@ const Payment = (props) => {
                             <MDBBtn color='secondary' onClick={close}>
                                 Close
                             </MDBBtn>
-                            <MDBBtn color='primary' onClick={submit}>
+                            <MDBBtn color='primary' onClick={submit} disabled={imgUrl.length === 0}>
                                 Submit
                             </MDBBtn>
                         </MDBModalFooter>

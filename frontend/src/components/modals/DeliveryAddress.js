@@ -15,6 +15,8 @@ const DeliveryAddress = (props) => {
     const [fullName, setFullName] = React.useState('');
     const [phoneNo, setPhoneNo] = React.useState('');
     const [address, setAddress] = React.useState('');
+    const [email, setEmail] = React.useState('');
+
     const close = () => {
         props.closeModal(false)
     }
@@ -24,6 +26,7 @@ const DeliveryAddress = (props) => {
         obj['fullName'] = fullName;
         obj['phoneNo'] = phoneNo;
         obj['address'] = address;
+        obj['email'] = email;
         props.closeModal(obj);
     }
 
@@ -40,6 +43,7 @@ const DeliveryAddress = (props) => {
                             <MDBInput wrapperClass='custom-input' required onChange={(e) => setFullName(e.target.value)} value={fullName} label='Full Name' />
                             <MDBInput wrapperClass='custom-input' required onChange={(e) => setPhoneNo(e.target.value)} value={phoneNo} label='Phone No' />
                             <MDBInput wrapperClass='custom-input' required onChange={(e) => setAddress(e.target.value)} value={address} label='Address' />
+                            <MDBInput wrapperClass='custom-input' required onChange={(e) => setEmail(e.target.value)} value={email} label='Email' />
                         </MDBModalBody>
                         <MDBModalFooter>
                             <MDBBtn color='secondary' onClick={close}>

@@ -80,7 +80,8 @@ const Detail = (props) => {
                                                                                                                 props.data.deliveryAddress ? (
                                                                                                                     <td className='custom-td no-border'>Name :&nbsp;&nbsp; <span className='text-primary'>{props.data?.deliveryAddress?.fullName}</span><br />
                                                                                                                         Phone No :&nbsp;&nbsp; <span className='text-danger'> {props.data?.deliveryAddress?.phoneNo}</span><br />
-                                                                                                                        Address :&nbsp;&nbsp; <span className='text-success'> {props.data?.deliveryAddress?.address}</span>
+                                                                                                                        Address :&nbsp;&nbsp; <span className='text-success'> {props.data?.deliveryAddress?.address}</span><br/>
+                                                                                                                        Email  :&nbsp;&nbsp; <span className='text-danger'>{props.data?.deliveryAddress.email ? props.data?.deliveryAddress.email :'N/A' }</span>
                                                                                                                     </td>
                                                                                                                 ) : (
                                                                                                                     <td className='custom-td no-border'>The broker is actively marketing the product to potential buyers. </td>

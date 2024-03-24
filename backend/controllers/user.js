@@ -24,8 +24,8 @@ const loginUser = async (req, res) => {
 
 const signupUser = async (req, res) => {
     try {
-        const { name, password, phoneNo, email } = req.body;
-        const user = await User.signup(name, password, phoneNo, email, req.files);
+        const { name, password, phoneNo, email, address } = req.body;
+        const user = await User.signup(name, password, phoneNo, email,address, req.files);
         let token;
         if (user) token = createToken(user._id);
         if (token) res.status(200).json({ token, "name": user.name, message: 'Congratulations! You\'re now officially a member!' })
@@ -74,8 +74,8 @@ const getAll = async (req, res) => {
                     createdAt:1,
                     totalDeals: { $size: "$orders" } // Calculate the total number of orders for each user
                 }
-            }
-        ]);
+            },
+        ]).sort({ createdAt: 1 });
         res.status(200).json({ data: users })
     } catch (error) {
         res.status(400).json({ "error": error.message })

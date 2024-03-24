@@ -21,6 +21,9 @@ const userSchema = new Schema({
     email: {
         type: String,
     },
+    address: {
+        type: String,
+    },
     type: {
         type: String,
         default: 'Broker'
@@ -37,7 +40,7 @@ const userSchema = new Schema({
     }
 );
 
-userSchema.statics.signup = async function (name, password, phoneNo, email, files) {
+userSchema.statics.signup = async function (name, password, phoneNo, email,address,files) {
 
     if (!name || !password || !phoneNo) {
         throw Error('All fields must be filled')
@@ -65,7 +68,7 @@ userSchema.statics.signup = async function (name, password, phoneNo, email, file
                 }
             });
         }
-        const newUser = await this.create({ name, password: hash, profile: imageInfo, email, phoneNo });
+        const newUser = await this.create({ name, password: hash, profile: imageInfo, email, phoneNo,address });
         return newUser;
     }
     catch (error) {
