@@ -11,12 +11,13 @@ const createToken = (_id) => {
 }
 
 const loginUser = async (req, res) => {
-    const { name, password } = req.body;
+    const { phoneNo, password } = req.body;
     console.log(req.body)
     try {
-        const user = await User.login(name, password);
-        const token = createToken(user._id);
+        const user = await User.login(phoneNo, password);
+        if(user){ const token = createToken(user._id);
         res.status(200).json({ token, "user": user.name, "type": user.type,"id":user._id })
+        }
     } catch (error) {
         res.status(400).json({ error: error.message })
     }
@@ -35,9 +36,9 @@ const signupUser = async (req, res) => {
 }
 
 const forgotPassword = async (req, res) => {
-    const { name, password } = req.body;
+    const { phoneNo, password } = req.body;
     try {
-        const result = await User.forgotPassword(name, password);
+        const result = await User.forgotPassword(phoneNo, password);
         res.status(200).json({ message: result });
     }
     catch (error) {

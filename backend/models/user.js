@@ -76,15 +76,15 @@ userSchema.statics.signup = async function (name, password, phoneNo, email,addre
     }
 }
 
-userSchema.statics.login = async function (name, password) {
-    if (!name || !password) {
+userSchema.statics.login = async function (phoneNo, password) {
+    if (!phoneNo || !password) {
         throw Error('All fields must be filled')
     }
 
 
-    const matchUser = await this.findOne({ name });
+    const matchUser = await this.findOne({ phoneNo });
     if (!matchUser) {
-        throw Error('Incorrect name')
+        throw Error('Incorrect phone no')
     }
 
     const matchPassword = await bcrypt.compare(password, matchUser.password);
@@ -93,9 +93,9 @@ userSchema.statics.login = async function (name, password) {
     }
     return matchUser;
 }
-userSchema.statics.forgotPassword = async function (name, password) {
+userSchema.statics.forgotPassword = async function (phoneNo, password) {
     try {
-        if (!name || !password) {
+        if (!phoneNo || !password) {
             throw Error('All fields must be filled')
         }
 
@@ -103,9 +103,9 @@ userSchema.statics.forgotPassword = async function (name, password) {
             throw Error('Password is not strong enough');
         }
 
-        const user = await this.findOne({ name });
+        const user = await this.findOne({ phoneNo });
         if (!user) {
-            throw Error('Email is not found !');
+            throw Error('User is not found !');
         }
 
         const salt = await bcrypt.genSalt(10);

@@ -12,7 +12,7 @@ import {
 } from 'mdb-react-ui-kit';
 import '../../styles/public/register.css'
 
-const Login = (props) => {
+const ForgotPassword = (props) => {
     const [phoneNo, setPhoneNo] = React.useState('');
     const [password, setPassword] = React.useState('');
     const close = () => {
@@ -32,11 +32,11 @@ const Login = (props) => {
                 <MDBModalDialog>
                     <MDBModalContent>
                         <MDBModalHeader>
-                            <MDBModalTitle>Login</MDBModalTitle>
+                            <MDBModalTitle>Forgot Password</MDBModalTitle>
                             <MDBBtn className='btn-close' color='none' onClick={close} ></MDBBtn>
                         </MDBModalHeader>
                         <MDBModalBody>
-                            <MDBInput wrapperClass='custom-input' required onChange={(e) => setPhoneNo(e.target.value)} value={phoneNo} label='Phone no' />
+                            <MDBInput wrapperClass='custom-input' required onChange={(e) => setPhoneNo(e.target.value)} value={phoneNo} label='Phone No' />
                             <MDBInput wrapperClass='custom-input' required onChange={(e) => setPassword(e.target.value)} value={password} label='Password' />
                         </MDBModalBody>
                         <MDBModalFooter>
@@ -53,4 +53,4 @@ const Login = (props) => {
     );
 }
 
-export default Login;
+export default ForgotPassword;

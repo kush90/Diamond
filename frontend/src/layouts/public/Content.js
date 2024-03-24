@@ -9,6 +9,7 @@ import bg from '../../assets/bg.webp';
 
 import Register from '../../components/modals/Register';
 import Login from '../../components/modals/Login';
+import ForgotPassword from '../../components/modals/ForgotPassword';
 import axios from 'axios';
 import { createStorage, API_URL, getStorage } from "../../Helper";
 
@@ -18,7 +19,7 @@ export default function Content() {
   const [loading, setLoading] = React.useState(true);
   const [registerModal, setRegisterModal] = React.useState(false);
   const [loginModal, setLoginModal] = React.useState(false);
-
+  const [forgotPasswordModal, setForgotPasswordModal] = React.useState(false);
 
   const registerOpenModal = () => {
     setRegisterModal(true);
@@ -28,14 +29,23 @@ export default function Content() {
     setLoginModal(true);
   }
 
+  const forgotPasswordOpenModal = () => {
+    setForgotPasswordModal(true);
+  }
+
   const close = (value) => {
     if (value) signUp(value);
     setRegisterModal(false)
   }
 
-  const loginClose = (value) =>{
+  const loginClose = (value) => {
     if (value) login(value);
     setLoginModal(false)
+  }
+
+  const forgotPasswordClose = (value) => {
+    if (value) forgotPassword(value);
+    setForgotPasswordModal(false)
   }
 
   const signUp = async (value) => {
@@ -68,9 +78,31 @@ export default function Content() {
         toast.success(response.data.message);
         createStorage('user', response.data);
         let user = JSON.parse(getStorage('user'));
-        if(user.type === 'Admin')  navigate('/admin');
+        if (user.type === 'Admin') navigate('/admin');
         else navigate('/admin/broker/dashboard');
         console.log(user);
+        setLoading(false);
+      }
+    }
+    catch (error) {
+      if (error.response && error.response.status === 400) {
+        toast.error(error.response.data.error)
+      }
+      else {
+        toast.error(error.message)
+      }
+      setLoading(false);
+    }
+
+  }
+
+  const forgotPassword = async (value) => {
+    try {
+      setLoading(true)
+      let response = await axios.post(
+        `${API_URL}/api/user/forgot`, value);
+      if (response.status === 200) {
+        toast.success(response.data.message);
         setLoading(false);
       }
     }
@@ -115,6 +147,15 @@ export default function Content() {
               >
                 Register
               </MDBBtn>
+              <MDBBtn
+                className="m-2"
+                tag="a"
+                outline
+                size="lg"
+                onClick={forgotPasswordOpenModal}
+              >
+                Forgot Password
+              </MDBBtn>
 
             </div>
           </div>
@@ -122,6 +163,7 @@ export default function Content() {
       </div>
       {registerModal && <Register open={registerModal} close={close} />}
       {loginModal && <Login open={loginModal} close={loginClose} />}
+      {forgotPasswordModal && <ForgotPassword open={forgotPasswordModal} close={forgotPasswordClose} />}
       <ToastContainer />
     </header>
   );
