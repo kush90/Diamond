@@ -27,9 +27,9 @@ const create = async (req, res) => {
     if (!productNumber) {
         emptyFields.push('productNumber')
     }
-    if (!shortDescription) {
-        emptyFields.push('shortDescription')
-    }
+    // if (!shortDescription) {
+    //     emptyFields.push('shortDescription')
+    // }
     if (!description) {
         emptyFields.push('description')
     }

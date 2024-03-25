@@ -20,6 +20,8 @@ import { get, post, patch, remove } from '../../Api';
 
 const Dashboard = () => {
     const [loading, setLoading] = React.useState(true);
+    const [catLoading, setCatLoading] = React.useState(true);
+
     const [tempDeleteData, setTempDeleteData] = React.useState('');
 
 
@@ -38,10 +40,10 @@ const Dashboard = () => {
 
     const getCategoryData = async () => {
         try {
-            setLoading(true)
+            setCatLoading(true)
             const response = await get('api/category/getAll');
             if (response.status === 200) {
-                setLoading(false);
+                setCatLoading(false);
                 setCategoryData(response.data.data);
             }
         }
@@ -52,7 +54,7 @@ const Dashboard = () => {
             else {
                 toast.error(error.message)
             }
-            setLoading(false);
+            setCatLoading(false);
         }
     }
 
@@ -204,7 +206,7 @@ const Dashboard = () => {
 
     const createCategory = async (value) => {
         try {
-            setLoading(true)
+            setCatLoading(true)
             let response = await post('api/category/create', { "name": value });
             if (response.status === 200) {
 
@@ -212,7 +214,7 @@ const Dashboard = () => {
                 let newArr = categoryData;
                 newArr.unshift({ ...response.data.data });
                 setCategoryData(newArr);
-                setLoading(false);
+                setCatLoading(false);
             }
         }
         catch (error) {
@@ -222,14 +224,14 @@ const Dashboard = () => {
             else {
                 toast.error(error.message)
             }
-            setLoading(false);
+            setCatLoading(false);
         }
 
     }
 
     const updateCategory = async (value) => {
         try {
-            setLoading(true)
+            setCatLoading(true)
             let response = await patch(`api/category/update/${value._id}`, { "name": value.name });
             if (response.status === 200) {
 
@@ -238,7 +240,7 @@ const Dashboard = () => {
                     obj._id === value._id ? { ...obj, "name": value.name } : obj
                 );
                 setCategoryData(newArr);
-                setLoading(false);
+                setCatLoading(false);
                 setTempEditCatData('')
             }
         }
@@ -249,7 +251,7 @@ const Dashboard = () => {
             else {
                 toast.error(error.message)
             }
-            setLoading(false);
+            setCatLoading(false);
             setTempEditCatData('')
         }
 
@@ -258,12 +260,12 @@ const Dashboard = () => {
 
     const deleteCategory = async () => {
         try {
-            setLoading(true)
+            setCatLoading(true)
             let response = await remove(`api/category/delete/${tempDeleteData._id}`);
             if (response.status === 200) {
                 toast.success(response.data.message);
                 setCategoryData(categoryData.filter((obj) => { return obj._id !== tempDeleteData._id }))
-                setLoading(false);
+                setCatLoading(false);
                 setTempDeleteData('');
                 setDeleteDataCatConfirm(false)
             }
@@ -278,7 +280,7 @@ const Dashboard = () => {
             else {
                 toast.error(error.message)
             }
-            setLoading(false);
+            setCatLoading(false);
             setTempDeleteData('')
             setDeleteDataCatConfirm(false)
         }
@@ -311,7 +313,7 @@ const Dashboard = () => {
 
                     </MDBCardHeader>
                     <MDBCardBody className='custom-height-setting'>
-                        {(loading === false) ? (<Table title={'category'} header={categoryHeader} data={categoryData} editData={openCategoryModal} deleteData={deleteCategoryConfirm} />)
+                        {(catLoading === false) ? (<Table title={'category'} header={categoryHeader} data={categoryData} editData={openCategoryModal} deleteData={deleteCategoryConfirm} />)
                             : (
                                 <MDBSpinner role='status'>
                                     <span className='visually-hidden'>Loading...</span>

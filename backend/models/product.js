@@ -20,7 +20,6 @@ const productSchema = mongoose.Schema({
     },
     shortDescription: {
         type: String,
-        required: false,
     },
     categoryId: {
         type: mongoose.Schema.Types.ObjectId,
