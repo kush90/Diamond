@@ -14,6 +14,8 @@ import {
     MDBCol,
     MDBIcon
 } from 'mdb-react-ui-kit';
+import { isValidPhoneNumber } from 'libphonenumber-js';
+
 import '../../styles/public/register.css'
 import { API_URL } from '../../Helper';
 
@@ -25,6 +27,10 @@ const Register = (props) => {
     const [address, setAddress] = React.useState('');
     const [profile, setProfile] = React.useState([]);
     const [imgUrl, setImgUrl] = React.useState([]);
+
+    const [isPhoneValid, setIsPhoneValid] = React.useState(true);
+    const [isEmailValid, setIsEmailValid] = React.useState(true);
+
     const ref = useRef();
 
     const close = () => {
@@ -57,12 +63,37 @@ const Register = (props) => {
         newFormData.append('password', password)
         newFormData.append('phoneNo', phoneNo)
         newFormData.append('email', email)
-        newFormData.append('address',address)
+        newFormData.append('address', address)
         for (const file of profile) {
             newFormData.append('files', file);
         }
         props.close(newFormData)
     }
+
+    const handlePhoneNumberChange = (e) => {
+        const number = e.target.value;
+        setPhoneNo(number);
+        // Validate phone number format for Thailand and Myanmar if not empty
+        if (number.trim() !== '') {
+            const isValidThailand = isValidPhoneNumber(number, 'TH');
+            const isValidMyanmar = isValidPhoneNumber(number, 'MM');
+            setIsPhoneValid(isValidThailand || isValidMyanmar);
+        } else {
+            setIsPhoneValid(true); // Reset to valid if empty
+        }
+    };
+
+    const handleEmailChange = (e) => {
+        const inputEmail = e.target.value;
+        setEmail(inputEmail);
+        // Validate email format only if not empty
+        if (inputEmail.trim() === '') {
+            setIsEmailValid(true); // Empty email is considered valid
+        } else {
+            const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(inputEmail);
+            setIsEmailValid(isValidEmail);
+        }
+    };
 
     return (
         <>
@@ -77,10 +108,15 @@ const Register = (props) => {
                         <MDBModalBody>
                             <MDBInput wrapperClass='custom-input' required onChange={(e) => setName(e.target.value)} value={name} label='Name' />
                             <MDBInput wrapperClass='custom-input' required onChange={(e) => setPassword(e.target.value)} value={password} label='Password' />
-                            <MDBInput wrapperClass='custom-input' required onChange={(e) => setPhoneNo(e.target.value)} value={phoneNo} label='Phone No' />
-                            <MDBInput wrapperClass='custom-input' required onChange={(e) => setEmail(e.target.value)} value={email} label='Email' />
-                            <MDBInput wrapperClass='custom-input'  onChange={(e) => setAddress(e.target.value)} value={address} label='Address' />
-
+                            <MDBInput wrapperClass='custom-input' required onChange={handlePhoneNumberChange} value={phoneNo} label='Phone No' />
+                            {!isPhoneValid && phoneNo.trim() !== '' && (
+                                <span className='custom-error'>*Invalid phone no</span>
+                            )}
+                            <MDBInput wrapperClass='custom-input' required onChange={handleEmailChange} value={email} label='Email' />
+                            {!isEmailValid && (
+                                <span className='custom-error'>*Invalid email</span>
+                            )}
+                            <MDBInput wrapperClass='custom-input' onChange={(e) => setAddress(e.target.value)} value={address} label='Address' />
                             <label htmlFor="file-upload" className="custom-file-upload">
                                 <i className="fa fa-cloud-upload"></i> <span>Upload Profile Image</span>
                             </label>
@@ -110,7 +146,7 @@ const Register = (props) => {
                             <MDBBtn color='secondary' onClick={close}>
                                 Close
                             </MDBBtn>
-                            <MDBBtn disabled={(!name || !password || !phoneNo)} onClick={save}
+                            <MDBBtn disabled={(!name || !password || !phoneNo || !isPhoneValid || !isEmailValid)} onClick={save}
                             >Register</MDBBtn>
                         </MDBModalFooter>
                     </MDBModalContent>

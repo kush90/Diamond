@@ -33,6 +33,7 @@
         cursor: pointer;
     }
 }
+
 input[type="file"] {
     display: none;
 }
@@ -48,4 +49,12 @@ input[type="file"] {
 
 .custom-input {
     margin-bottom: 25px;
+}
+
+.custom-error {
+    color: red;
+    position: relative;
+    top: -25px;
+    left: 10px;
+    font-size: 14px;
 }
