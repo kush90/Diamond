@@ -3,7 +3,7 @@ let io;
 function initSocket(server) {
   io = socket(server, {
     cors: {
-      origin: "http://localhost:3000",
+      origin: "https://diamond-05pp.onrender.com",
       methods: ["GET", "POST"]
     }
   })
