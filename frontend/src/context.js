@@ -1,6 +1,7 @@
 
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import io from 'socket.io-client';
+import { API_URL } from './Helper';
 
 const WebSocketContext = createContext();
 
@@ -13,7 +14,7 @@ export const WebSocketProvider = ({ children }) => {
 
   useEffect(() => {
     // Create socket.io connection
-    const newSocket = io('ws://localhost:4000'); // No need to specify URL
+    const newSocket = io(API_URL); // No need to specify URL
     setSocket(newSocket);
 
     // Clean up socket.io connection on unmount
