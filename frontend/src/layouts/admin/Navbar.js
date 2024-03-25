@@ -20,7 +20,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import logo from '../../assets/logo.png';
 import '../../styles/admin/main.css';
 import { clearStorage, getStorage, createStorage } from '../../Helper';
-import { get } from '../../Api';
+import { get,post } from '../../Api';
 import { useWebSocket } from '../../context';
 
 
@@ -97,6 +97,25 @@ const Navbar = () => {
         navigate('/');
         clearStorage('noti')
     }
+
+    const clearNoti = async() => {
+        let obj = {};
+        const ids = noti.map(notification => notification._id);
+        obj['ids'] = ids;
+    
+        setTimeout(async () => { // Wait for 1 second before clearing notifications
+            try {
+                const response = await post('api/notification/update', obj);
+                if (response.data.status === true) {
+                    setNoti([]); // Update the state to clear notifications
+                    getNotiData(); // Fetch updated notifications
+                    clearStorage('noti')
+                }
+            } catch (error) {
+                // Handle errors
+            }
+        }, 2000); // 1000 milliseconds = 1 second
+    }
     return (
         <div>
             <MDBNavbar fixed='top' expand='lg' color="light" bgColor='light'>
@@ -145,7 +164,7 @@ const Navbar = () => {
                             </MDBNavbarItem>
                         </MDBNavbarNav>
                         <MDBDropdown color="primary" >
-                            <MDBDropdownToggle color='link' caret="true">
+                            <MDBDropdownToggle color='link' caret="true" onClick={clearNoti}>
                                 <MDBBadge className='noti-count' pill color='danger'>{noti?.length >= 10 ? noti?.length + '+' : noti?.length}</MDBBadge>
                                 <span>
                                     <MDBIcon fas icon='bell'></MDBIcon>
@@ -155,7 +174,7 @@ const Navbar = () => {
                                 {
                                     (noti && noti.length > 0) ? noti.map((item, index) => {
                                         return (
-                                            <MDBDropdownItem className='text-wrap' key={index} link >{item?.sender?.toUpperCase()} {item.noti} 
+                                            <MDBDropdownItem className='text-wrap' key={index} link >{item?.sender?.toUpperCase()} {item.noti}
 
                                                 {item.item && (
                                                     <span> ({item.item})</span>

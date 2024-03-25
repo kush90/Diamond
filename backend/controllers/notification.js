@@ -6,7 +6,7 @@ const mongoose = require('mongoose')
 const getAll = async (req, res) => {
     try {
         const userId = req.user._id;
-        let query = { createdBy: { $in: [userId, null] } };
+        let query = { createdBy: { $in: [userId, null] },read:false };
         if (Object.keys(req.query).length !== 0) {
             
             // Check if req.query.search is present and not empty
@@ -21,5 +21,21 @@ const getAll = async (req, res) => {
     }
 }
 
+const update = async (req, res) => {
+    try {
+        const ids = req.body.ids;
+        if(ids.length > 0) {
+            ids.map(async(id)=>{
+                await Notification.findOneAndUpdate({ _id: id }, { read: true })
+            });
+            res.status(200).json({status:true})
+        }
+       
+    } catch (error) {
+        res.status(400).json({ "error": error.message })
+    }
 
-module.exports = { getAll };
+}
+
+
+module.exports = { getAll,update };

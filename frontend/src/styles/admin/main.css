@@ -68,10 +68,16 @@
     .custom-margin-top {
         margin-top: 10% !important;
     }
+    .text-wrap a {
+        white-space: normal;
+    }
 }
 
 @media (min-width: 200px) and (max-width: 767px) {
     .custom-margin-top {
         margin-top: 20% !important;
+    }
+    .text-wrap a {
+        white-space: normal;
     }
 }
