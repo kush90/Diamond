@@ -35,17 +35,17 @@ export default function Content() {
 
   const close = (value) => {
     if (value) signUp(value);
-    setRegisterModal(false)
+    else setRegisterModal(false)
   }
 
   const loginClose = (value) => {
     if (value) login(value);
-    setLoginModal(false)
+    else setLoginModal(false)
   }
 
   const forgotPasswordClose = (value) => {
     if (value) forgotPassword(value);
-    setForgotPasswordModal(false)
+    else setForgotPasswordModal(false)
   }
 
   const signUp = async (value) => {
@@ -54,6 +54,7 @@ export default function Content() {
       let response = await axios.post(
         `${API_URL}/api/user/signup`, value);
       if (response.status === 200) {
+        setRegisterModal(false)
         toast.success(response.data.message);
         setLoading(false);
       }
@@ -75,6 +76,7 @@ export default function Content() {
       let response = await axios.post(
         `${API_URL}/api/user/login`, value);
       if (response.status === 200) {
+        setLoginModal(false)
         toast.success(response.data.message);
         createStorage('user', response.data);
         let user = JSON.parse(getStorage('user'));
@@ -82,6 +84,7 @@ export default function Content() {
         else navigate('/admin/broker/dashboard');
         console.log(user);
         setLoading(false);
+       
       }
     }
     catch (error) {
@@ -102,6 +105,7 @@ export default function Content() {
       let response = await axios.post(
         `${API_URL}/api/user/forgot`, value);
       if (response.status === 200) {
+        setForgotPasswordModal(false)
         toast.success(response.data.message);
         setLoading(false);
       }
