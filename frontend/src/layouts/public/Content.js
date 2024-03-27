@@ -55,11 +55,9 @@ export default function Content() {
         `${API_URL}/api/user/signup`, value);
       if (response.status === 200) {
         setRegisterModal(false)
-        toast.success(response.data.message);
-        setLoading(false);
+        toast.success('Congratulations! You\'re now officially a member!');
         createStorage('user', response.data);
-        JSON.parse(getStorage('user'));
-         navigate('/admin/broker/dashboard');
+        navigate('/admin/broker/dashboard');
         setLoading(false);
       }
     }
@@ -88,7 +86,7 @@ export default function Content() {
         else navigate('/admin/broker/dashboard');
         console.log(user);
         setLoading(false);
-       
+
       }
     }
     catch (error) {
@@ -171,7 +169,7 @@ export default function Content() {
       </div>
       {registerModal && <Register open={registerModal} close={close} loading={loading} />}
       {loginModal && <Login open={loginModal} close={loginClose} loading={loading} />}
-      {forgotPasswordModal && <ForgotPassword open={forgotPasswordModal} loading={loading} close={forgotPasswordClose}  />}
+      {forgotPasswordModal && <ForgotPassword open={forgotPasswordModal} loading={loading} close={forgotPasswordClose} />}
       <ToastContainer />
     </header>
   );

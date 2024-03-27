@@ -29,7 +29,7 @@ const signupUser = async (req, res) => {
         const user = await User.signup(name, password, phoneNo, email,address, req.files);
         let token;
         if (user) token = createToken(user._id);
-        if (token) res.status(200).json({ token, "name": user.name,"type": user.type,"id":user._id, message: 'Congratulations! You\'re now officially a member!' })
+        if (token) res.status(200).json({ token, "user": user.name,"type": user.type,"id":user._id})
     } catch (error) {
         res.status(400).json({ error: error.message })
     }
