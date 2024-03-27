@@ -16,7 +16,7 @@ import { createStorage, API_URL, getStorage } from "../../Helper";
 export default function Content() {
   const navigate = useNavigate();
 
-  const [loading, setLoading] = React.useState(true);
+  const [loading, setLoading] = React.useState(false);
   const [registerModal, setRegisterModal] = React.useState(false);
   const [loginModal, setLoginModal] = React.useState(false);
   const [forgotPasswordModal, setForgotPasswordModal] = React.useState(false);
@@ -56,6 +56,10 @@ export default function Content() {
       if (response.status === 200) {
         setRegisterModal(false)
         toast.success(response.data.message);
+        setLoading(false);
+        createStorage('user', response.data);
+        JSON.parse(getStorage('user'));
+         navigate('/admin/broker/dashboard');
         setLoading(false);
       }
     }
@@ -132,7 +136,7 @@ export default function Content() {
           <div className='d-flex justify-content-center align-items-center h-100'>
             <div className='text-white'>
               <h1 className='mb-3'>Welcome to our Jewellery Website</h1>
-              <h5 className='mb-4'></h5>
+              {/* <h5 className='mb-4'></h5> */}
               <MDBBtn
                 className="m-2"
                 tag="a"
@@ -165,9 +169,9 @@ export default function Content() {
           </div>
         </div>
       </div>
-      {registerModal && <Register open={registerModal} close={close} />}
-      {loginModal && <Login open={loginModal} close={loginClose} />}
-      {forgotPasswordModal && <ForgotPassword open={forgotPasswordModal} close={forgotPasswordClose} />}
+      {registerModal && <Register open={registerModal} close={close} loading={loading} />}
+      {loginModal && <Login open={loginModal} close={loginClose} loading={loading} />}
+      {forgotPasswordModal && <ForgotPassword open={forgotPasswordModal} loading={loading} close={forgotPasswordClose}  />}
       <ToastContainer />
     </header>
   );

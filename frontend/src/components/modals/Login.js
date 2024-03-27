@@ -60,11 +60,11 @@ const Login = (props) => {
                             <MDBInput wrapperClass='custom-input' required onChange={(e) => setPassword(e.target.value)} value={password} label='Password' />
                         </MDBModalBody>
                         <MDBModalFooter>
-                            <MDBBtn color='secondary' onClick={close}>
+                            <MDBBtn disabled={props.loading} color='secondary' onClick={close}>
                                 Close
                             </MDBBtn>
-                            <MDBBtn disabled={(!phoneNo || !password || !isPhoneValid)} onClick={login}
-                            >Login</MDBBtn>
+                            <MDBBtn disabled={(props.loading || !phoneNo || !password || !isPhoneValid)} onClick={login}
+                            >{props.loading ? 'Loading...' : 'Login'}</MDBBtn>
                         </MDBModalFooter>
                     </MDBModalContent>
                 </MDBModalDialog>

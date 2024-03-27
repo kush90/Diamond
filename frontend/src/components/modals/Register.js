@@ -143,11 +143,11 @@ const Register = (props) => {
                             </MDBContainer>
                         </MDBModalBody>
                         <MDBModalFooter>
-                            <MDBBtn color='secondary' onClick={close}>
+                            <MDBBtn disabled={props.loading} color='secondary' onClick={close}>
                                 Close
                             </MDBBtn>
-                            <MDBBtn disabled={(!name || !password || !phoneNo || !isPhoneValid || !isEmailValid)} onClick={save}
-                            >Register</MDBBtn>
+                            <MDBBtn disabled={(props.loading || !name || !password || !phoneNo || !isPhoneValid || !isEmailValid)} onClick={save}
+                            >{props.loading ? 'Loading...' : 'Register'}</MDBBtn>
                         </MDBModalFooter>
                     </MDBModalContent>
                 </MDBModalDialog>
