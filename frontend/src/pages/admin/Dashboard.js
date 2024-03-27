@@ -19,7 +19,7 @@ import { get, post, patch, remove } from '../../Api';
 
 
 const Dashboard = () => {
-    const [loading, setLoading] = React.useState(true);
+    const [loading, setLoading] = React.useState(false);
     const [catLoading, setCatLoading] = React.useState(true);
 
     const [tempDeleteData, setTempDeleteData] = React.useState('');
@@ -124,6 +124,7 @@ const Dashboard = () => {
     }
 
     const updateProduct = async (value) => {
+        setLoading(true)
         try {
             let response = await patch(`api/product/update/${tempEditProductData._id}`, value);
             if (response.status === 200) {
@@ -352,7 +353,7 @@ const Dashboard = () => {
             </MDBCol>
 
             {catModal && <CategoryForm open={catModal} closeModal={closeCatModal} data={tempEditCatData} />}
-            {productModal && <ProductForm open={productModal} close={productClose} closeModal={closeProductModal} data={tempEditProductData} category={categoryData} />}
+            {productModal && <ProductForm open={productModal} close={productClose} closeModal={closeProductModal} data={tempEditProductData} category={categoryData} loading={loading} />}
             <ToastContainer />
             {
                 deleteDataCatConfirm && (

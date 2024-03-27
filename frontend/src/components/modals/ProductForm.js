@@ -18,7 +18,7 @@ import '../../styles/admin/main.css'
 import { API_URL } from '../../Helper';
 
 const ProductForm = (props) => {
-    const { open, closeModal, data, category } = props;
+    const { open, closeModal, data, category,loading } = props;
     const [name, setName] = React.useState('');
     const [productNumber, setProductNumber] = React.useState('');
     const [description, setDescription] = React.useState('');
@@ -230,11 +230,11 @@ const ProductForm = (props) => {
                         </MDBModalBody>
 
                         <MDBModalFooter>
-                            <MDBBtn color='secondary' onClick={close}>
+                            <MDBBtn disabled={loading} color='secondary' onClick={close}>
                                 Close
                             </MDBBtn>
-                            <MDBBtn disabled={(!name || !description || !price || !categoryId || certificateUrl.length === 0 || imgUrl.length === 0)}
-                                onClick={() => toggleOpenClose('save')} >Submit</MDBBtn>
+                            <MDBBtn disabled={(loading || !name || !description || !price || !categoryId || certificateUrl.length === 0 || imgUrl.length === 0)}
+                                onClick={() => toggleOpenClose('save')} >{props.loading ? 'Loading...' : 'Submit'}</MDBBtn>
                         </MDBModalFooter>
                     </MDBModalContent>
                 </MDBModalDialog>
