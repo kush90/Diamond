@@ -73,8 +73,8 @@ const update = async (req, res) => {
         if (req.body?.images) {
             imageInfo = JSON.parse(req.body.images);
         }
-        if (req.files.files !== undefined && req.files.files.length > 0) {
-            req.files.files.map((file) => {
+        if (req.files?.files !== undefined && req.files?.files?.length > 0) {
+            req.files?.files.map((file) => {
                 imageInfo.push({
                     path: file.path,
                     name: file.filename,
@@ -86,8 +86,8 @@ const update = async (req, res) => {
         if (req.body?.certificate) {
             certificate = JSON.parse(req.body.certificate);
         }
-        if (req.files.certificate !== undefined && req.files.certificate?.length > 0) {
-            req.files.certificate.map((file) => {
+        if (req.files?.certificate !== undefined && req.files?.certificate?.length > 0) {
+            req.files?.certificate.map((file) => {
                 certificate.push({
                     path: file.path,
                     name: file.filename,

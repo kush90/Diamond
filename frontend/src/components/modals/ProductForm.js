@@ -49,7 +49,7 @@ const ProductForm = (props) => {
     }, [data]);
 
     const toggleOpenClose = (status) => {
-        if (data && status === 'save') {
+        if (data) {
             let newFormData = new FormData();
             newFormData.append('name', name);
             newFormData.append('productNumber', productNumber)
@@ -75,7 +75,7 @@ const ProductForm = (props) => {
             }
             closeModal(newFormData);
         }
-        if (data === '' && status === 'save') {
+        else if (data === '') {
 
             let newFormData = new FormData();
             newFormData.append('name', name)
@@ -94,19 +94,19 @@ const ProductForm = (props) => {
             }
             closeModal(newFormData);
         }
-        if (status === 'close') closeModal();
-        setName('');
-        setProductNumber();
-        setDescription('');
-        setCategoryId('');
-        setPrice('');
-        setShortDescription('')
-        setImages('');
-        setImgUrl([]);
-        setCertificate('');
-        setCertificateUrl([]);
-        imageRef.current.value = null;
-        certiRef.current.value = null;
+        if (status === 'close') closeModal(status);
+        // setName('');
+        // setProductNumber();
+        // setDescription('');
+        // setCategoryId('');
+        // setPrice('');
+        // setShortDescription('')
+        // setImages('');
+        // setImgUrl([]);
+        // setCertificate('');
+        // setCertificateUrl([]);
+        // imageRef.current.value = null;
+        // certiRef.current.value = null;
     }
     const imageUpload = (e) => {
         let files = e.target.files;
@@ -147,17 +147,19 @@ const ProductForm = (props) => {
         setImages(newFile)
     }
     const disabled = certificateUrl.length > 0 ? 'disabled-certi' : 'custom-file-upload';
-
+    const close= ()=>{
+        props.close(false)
+    }
     return (
         <>
-            <MDBModal staticBackdrop open={open} tabIndex='-1' onClose={toggleOpenClose} >
+            <MDBModal staticBackdrop open={open} tabIndex='-1' onClose={close} >
                 <MDBModalDialog>
                     <MDBModalContent>
 
 
                         <MDBModalHeader>
                             <MDBModalTitle>Product Form</MDBModalTitle>
-                            <MDBBtn className='btn-close' color='none' onClick={() => toggleOpenClose('close')} ></MDBBtn>
+                            <MDBBtn className='btn-close' color='none' onClick={close} ></MDBBtn>
                         </MDBModalHeader>
                         <MDBModalBody>
 
@@ -228,7 +230,7 @@ const ProductForm = (props) => {
                         </MDBModalBody>
 
                         <MDBModalFooter>
-                            <MDBBtn color='secondary' onClick={() => toggleOpenClose('close')}>
+                            <MDBBtn color='secondary' onClick={close}>
                                 Close
                             </MDBBtn>
                             <MDBBtn disabled={(!name || !description || !price || !categoryId || certificateUrl.length === 0 || imgUrl.length === 0)}

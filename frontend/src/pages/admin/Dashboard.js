@@ -35,7 +35,7 @@ const Dashboard = () => {
     const [productData, setProductData] = React.useState([]);
     const [deleteDataProductConfirm, setDeleteDataProductConfirm] = React.useState(false)
     const [tempEditProductData, setTempEditProductData] = React.useState('');
-    const productHeader = ['productNumber', 'name', 'category', 'price', 'description','status', 'createdAt', 'action'];
+    const productHeader = ['productNumber', 'name', 'category', 'price', 'description', 'status', 'createdAt', 'action'];
 
 
     const getCategoryData = async () => {
@@ -90,14 +90,11 @@ const Dashboard = () => {
         setProductModal(true);
     }
     const closeProductModal = async (value) => {
+        console.log(tempEditProductData);
         if (value && tempEditProductData) {
             updateProduct(value);
-
         }
-        if (value && !tempEditProductData) createProduct(value)
-        setProductModal(false);
-        setTempEditProductData('');
-
+        if (value && tempEditProductData === '') createProduct(value);
     }
 
     const createProduct = async (value) => {
@@ -106,6 +103,7 @@ const Dashboard = () => {
             let response = await post('api/product/create', value);
             if (response.status === 200) {
                 console.log(response.data.data)
+                setProductModal(false)
                 toast.success(response.data.message);
                 let newArr = productData;
                 newArr.unshift({ ...response.data.data });
@@ -139,6 +137,7 @@ const Dashboard = () => {
                 console.log(newArr)
                 setLoading(false);
                 setTempEditProductData('')
+                setProductModal(false)
             }
         }
         catch (error) {
@@ -149,7 +148,6 @@ const Dashboard = () => {
                 toast.error(error.message)
             }
             setLoading(false);
-            setTempEditProductData('')
         }
 
     }
@@ -185,6 +183,10 @@ const Dashboard = () => {
         setDeleteDataProductConfirm(true)
         setTempDeleteData(value);
 
+    }
+
+    const productClose = (value) => {
+        setProductModal(value)
     }
     /* ========= end of Product CRUD ======== */
 
@@ -350,7 +352,7 @@ const Dashboard = () => {
             </MDBCol>
 
             {catModal && <CategoryForm open={catModal} closeModal={closeCatModal} data={tempEditCatData} />}
-            {productModal && <ProductForm open={productModal} closeModal={closeProductModal} data={tempEditProductData} category={categoryData} />}
+            {productModal && <ProductForm open={productModal} close={productClose} closeModal={closeProductModal} data={tempEditProductData} category={categoryData} />}
             <ToastContainer />
             {
                 deleteDataCatConfirm && (
