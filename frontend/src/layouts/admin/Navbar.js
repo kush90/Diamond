@@ -114,7 +114,7 @@ const Navbar = () => {
             } catch (error) {
                 // Handle errors
             }
-        }, 5000); // 1000 milliseconds = 1 second
+        }, 4000); // 1000 milliseconds = 1 second
     }
     return (
         <div>

@@ -57,8 +57,8 @@ const create = async (req, res) => {
         });
         const createdBy = req.user._id;
         const product = await Product.create({ productNumber, name, description, shortDescription, categoryId, price, createdBy, "images": imageInfo, certificate });
-        const noti = await Noti.create({ noti: 'New product is available now!', createdBy:null });
-        socket.emitNewNoti(noti)
+        // const noti = await Noti.create({ noti: 'New product is available now!', createdBy:null });
+        // socket.emitNewNoti(noti)
         const newProduct = await product.populate('categoryId');
         res.status(200).json({ data: newProduct, message: 'Product is successfully created.' })
     } catch (error) {

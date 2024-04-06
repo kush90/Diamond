@@ -29,7 +29,7 @@ const Card = ({ data, handleClick }) => {
       <MDBCard className="pro-card" onClick={() => productView()}>
         <MDBTooltip tag='span' title="View product images">
           <MDBCardImage
-            src={data.images[0]?.path ? `${API_URL}/${data.images[0]?.path}` : defaultImage}
+            src={data.certificate[0]?.path ? `${API_URL}/${data.certificate[0]?.path}` : defaultImage}
             alt='...'
             position='top'
           />
