@@ -1,5 +1,6 @@
 // export const API_URL = "http://localhost:4000";
-export const API_URL = "https://diamond-api-50e4.onrender.com";
+// export const API_URL = "https://diamond-api-50e4.onrender.com";
+export const API_URL = "http://54.255.231.140:4000";
 
 export const createStorage = (key, item) => {
     if (!localStorage.getItem(key)) localStorage.setItem(key, JSON.stringify(item));
