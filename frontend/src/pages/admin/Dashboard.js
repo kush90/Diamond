@@ -188,6 +188,7 @@ const Dashboard = () => {
 
     const productClose = (value) => {
         setProductModal(value)
+        setTempEditProductData('')
     }
     /* ========= end of Product CRUD ======== */
 
