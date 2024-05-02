@@ -107,7 +107,7 @@ const Register = (props) => {
 
                         <MDBModalBody>
                             <MDBInput wrapperClass='custom-input' required onChange={(e) => setName(e.target.value)} value={name} label='Name' />
-                            <MDBInput wrapperClass='custom-input' required onChange={(e) => setPassword(e.target.value)} value={password} label='Password' />
+                            <MDBInput wrapperClass='custom-input' type='password' required onChange={(e) => setPassword(e.target.value)} value={password} label='Password' />
                             <MDBInput wrapperClass='custom-input' required onChange={handlePhoneNumberChange} value={phoneNo} label='Phone No' />
                             {!isPhoneValid && phoneNo.trim() !== '' && (
                                 <span className='custom-error'>*Invalid phone no</span>

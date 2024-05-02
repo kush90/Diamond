@@ -72,10 +72,10 @@ const Table = ({ title, header, data, editData, deleteData, changePassword, prod
                                 {title === 'product' && <td>{formatDateToLocaleString(value.createdAt)}</td>}
                                 {(title === 'deal' || title === 'order') && <td>{value.referenceNo}</td>}
                                 {(title === 'deal' || title === 'order') && <td>
-                                    <a href="#" onClick={() => productView(value.product)}>{value.product.name}</a>
+                                    { value.product && <a href="#" onClick={() => productView(value.product)}>{value.product?.name}</a>}
                                 </td>
                                 }
-                                {(title === 'deal' || title === 'order') && <td>{value.product.price} USD</td>}
+                                {(title === 'deal' || title === 'order') && <td>{value.product?.price} {value.product && 'USD'}</td>}
                                 {(title === 'deal' || title === 'order') && <td>
 
 
@@ -129,7 +129,7 @@ const Table = ({ title, header, data, editData, deleteData, changePassword, prod
                                 {(title ==='deal' || title === 'order' || title === 'category' || title === 'product') && 
                                  <td>
                                  {
-                                     (title == 'product' || title === 'category') &&
+                                     (title === 'product' || title === 'category') &&
                                      <MDBBtn onClick={() => editRow(value)} size='sm' className='ms-2  text-primary' tag='a' color='light' floating>
                                          <MDBTooltip tag='span' title="Edit">
                                              <MDBIcon fas icon="edit" />
@@ -137,7 +137,7 @@ const Table = ({ title, header, data, editData, deleteData, changePassword, prod
                                      </MDBBtn>
                                  }
                                  {
-                                     (title == 'product' || title === 'category') &&
+                                     (title === 'product' || title === 'category') &&
                                      <MDBBtn onClick={() => deleteData(value)} size='sm' className='ms-2  text-danger' tag='a' color='light' floating>
                                          <MDBTooltip tag='span' title="Delete">
                                              <MDBIcon fas icon="trash" />
