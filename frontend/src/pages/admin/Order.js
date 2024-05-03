@@ -88,8 +88,9 @@ const Order = () => {
         setPaymentData(value)
     }
     const closePaymentModal = async (value) => {
+        console.log(value)
         setPaymentModal(false);
-        payment(value);
+        if(value !== false) payment(value);
     }
     const payment = async (value) => {
         try {
