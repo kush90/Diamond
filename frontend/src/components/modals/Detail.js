@@ -20,8 +20,8 @@ const Detail = (props) => {
     }
 
     const commission = (data) => {
-        let fee = (data?.product.price * 10) / 100;
-        return fee;
+        const price = data?.product?.price || 0; // Default to 0 if price is not available
+        return (price * 10) / 100; // Calculate commission fee
     }
 
     return (
@@ -51,9 +51,9 @@ const Detail = (props) => {
                                                                                     <tbody>
                                                                                         <tr><td> <MDBBadge color='danger'>Product</MDBBadge></td></tr>
                                                                                         <tr>
-                                                                                            <td className='custom-td'>Product Number :&nbsp;&nbsp; <span className='text-primary'>{props.data?.product?.productNumber}</span><br />
-                                                                                                Name :&nbsp;&nbsp; <span className='text-danger'> {props.data?.product?.name}</span><br />
-                                                                                                Price :&nbsp;&nbsp; <span className='text-success'> {props.data?.product?.price} USD</span>
+                                                                                            <td className='custom-td'>Product Number :&nbsp;&nbsp; <span className='text-primary'>{props.data?.product?.productNumber || 'N/A'}</span><br />
+                                                                                                Name :&nbsp;&nbsp; <span className='text-danger'> {props.data?.product?.name || 'N/A'}</span><br />
+                                                                                                Price :&nbsp;&nbsp; <span className='text-success'> {props.data?.product?.price  || 'N/A'} USD</span>
                                                                                             </td>
                                                                                         </tr>
                                                                                     </tbody>
