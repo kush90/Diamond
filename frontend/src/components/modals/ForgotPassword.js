@@ -56,7 +56,7 @@ const ForgotPassword = (props) => {
                             {!isPhoneValid && phoneNo.trim() !== '' && (
                                 <span className='custom-error'>*Invalid phone no</span>
                             )}
-                            <MDBInput wrapperClass='custom-input' required onChange={(e) => setPassword(e.target.value)} value={password} label='Password' />
+                            <MDBInput wrapperClass='custom-input' type='password' required onChange={(e) => setPassword(e.target.value)} value={password} label='Password' />
                         </MDBModalBody>
                         <MDBModalFooter>
                             <MDBBtn disabled={props.loading} color='secondary' onClick={close}>

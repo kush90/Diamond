@@ -31,8 +31,9 @@ const Deal = () => {
             const response = await get('api/order/getAll');
             if (response.status === 200) {
                 setLoading(false);
-                setDealData(response.data.data);
-                console.log(response.data.data)
+                const filteredData = response.data.data.filter(order => order.product !== null);
+                setDealData(filteredData);
+                console.log(filteredData)
             }
         }
         catch (error) {

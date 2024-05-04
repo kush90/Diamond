@@ -30,8 +30,9 @@ const Order = () => {
             const response = await get('api/order/getAll/admin');
             if (response.status === 200) {
                 setLoading(false);
-                setOrderData(response.data.data);
-                console.log(response.data.data)
+                const filteredData = response.data.data.filter(order => order.product !== null);
+                setOrderData(filteredData);
+                console.log(filteredData)
             }
         }
         catch (error) {
