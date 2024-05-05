@@ -1,4 +1,6 @@
 /* Default height for small devices */
 #main-bg {
-    height: 720px;
+    height: 100vh;
+    background-size: cover; /* or background-size: contain; */
 }
+
