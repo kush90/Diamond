@@ -3,7 +3,7 @@ let io;
 function initSocket(server) {
   io = socket(server, {
     cors: {
-      origin: "http://3.27.84.105:3000",
+      origin: "http://3.27.65.59:3000",
       methods: ["GET", "POST"]
     }
   })
