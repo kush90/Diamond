@@ -11,11 +11,17 @@ import {
     MDBTooltip, MDBIcon,
 } from 'mdb-react-ui-kit';
 import '../../styles/admin/main.css'
+import TableModal from '../../components/modals/TableModal';
 
 const User = () => {
     const [loading, setLoading] = React.useState(true);
     const [userData, setUserData] = React.useState([]);
     const userHeader = ['name', 'email', 'phoneNo','totalDeals','joinDate'];
+    const [tableModal, setTableModal] = React.useState(false);
+    const [tableData, setTableData] = React.useState([]);
+    const tableHeader = ['referenceNo', 'product', 'price', 'status', 'date'];
+
+
     const getUserData = async () => {
         try {
             setLoading(true)
@@ -23,7 +29,6 @@ const User = () => {
             if (response.status === 200) {
                 setLoading(false);
                 setUserData(response.data.data);
-                console.log(response.data.data)
             }
         }
         catch (error) {
@@ -39,6 +44,32 @@ const User = () => {
     useEffect(() => {
         getUserData();
     }, []);
+
+    const getTotalOrder = (value)=>{
+        setTableModal(true)
+        getOrderData(value)
+    }
+
+    const closeTableModal = ()=>{
+        setTableModal(false)
+    }
+    const getOrderData = async (value) => {
+        try {
+         const response = await get(`api/order/getAll?broker=${value._id}`);
+            if (response.status === 200) {
+                console.log(response.data)
+                setTableData(response.data.data)
+            }
+        }
+        catch (error) {
+            if (error.response && error.response.status === 400) {
+                toast.error(error.response.data.error)
+            }
+            else {
+                toast.error(error.message)
+            }
+        }
+    }
     return (
         <MDBRow className='custom-margin-top'>
             <MDBCol md='12' >
@@ -52,7 +83,7 @@ const User = () => {
                         </MDBBtn>
                     </MDBCardHeader>
                     <MDBCardBody className='custom-height-setting'>
-                        {(loading === false) ? (<Table title={'user'} header={userHeader} data={userData} />)
+                        {(loading === false) ? (<Table title={'user'} header={userHeader} data={userData} getTotalOrder={getTotalOrder} />)
 
                             : (<MDBSpinner role='status'>
                                 <span className='visually-hidden'>Loading...</span>
@@ -61,6 +92,7 @@ const User = () => {
                     </MDBCardBody>
                 </MDBCard>
             </MDBCol>
+            {tableModal && <TableModal open={tableModal} title="Orders" tableHeader={tableHeader} data={tableData} close={closeTableModal} />}
             <ToastContainer />
         </MDBRow>
 

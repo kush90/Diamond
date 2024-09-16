@@ -9,6 +9,7 @@ const userRoutes = require('./routes/user')
 const productRoutes = require('./routes/product')
 const orderRoutes = require('./routes/order')
 const categoryRoutes = require('./routes/category')
+const gemTypeRoutes = require('./routes/gemType')
 const notificationRoutes = require('./routes/notification')
 
 const io = require('./middleware/socket');
@@ -32,6 +33,7 @@ app.use('/api/user', userRoutes);
 app.use('/api/product', productRoutes);
 app.use('/api/order', orderRoutes)
 app.use('/api/category', categoryRoutes);
+app.use('/api/gemType', gemTypeRoutes);
 app.use('/api/notification',notificationRoutes);
 
 let server = app.listen(process.env.PORT, () => {

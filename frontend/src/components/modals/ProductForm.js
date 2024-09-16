@@ -18,12 +18,13 @@ import '../../styles/admin/main.css'
 import { API_URL } from '../../Helper';
 
 const ProductForm = (props) => {
-    const { open, closeModal, data, category,loading } = props;
+    const { open, closeModal, data, category,gemType, loading } = props;
     const [name, setName] = React.useState('');
     const [productNumber, setProductNumber] = React.useState('');
     const [description, setDescription] = React.useState('');
     const [shortDescription, setShortDescription] = React.useState('');
     const [categoryId, setCategoryId] = React.useState('');
+    const [gemTypeId, setGemTypeId] = React.useState('');
     const [price, setPrice] = React.useState('');
     const [images, setImages] = React.useState([]);
     const [imgUrl, setImgUrl] = React.useState([]);
@@ -35,12 +36,12 @@ const ProductForm = (props) => {
 
 
     useEffect(() => {
-        console.log(data)
         if (data) {
             setName(data.name);
             setProductNumber(data.productNumber);
             setDescription(data.description);
             setCategoryId(data?.categoryId?._id);
+            setGemTypeId(data?.gemTypeId?._id);
             setPrice(data.price);
             setShortDescription(data.shortDescription);
             setImgUrl(data.images)
@@ -55,6 +56,7 @@ const ProductForm = (props) => {
             newFormData.append('productNumber', productNumber)
             newFormData.append('description', description)
             newFormData.append('categoryId', categoryId)
+            newFormData.append('gemTypeId',gemTypeId)
             newFormData.append('price', price)
             newFormData.append('shortDescription', shortDescription);
             let path = [];
@@ -82,6 +84,7 @@ const ProductForm = (props) => {
             newFormData.append('productNumber', productNumber)
             newFormData.append('description', description)
             newFormData.append('categoryId', categoryId)
+            newFormData.append('gemTypeId',gemTypeId)
             newFormData.append('price', price)
             newFormData.append('shortDescription', shortDescription);
             for (const file of images) {
@@ -178,6 +181,17 @@ const ProductForm = (props) => {
 
                                 </select>
                             </div>
+                            <div className='mb-4'>
+                                <select className="browser-default custom-select" required value={gemTypeId} onChange={(e) => setGemTypeId(e.target.value)}>
+                                    <option value="" >Choose Gem</option>
+                                    {
+                                        gemType.map((type, index) => {
+                                            return <option key={type._id} value={type._id} >{type.name}</option>
+                                        })
+                                    }
+
+                                </select>
+                            </div>
                             <MDBInput className='mb-4' required onChange={(e) => setPrice(e.target.value)} value={price} label='Price' />
                             <label htmlFor="certi-upload" className={disabled}>
                                 <i className="fa fa-cloud-upload"></i> <span>Upload Certificate</span>
@@ -233,7 +247,7 @@ const ProductForm = (props) => {
                             <MDBBtn disabled={loading} color='secondary' onClick={close}>
                                 Close
                             </MDBBtn>
-                            <MDBBtn disabled={(loading || !name || !description || !price || !categoryId || certificateUrl.length === 0 || imgUrl.length === 0)}
+                            <MDBBtn disabled={(loading || !name || !description || !price || !categoryId || !gemTypeId || certificateUrl.length === 0 || imgUrl.length === 0)}
                                 onClick={() => toggleOpenClose('save')} >{props.loading ? 'Loading...' : 'Submit'}</MDBBtn>
                         </MDBModalFooter>
                     </MDBModalContent>

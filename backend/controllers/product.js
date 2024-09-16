@@ -5,7 +5,7 @@ const Noti = require('../models/notification');
 const socket = require('../middleware/socket');
 
 const create = async (req, res) => {
-    const { name, productNumber, description, shortDescription, price, categoryId } = req.body;
+    const { name, productNumber, description, shortDescription, price, categoryId, gemTypeId } = req.body;
     // const prefix = "BAC";
     // const totalProducts = await Product.countDocuments();
     // let index = 1;
@@ -56,10 +56,10 @@ const create = async (req, res) => {
             }
         });
         const createdBy = req.user._id;
-        const product = await Product.create({ productNumber, name, description, shortDescription, categoryId, price, createdBy, "images": imageInfo, certificate });
+        const product = await Product.create({ productNumber, name, description, shortDescription, categoryId,gemTypeId, price, createdBy, "images": imageInfo, certificate });
         // const noti = await Noti.create({ noti: 'New product is available now!', createdBy:null });
         // socket.emitNewNoti(noti)
-        const newProduct = await product.populate('categoryId');
+        const newProduct = await product.populate('categoryId').populate('gemTypeId');
         res.status(200).json({ data: newProduct, message: 'Product is successfully created.' })
     } catch (error) {
         res.status(400).json({ error: error.message })
@@ -105,7 +105,8 @@ const update = async (req, res) => {
         }
         const product = await Product.findOneAndUpdate({ _id: id }, {
             ...req.body, "images": imageInfo, certificate
-        }, { new: true }).populate('categoryId');;
+        }, { new: true }).populate('categoryId').populate('gemTypeId');
+        console.log(product)
         res.status(200).json({ data: product, message: 'Product is successfully updated.' })
     } catch (error) {
         res.status(400).json({ "error": error.message })
@@ -129,7 +130,7 @@ const getAll = async (req, res) => {
                 query.categoryId = req.query.categoryId;
             }
         }
-        const products = await Product.find(query).populate('categoryId').sort({ createdAt: -1 });
+        const products = await Product.find(query).populate('categoryId').populate('gemTypeId').sort({ createdAt: -1 });
         res.status(200).json({ data: products })
     } catch (error) {
         res.status(400).json({ "error": error.message })
@@ -152,7 +153,7 @@ const getAllForAdmin = async (req, res) => {
                 query.categoryId = req.query.categoryId;
             }
         }
-        const products = await Product.find(query).populate('categoryId').sort({ createdAt: -1 });
+        const products = await Product.find(query).populate('categoryId').populate('gemTypeId').sort({ createdAt: -1 });
         res.status(200).json({ data: products })
     } catch (error) {
         res.status(400).json({ "error": error.message })

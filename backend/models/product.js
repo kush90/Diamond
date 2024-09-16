@@ -26,6 +26,11 @@ const productSchema = mongoose.Schema({
         required: true,
         ref:"Category"
     },
+    gemTypeId: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref:"gemType"
+    },
     price: {
         type: Number,
         required: true

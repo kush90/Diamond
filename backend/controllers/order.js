@@ -97,9 +97,12 @@ const update = async (req, res) => {
 }
 
 const getAll = async (req, res) => {
+    let queryValue = req.query;
     try {
         const userId = req.user._id;
-        let query = { broker: userId };
+        let query;
+        if(!req.query || Object.keys(req.query).length === 0) query = { broker: userId };
+        else query = queryValue;
         if (Object.keys(req.query).length !== 0) {
 
             // Check if req.query.referenceNo is present and not empty
