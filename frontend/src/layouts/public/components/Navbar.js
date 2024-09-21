@@ -20,7 +20,7 @@ const Navbar = (props) => {
         {/* Title and Hamburger for small screens */}
         <div className="navbar-title">
           <img src={logo} alt='Business Alliance Hub' className='navbar-logo' />
-          <a href="#home" className="w3-bar-item w3-button">Business Alliance Hub</a>
+          <a href="#home" className="w3-bar-item w3-button company-title">Business Alliance Hub</a>
 
           {/* Hamburger icon for mobile screens */}
           <a

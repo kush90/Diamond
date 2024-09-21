@@ -3,4 +3,7 @@
     height: 100vh;
     background-size: cover; /* or background-size: contain; */
 }
-
+.company-title{
+    color:#2c58a0;
+    font-weight: bold;
+}

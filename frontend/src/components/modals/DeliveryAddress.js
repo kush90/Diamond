@@ -65,7 +65,7 @@ const DeliveryAddress = (props) => {
                 <MDBModalDialog>
                     <MDBModalContent>
                         <MDBModalHeader>
-                            <MDBModalTitle>Delivery Address</MDBModalTitle>
+                            <MDBModalTitle  className='text-primary'>Delivery Address</MDBModalTitle>
                             <MDBBtn className='btn-close' color='none' onClick={close} ></MDBBtn>
                         </MDBModalHeader>
                         <MDBModalBody>

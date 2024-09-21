@@ -161,7 +161,7 @@ const ProductForm = (props) => {
 
 
                         <MDBModalHeader>
-                            <MDBModalTitle>Product Form</MDBModalTitle>
+                            <MDBModalTitle  className='text-primary'>Product Form</MDBModalTitle>
                             <MDBBtn className='btn-close' color='none' onClick={close} ></MDBBtn>
                         </MDBModalHeader>
                         <MDBModalBody>

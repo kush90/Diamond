@@ -34,7 +34,7 @@ const ProductImage = (props) => {
                 <MDBModalDialog size='lg'>
                     <MDBModalContent>
                         <MDBModalHeader>
-                            <MDBModalTitle>Image Detail</MDBModalTitle>
+                            <MDBModalTitle  className='text-primary'>Image Detail</MDBModalTitle>
                             <MDBBtn className='btn-close' color='none' onClick={close} ></MDBBtn>
                         </MDBModalHeader>
                         <MDBModalBody>

@@ -30,7 +30,7 @@ const Detail = (props) => {
                 <MDBModalDialog size='lg'>
                     <MDBModalContent>
                         <MDBModalHeader>
-                            <MDBModalTitle>Order Detail</MDBModalTitle>
+                            <MDBModalTitle  className='text-primary'>Order Detail</MDBModalTitle>
                             <MDBBtn className='btn-close' color='none' onClick={close} ></MDBBtn>
                         </MDBModalHeader>
                         <MDBModalBody>

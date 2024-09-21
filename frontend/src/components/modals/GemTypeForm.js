@@ -39,7 +39,7 @@ const GemTypeForm = (props) => {
 
 
                         <MDBModalHeader>
-                            <MDBModalTitle>Gem Type Form</MDBModalTitle>
+                            <MDBModalTitle  className='text-primary'>Gem Type Form</MDBModalTitle>
                             <MDBBtn className='btn-close' color='none' onClick={() => toggleOpenClose('close')} ></MDBBtn>
                         </MDBModalHeader>
                         <MDBModalBody>

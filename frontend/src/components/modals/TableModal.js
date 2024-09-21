@@ -22,7 +22,7 @@ const TableModal = (props) => {
                 <MDBModalDialog size='lg'>
                     <MDBModalContent>
                         <MDBModalHeader>
-                            <MDBModalTitle>{props.title}</MDBModalTitle>
+                            <MDBModalTitle  className='text-primary'>{props.title}</MDBModalTitle>
                             <MDBBtn className='btn-close' color='none' onClick={close} ></MDBBtn>
                         </MDBModalHeader>
                         <MDBModalBody style={{ overflow: 'scroll' }}>

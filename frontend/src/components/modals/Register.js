@@ -101,7 +101,7 @@ const Register = (props) => {
                 <MDBModalDialog>
                     <MDBModalContent>
                         <MDBModalHeader>
-                            <MDBModalTitle>Register</MDBModalTitle>
+                            <MDBModalTitle className='text-primary'>Register</MDBModalTitle>
                             <MDBBtn className='btn-close' color='none' onClick={close} ></MDBBtn>
                         </MDBModalHeader>
 

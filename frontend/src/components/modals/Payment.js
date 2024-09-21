@@ -61,7 +61,7 @@ const Payment = (props) => {
                 <MDBModalDialog size='lg'>
                     <MDBModalContent>
                         <MDBModalHeader>
-                            <MDBModalTitle>Payment Receipt For Broker</MDBModalTitle>
+                            <MDBModalTitle  className='text-primary'>Payment Receipt For Broker</MDBModalTitle>
                             <MDBBtn className='btn-close' color='none' onClick={close} ></MDBBtn>
                         </MDBModalHeader>
                         <MDBModalBody>

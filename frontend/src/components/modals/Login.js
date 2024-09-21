@@ -49,7 +49,7 @@ const Login = (props) => {
                 <MDBModalDialog>
                     <MDBModalContent>
                         <MDBModalHeader>
-                            <MDBModalTitle>Login</MDBModalTitle>
+                            <MDBModalTitle className='text-primary'>Login</MDBModalTitle>
                             <MDBBtn className='btn-close' color='none' onClick={close} ></MDBBtn>
                         </MDBModalHeader>
                         <MDBModalBody>

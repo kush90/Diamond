@@ -39,7 +39,7 @@ const CategoryForm = (props) => {
 
 
                         <MDBModalHeader>
-                            <MDBModalTitle>Category Form</MDBModalTitle>
+                            <MDBModalTitle className='text-primary'>Category Form</MDBModalTitle>
                             <MDBBtn className='btn-close' color='none' onClick={() => toggleOpenClose('close')} ></MDBBtn>
                         </MDBModalHeader>
                         <MDBModalBody>
