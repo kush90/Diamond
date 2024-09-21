@@ -117,6 +117,7 @@ const update = async (req, res) => {
 const getAll = async (req, res) => {
     try {
         let query = { status: 'active' };
+        console.log(req.query)
         if (Object.keys(req.query).length !== 0) {
 
             // Check if req.query.name is present and not empty
@@ -128,6 +129,12 @@ const getAll = async (req, res) => {
                     return res.status(404).json({ error: 'No such category' })
                 }
                 query.categoryId = req.query.categoryId;
+            }
+            if (req.query.gemTypeId) {
+                if (!mongoose.Types.ObjectId.isValid(req.query.gemTypeId)) {
+                    return res.status(404).json({ error: 'No such gem type' })
+                }
+                query.gemTypeId = req.query.gemTypeId;
             }
         }
         const products = await Product.find(query).populate('categoryId').populate('gemTypeId').sort({ createdAt: -1 });

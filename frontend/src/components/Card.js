@@ -36,11 +36,14 @@ const Card = ({ data, handleClick }) => {
         </MDBTooltip>
 
         <MDBCardBody>
-          <MDBCardText>
-            Price : {data.price}USD
+        <MDBCardText>
+            Gem Type : {data.gemTypeId.name}
           </MDBCardText>
-          <MDBCardText className='text-danger'>
-            {data.description}
+          <MDBCardText>
+            Price : <span className='text-danger'>{data.price}USD</span>
+          </MDBCardText>
+          <MDBCardText>
+            Description: {data.description}
           </MDBCardText>
 
         </MDBCardBody>

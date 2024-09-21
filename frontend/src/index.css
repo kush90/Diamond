@@ -1,4 +1,9 @@
-/* body {
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -7,7 +12,61 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-} */
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+.navbar-title {
+  display: flex;
+  align-items: center;
+  position: absolute;
+}
+
+.hamburger {
+  margin-left: 10px;
+}
+
+.navbar-links {
+  display: flex;
+  justify-content: flex-end;
+}
+
+@media (max-width: 765px) {
+  .w3-hide-small {
+    display: none;
+  }
+
+  .navbar-title {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    position: unset;
+  }
+
+  .hamburger {
+    display: inline-block;
+  }
+}
+
+@media (max-width: 768px) {
+  .hamburger {
+    display: none;
+  }
+
+  .navbar-title {
+    position: unset;
+  }
+
+}
+
+.navbar-logo {
+  height: 40px;
+  /* Adjust height as needed */
+  margin-right: 10px;
+  /* Add some space between the logo and the title */
+  vertical-align: middle;
+  /* Align the logo vertically with the text */
+}

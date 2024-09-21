@@ -2,6 +2,8 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
+import './styles/default.css'
+
 import Main from './layouts/public/Main';
 import AdminMain from './layouts/admin/Main';
 import Error from './pages/Error';

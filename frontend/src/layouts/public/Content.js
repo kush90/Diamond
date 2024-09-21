@@ -1,15 +1,16 @@
 import React from 'react';
-import {
-  MDBBtn
-} from 'mdb-react-ui-kit';
 import { ToastContainer, toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 
-import bg from '../../assets/bg.webp';
 
 import Register from '../../components/modals/Register';
 import Login from '../../components/modals/Login';
 import ForgotPassword from '../../components/modals/ForgotPassword';
+import Navbar from './components/Navbar';
+import Header from './components/Header';
+import About from './sections/About';
+import Contact from './sections/Contact';
+import Footer from './components/Footer';
 import axios from 'axios';
 import { createStorage, API_URL, getStorage } from "../../Helper";
 
@@ -26,6 +27,7 @@ export default function Content() {
   }
 
   const loginOpenModal = () => {
+    console.log('login')
     setLoginModal(true);
   }
 
@@ -124,53 +126,19 @@ export default function Content() {
 
   }
   return (
-    <header>
-      <div
-        id='main-bg'
-        className='p-5 text-center bg-image'
-        style={{ backgroundImage: `url(${bg})` }}
-      >
-        <div className='mask' style={{ backgroundColor: 'rgba(0, 0, 0, 0.7)' }}>
-          <div className='d-flex justify-content-center align-items-center h-100'>
-            <div className='text-white'>
-              <h1 className='mb-3'>Welcome to our Jewellery Website</h1>
-              {/* <h5 className='mb-4'></h5> */}
-              <MDBBtn
-                className="m-2"
-                tag="a"
-                outline
-                size="lg"
-                onClick={loginOpenModal}
-              >
-                Login
-              </MDBBtn>
-              <MDBBtn
-                className="m-2"
-                tag="a"
-                outline
-                size="lg"
-                onClick={registerOpenModal}
-              >
-                Register
-              </MDBBtn>
-              <MDBBtn
-                className="m-2"
-                tag="a"
-                outline
-                size="lg"
-                onClick={forgotPasswordOpenModal}
-              >
-                Forgot Password
-              </MDBBtn>
-
-            </div>
-          </div>
-        </div>
-      </div>
+    <>
+      <Navbar login={loginOpenModal} register={registerOpenModal} />
+      <Header />
+      <About />
+      <hr />
+      {/* <Menu /> */}
+      {/* <hr /> */}
+      <Contact />
       {registerModal && <Register open={registerModal} close={close} loading={loading} />}
       {loginModal && <Login open={loginModal} close={loginClose} loading={loading} />}
       {forgotPasswordModal && <ForgotPassword open={forgotPasswordModal} loading={loading} close={forgotPasswordClose} />}
       <ToastContainer />
-    </header>
+      <Footer />
+    </>
   );
 }

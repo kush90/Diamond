@@ -17,7 +17,7 @@ import {
 } from 'mdb-react-ui-kit';
 import { useLocation, useNavigate } from "react-router-dom";
 
-import logo from '../../assets/logo.png';
+import logo from '../../assets/logo1.png';
 import '../../styles/admin/main.css';
 import { clearStorage, getStorage, createStorage } from '../../Helper';
 import { get,post } from '../../Api';
@@ -127,7 +127,7 @@ const Navbar = () => {
                             alt=''
                             loading='lazy'
                         />
-                        <span className='logo-text'>Diamond</span>
+                        <span className='logo-text'>Business Alliance Hub</span>
                     </MDBNavbarBrand>
 
                     <MDBNavbarToggler
