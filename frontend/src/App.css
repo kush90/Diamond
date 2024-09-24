@@ -5,3 +5,12 @@ body {
     color:#2c58a0;
     font-weight: bold;
 }
+
+ @media (min-width: 320px) and (max-width:425px) {
+    .image-slider {
+       object-fit: contain !important;
+    }
+    .header {
+        margin-top:105px !important;
+    }
+}

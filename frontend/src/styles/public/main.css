@@ -1,9 +1,75 @@
 /* Default height for small devices */
 #main-bg {
     height: 100vh;
-    background-size: cover; /* or background-size: contain; */
+    background-size: cover;
+    /* or background-size: contain; */
 }
-.company-title{
-    color:#2c58a0;
+
+.company-title {
+    color: #2c58a0;
     font-weight: bold;
 }
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    /* Create 3 equal columns */
+    gap: 20px;
+    /* Add space between columns */
+    margin-top: 30px;
+}
+.button-container {
+    display: flex;
+    justify-content: center; /* Centers the button horizontally */
+    margin-top: 16px; /* Optional: Add space above the button */
+  }
+.contact-form,
+.contact-address {
+    padding: 16px;
+    background-color: #f1f1f1;
+    border-radius: 8px;
+}
+
+.padding-contact {
+    padding-top: 30px;
+    padding-bottom: 64px;
+}
+
+/* Optional: Responsive design for smaller screens */
+@media (max-width: 768px) {
+    .contact-grid {
+        grid-template-columns: 1fr;
+        /* Stacks all items vertically on small screens */
+    }
+}
+
+.about-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 64px;
+  }
+  
+  .about-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  
+  .about-image, .about-text {
+    flex: 1;
+    padding: 20px;
+  }
+  
+  .about-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .about-image img {
+    max-width: 100%;
+    height: auto;
+  }
+  

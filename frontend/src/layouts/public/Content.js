@@ -127,18 +127,18 @@ export default function Content() {
   }
   return (
     <>
-      <Navbar login={loginOpenModal} register={registerOpenModal} />
-      <Header />
-      <About />
-      <hr />
-      {/* <Menu /> */}
-      {/* <hr /> */}
-      <Contact />
-      {registerModal && <Register open={registerModal} close={close} loading={loading} />}
-      {loginModal && <Login open={loginModal} close={loginClose} loading={loading} />}
-      {forgotPasswordModal && <ForgotPassword open={forgotPasswordModal} loading={loading} close={forgotPasswordClose} />}
-      <ToastContainer />
-      <Footer />
-    </>
+            <Navbar login={loginOpenModal} register={registerOpenModal} />
+            <Header />
+            <About />
+            <hr />
+            <Contact />
+
+            {registerModal && <Register open={registerModal} close={close} loading={loading} />}
+            {loginModal && <Login open={loginModal} close={loginClose} loading={loading} forgotPasswordOpen={forgotPasswordOpenModal} />}
+            {forgotPasswordModal && <ForgotPassword open={forgotPasswordModal} loading={loading} close={forgotPasswordClose} />}
+            
+            <ToastContainer />
+            <Footer />
+        </>
   );
 }

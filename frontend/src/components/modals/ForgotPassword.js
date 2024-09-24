@@ -46,12 +46,12 @@ const ForgotPassword = (props) => {
         <>
             <MDBModal staticBackdrop open={props.open} tabIndex='-1' onClose={close} >
                 <MDBModalDialog>
-                    <MDBModalContent>
+                    <MDBModalContent style={{ height: '313.94px' }}>
                         <MDBModalHeader>
                             <MDBModalTitle>Forgot Password</MDBModalTitle>
                             <MDBBtn className='btn-close' color='none' onClick={close} ></MDBBtn>
                         </MDBModalHeader>
-                        <MDBModalBody>
+                        <MDBModalBody >
                             <MDBInput wrapperClass='custom-input' required onChange={handlePhoneNumberChange} value={phoneNo} label='Phone no' />
                             {!isPhoneValid && phoneNo.trim() !== '' && (
                                 <span className='custom-error'>*Invalid phone no</span>

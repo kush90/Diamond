@@ -5,9 +5,9 @@ import PauseIcon from '@mui/icons-material/Pause';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 const images = [
-    'https://images.unsplash.com/photo-1551782450-a2132b4ba21d',
-    'https://images.unsplash.com/photo-1522770179533-24471fcdba45',
-    'https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c',
+    'https://savannahjewelrygallery.com/cdn/shop/files/Apr2024CoverPic_640x640.jpg?v=1713199543',
+    'https://www.savannah.com/wp-content/uploads/168528831_398851991311985_7658763570048274097_n-1024x868.jpeg',
+    'https://scontent.fbkk2-7.fna.fbcdn.net/v/t39.30808-6/275943161_636197884244060_7931198161046793112_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=cc71e4&_nc_ohc=8W1gUevu_G8Q7kNvgFlrAN3&_nc_zt=23&_nc_ht=scontent.fbkk2-7.fna&oh=00_AYBDQXA7eNuGB9A7bflwO1JtVGT4yXHwPKcIjocBvmOa_w&oe=66F7E2B8'
 ];
 
 const ImageSlider = () => {
@@ -43,7 +43,9 @@ const ImageSlider = () => {
     return (
         <Box>
             <Box sx={{ display: 'flex', justifyContent: 'center', position: 'relative' }}>
-                <img src={images[activeIndex]} alt={`Slide ${activeIndex + 1}`} style={{ width: '100%', maxHeight: 400, objectFit: 'cover' }} />
+                <img className='image-slider' src={images[activeIndex]} alt={`Slide ${activeIndex + 1}`} style={{ maxWidth: '100%', width:'100%', height: '600px', objectFit: 'cover' }}
+
+                />
                 <Typography
                     variant="caption"
                     component="div"
@@ -112,8 +114,8 @@ const ImageSlider = () => {
                 )}
                 <Button onClick={toggleAutoplay} variant="contained" sx={{
                     color: 'white', // Text color
-                    backgroundColor: 'black', // Button color
-                    '&:hover': { backgroundColor: 'black' }, position: 'absolute', bottom: 10, left: '50%', transform: 'translateX(-50%)', fontSize: '.650rem', padding: '6px 12px'
+                    backgroundColor: 'rgba(0,0,0,0.5)', // Button color
+                    '&:hover': { backgroundColor: 'rgba(0,0,0,0.5)' }, position: 'absolute', bottom: 10, left: '50%', transform: 'translateX(-50%)', fontSize: '.650rem', padding: '6px 12px'
                 }}>
                     {autoplay ? 'Pause' : 'Auto Play'}
                     {autoplay ? <PauseIcon /> : <PlayArrowIcon />}

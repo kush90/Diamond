@@ -26,13 +26,12 @@ const Login = (props) => {
     const handlePhoneNumberChange = (e) => {
         const number = e.target.value;
         setPhoneNo(number);
-        // Validate phone number format for Thailand and Myanmar if not empty
         if (number.trim() !== '') {
             const isValidThailand = isValidPhoneNumber(number, 'TH');
             const isValidMyanmar = isValidPhoneNumber(number, 'MM');
             setIsPhoneValid(isValidThailand || isValidMyanmar);
         } else {
-            setIsPhoneValid(true); // Reset to valid if empty
+            setIsPhoneValid(true);
         }
     };
 
@@ -45,12 +44,12 @@ const Login = (props) => {
 
     return (
         <>
-            <MDBModal staticBackdrop open={props.open} tabIndex='-1' onClose={close} >
+            <MDBModal staticBackdrop open={props.open} tabIndex='-1' onClose={close}>
                 <MDBModalDialog>
                     <MDBModalContent>
                         <MDBModalHeader>
                             <MDBModalTitle className='text-primary'>Login</MDBModalTitle>
-                            <MDBBtn className='btn-close' color='none' onClick={close} ></MDBBtn>
+                            <MDBBtn className='btn-close' color='none' onClick={close}></MDBBtn>
                         </MDBModalHeader>
                         <MDBModalBody>
                             <MDBInput wrapperClass='custom-input' required onChange={handlePhoneNumberChange} value={phoneNo} label='Phone no' />
@@ -58,13 +57,20 @@ const Login = (props) => {
                                 <span className='custom-error'>*Invalid phone no</span>
                             )}
                             <MDBInput wrapperClass='custom-input' type='password' required onChange={(e) => setPassword(e.target.value)} value={password} label='Password' />
+
+                            {/* Add Forgot Password link */}
+                            <p className="forgot-password-link" onClick={props.forgotPasswordOpen}>
+                                Forgot Password?
+                            </p>
                         </MDBModalBody>
+
                         <MDBModalFooter>
                             <MDBBtn disabled={props.loading} color='secondary' onClick={close}>
                                 Close
                             </MDBBtn>
-                            <MDBBtn disabled={(props.loading || !phoneNo || !password || !isPhoneValid)} onClick={login}
-                            >{props.loading ? 'Loading...' : 'Login'}</MDBBtn>
+                            <MDBBtn disabled={props.loading || !phoneNo || !password || !isPhoneValid} onClick={login}>
+                                {props.loading ? 'Loading...' : 'Login'}
+                            </MDBBtn>
                         </MDBModalFooter>
                     </MDBModalContent>
                 </MDBModalDialog>

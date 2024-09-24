@@ -4,7 +4,7 @@ let io;
 function initSocket(server) {
   io = socket(server, {
     cors: {
-      origin: "http://3.27.65.59:3000", // Allow requests from frontend
+      origin: "https://diamond-05pp.onrender.com", // Allow requests from frontend
       methods: ["GET", "POST"],
       credentials: true
     }

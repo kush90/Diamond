@@ -58,3 +58,9 @@ input[type="file"] {
     left: 10px;
     font-size: 14px;
 }
+
+.forgot-password-link{
+    color:#2c58a0;
+    cursor: pointer;
+    float:right;
+}
