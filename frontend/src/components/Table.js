@@ -38,12 +38,15 @@ const Table = ({ title, header, data, editData, deleteData, changePassword, prod
                             <tr key={index} >
                                 <th scope='row'>{index + 1}</th>
                                 {title === 'product' && <td className="text-primary pointer">{value.productNumber}</td>}
-                                {(title === 'product' || title === 'category' || title === 'user' || title === 'gemType') && <td className="text-truncate text-primary pointer" style={{ maxWidth: 116 }} onClick={title === 'user' ? ()=>orderViewByUser(value) : undefined}>{value.name}</td>}
+                                {(title === 'product' || title === 'category' || title === 'user' || title === 'gemType' || title === 'feedback') && <td className="text-truncate text-primary pointer" style={{ maxWidth: 116 }} onClick={title === 'user' ? ()=>orderViewByUser(value) : undefined}>{value.name}</td>}
                                 {title === 'product' && value?.categoryId?.name && <td>{separateAndCapitalize(value?.categoryId?.name)}</td>}
                                 {title === 'product' && value?.gemTypeId?.name && <td>{separateAndCapitalize(value?.gemTypeId?.name)}</td>}
                                 {title === 'product' && value.price && <td>{value.price}</td>}
+                                {title === 'feedback' && value.email && <td>{value.email}</td>}
+                                {title === 'feedback' && value.phone && <td>{value.phone}</td>}
+                                {title === 'feedback' && value.message && <td className="text-truncate text-primary pointer" style={{ maxWidth: 116 }}>{value.message}</td>}
                                 {title === 'product' && value.description && <td className="text-truncate text-primary pointer" style={{ maxWidth: 116 }}>{value.description}</td>}
-                                {title === 'product' && value.status && <td>
+                                {(title === 'product' || title === 'feedback') && value.status && <td>
 
                                     {(value.status === 'active') &&
                                         <MDBBadge pill light >
@@ -126,7 +129,7 @@ const Table = ({ title, header, data, editData, deleteData, changePassword, prod
 
                                 }
 
-                                {(title === 'deal' || title === 'order' || title === 'table') && <td>{formatDateToLocaleString(value.createdAt)}</td>}
+                                {(title === 'deal' || title === 'order' || title === 'table' || title === 'feedback') && <td>{formatDateToLocaleString(value.createdAt)}</td>}
                                 {title === 'user' && <td>{value.email ? value.email : 'N/A'}</td>}
                                 {title === 'user' && <td>{value.phoneNo}</td>}
                                 {title === 'user' && <td className='text-primary'>{value.totalDeals}</td>}

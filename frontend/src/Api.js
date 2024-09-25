@@ -1,9 +1,9 @@
 import axios from 'axios';
 import { API_URL, setNetworkHeader } from './Helper';
 
-export const post = async (url, obj) => {
+export const post = async (url, obj,token = null) => {
     return await axios.post(
-        `${API_URL}/${url}`, obj, setNetworkHeader()
+        `${API_URL}/${url}`, obj, token == null ? setNetworkHeader() : ''
     );
 }
 

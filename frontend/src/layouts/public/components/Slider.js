@@ -95,7 +95,7 @@ const ImageSlider = () => {
                                     position: 'absolute', right: 20, top: '50%', transform: 'translateY(-50%)', minWidth: 'auto',
                                     padding: 0,
                                     '&:disabled': {
-                                        color: 'white', // Customize the text color for disabled state
+                                        color: 'rgba(255, 255, 255, 0.3)', // Customize the text color for disabled state
                                         cursor: 'not-allowed', // Customize the cursor for disabled state
                                         // Add any additional styles for disabled state
                                         backgroundColor: 'rgba(0, 0, 0, 0.5)', // Background color with opacity (50%)

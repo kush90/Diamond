@@ -41,7 +41,7 @@ const Navbar = () => {
             getNotiData();
             socket.on('new-noti', (data) => {
                 setNoti((prevNoti) => {
-                    if (data.createdBy === user.id) {
+                    if (data.createdBy === user.id || data.createdBy === null) {
                         const existingNotificationIndex = prevNoti.findIndex(notification => notification._id === data._id);
                         if (existingNotificationIndex !== -1) {
                             // If the notification exists, remove it
@@ -84,6 +84,7 @@ const Navbar = () => {
                 setNoti(response.data.data);
                 // Update local storage with filtered notifications
                 createStorage('noti', response.data.data);
+                console.log(response.data.data)
             }
         } catch (error) {
             // Handle errors
@@ -161,6 +162,9 @@ const Navbar = () => {
                             </MDBNavbarItem>
                             <MDBNavbarItem>
                                 <MDBNavbarLink style={{ display: user.type !== 'Broker' ? 'none' : '' }} active={location.pathname === '/admin/broker/deal'} href='/admin/broker/deal'>Deals</MDBNavbarLink>
+                            </MDBNavbarItem>
+                            <MDBNavbarItem>
+                                <MDBNavbarLink style={{ display: user.type === 'Broker' ? 'none' : '' }} active={location.pathname === '/admin/feedback'} href='/admin/feedback'>Feedbacks</MDBNavbarLink>
                             </MDBNavbarItem>
                         </MDBNavbarNav>
                         <MDBDropdown color="primary" >

@@ -13,6 +13,7 @@ import BrokerDashboard from './pages/broker/Dashboard';
 import Deal from './pages/broker/Deal';
 import AuthGuard from './AuthGuard';
 import User from './pages/admin/User';
+import Feedback from './pages/admin/Feedback';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route path="/admin/user" element={<User />} />
         <Route path="/admin/broker/dashboard" element={<BrokerDashboard/>}/>
         <Route path="/admin/broker/deal" element={<Deal/>}/>
+        <Route path="/admin/feedback" element={<Feedback/>}/>
       </Route>
       <Route path="*" element={<Error />} />
     </Routes>
