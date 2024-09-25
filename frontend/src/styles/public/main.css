@@ -9,30 +9,49 @@
     color: #2c58a0;
     font-weight: bold;
 }
-
 .contact-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    /* Create 3 equal columns */
-    gap: 20px;
-    /* Add space between columns */
-    margin-top: 30px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+  padding: 20px;
 }
-.button-container {
-    display: flex;
-    justify-content: center; /* Centers the button horizontally */
-    margin-top: 16px; /* Optional: Add space above the button */
-  }
+
 .contact-form,
 .contact-address {
-    padding: 16px;
-    background-color: #f1f1f1;
-    border-radius: 8px;
+  /* background-color: #f9f9f9; */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: left;
 }
 
-.padding-contact {
-    padding-top: 30px;
-    padding-bottom: 64px;
+.contact-address h3 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  color: #333;
+  display: flex;
+  align-items: center;
+}
+
+.contact-address p {
+  margin: 10px 0;
+}
+
+.icon {
+  margin-right: 10px;
+  color: #007bff;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* Optional: Responsive design for smaller screens */

@@ -11,11 +11,10 @@ import {
     MDBTooltip, MDBIcon,
 } from 'mdb-react-ui-kit';
 import '../../styles/admin/main.css'
-import TableModal from '../../components/modals/TableModal';
 
 const Feedback = () => {
     const [loading, setLoading] = React.useState(true);
-    const tableHeader = ['name', 'email', 'phone','message','status','date'];
+    const tableHeader = ['name', 'email', 'phone','message','status','date','action'];
     const [tableData, setTableData] = React.useState([]);
     const [tableModal,setTableModal] = React.useState(false)
 
@@ -42,6 +41,32 @@ const Feedback = () => {
     useEffect(() => {
         getFeedbackData();
     }, []);
+
+    const updateStatus = async(value)=>{
+        value.status = 'confirmed'
+        setLoading(true)
+        try {
+            let response = await patch(`api/feedback/update/${value._id}`, value);
+            if (response.status === 200) {
+
+                toast.success(response.data.message);
+                let newArr = tableData.map((obj) =>
+                    obj._id === tableData._id ? { ...obj, ...response.data.data } : obj
+                );
+                setTableData(newArr);
+                setLoading(false);
+            }
+        }
+        catch (error) {
+            if (error.response && error.response.status === 400) {
+                toast.error(error.response.data.error)
+            }
+            else {
+                toast.error(error.message)
+            }
+            setLoading(false);
+        }
+    }
     return (
         <MDBRow className='custom-margin-top'>
             <MDBCol md='12' >
@@ -55,7 +80,7 @@ const Feedback = () => {
                         </MDBBtn>
                     </MDBCardHeader>
                     <MDBCardBody className='custom-height-setting'>
-                        {(loading === false) ? (<Table title={'feedback'} header={tableHeader} data={tableData} />)
+                        {(loading === false) ? (<Table title={'feedback'} header={tableHeader} data={tableData} updateFeedback={updateStatus} />)
 
                             : (<MDBSpinner role='status'>
                                 <span className='visually-hidden'>Loading...</span>

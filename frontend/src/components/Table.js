@@ -5,7 +5,7 @@ import { formatDateToLocaleString, separateAndCapitalize } from '../Helper';
 import '../styles/table.css'
 
 
-const Table = ({ title, header, data, editData, deleteData, changePassword, productData, confirmDeal, viewDetail, confirmDeliver, confirmPayment, viewCommission,getTotalOrder }) => {
+const Table = ({ title, header, data, editData, deleteData, productData, confirmDeal, viewDetail, confirmDeliver, confirmPayment, viewCommission, getTotalOrder, updateFeedback }) => {
 
     const editRow = (row) => {
         editData(row)
@@ -14,8 +14,12 @@ const Table = ({ title, header, data, editData, deleteData, changePassword, prod
         productData(row)
     }
 
-    const orderViewByUser = (row) =>{
+    const orderViewByUser = (row) => {
         getTotalOrder(row)
+    }
+
+    const updateStatus = (row) => {
+        updateFeedback(row)
     }
     return (
         <MDBTable>
@@ -38,7 +42,7 @@ const Table = ({ title, header, data, editData, deleteData, changePassword, prod
                             <tr key={index} >
                                 <th scope='row'>{index + 1}</th>
                                 {title === 'product' && <td className="text-primary pointer">{value.productNumber}</td>}
-                                {(title === 'product' || title === 'category' || title === 'user' || title === 'gemType' || title === 'feedback') && <td className="text-truncate text-primary pointer" style={{ maxWidth: 116 }} onClick={title === 'user' ? ()=>orderViewByUser(value) : undefined}>{value.name}</td>}
+                                {(title === 'product' || title === 'category' || title === 'user' || title === 'gemType' || title === 'feedback') && <td className="text-truncate text-primary pointer" style={{ maxWidth: 116 }} onClick={title === 'user' ? () => orderViewByUser(value) : undefined}>{value.name}</td>}
                                 {title === 'product' && value?.categoryId?.name && <td>{separateAndCapitalize(value?.categoryId?.name)}</td>}
                                 {title === 'product' && value?.gemTypeId?.name && <td>{separateAndCapitalize(value?.gemTypeId?.name)}</td>}
                                 {title === 'product' && value.price && <td>{value.price}</td>}
@@ -66,7 +70,7 @@ const Table = ({ title, header, data, editData, deleteData, changePassword, prod
                                             }
                                         </MDBBadge>
                                     }
-                                    {(value.status === 'sold') &&
+                                    {(value.status === 'sold' || value.status === 'confirmed') &&
                                         <MDBBadge pill color='success' light>
                                             {
 
@@ -75,7 +79,6 @@ const Table = ({ title, header, data, editData, deleteData, changePassword, prod
                                             }
                                         </MDBBadge>
                                     }
-
                                 </td>}
                                 {title === 'product' && <td>{formatDateToLocaleString(value.createdAt)}</td>}
                                 {(title === 'deal' || title === 'order' || title === 'table') && <td>{value.referenceNo}</td>}
@@ -134,7 +137,7 @@ const Table = ({ title, header, data, editData, deleteData, changePassword, prod
                                 {title === 'user' && <td>{value.phoneNo}</td>}
                                 {title === 'user' && <td className='text-primary'>{value.totalDeals}</td>}
                                 {title === 'user' && <td>{formatDateToLocaleString(value.createdAt)}</td>}
-                                {(title === 'deal' || title === 'order' || title === 'category' || title === 'product' || title === 'gemType') &&
+                                {(title === 'deal' || title === 'order' || title === 'category' || title === 'product' || title === 'gemType' || title === 'feedback') &&
                                     <td>
                                         {
                                             (title === 'product' || title === 'category' || title === 'gemType') &&
@@ -190,6 +193,13 @@ const Table = ({ title, header, data, editData, deleteData, changePassword, prod
                                                 <MDBTooltip tag='span' title="View Detail">
                                                     <MDBIcon fas icon="info-circle" />
                                                 </MDBTooltip>
+                                            </MDBBtn>
+                                        }
+                                        {
+                                            (title === 'feedback' && value.status === 'pending') &&
+                                            <MDBBtn onClick={() => updateStatus(value)} size='sm' className='ms-2  text-primary' tag='a' color='light' floating>
+                                                <MDBTooltip tag='span' title="Close Feedback">
+                                                    <MDBIcon far icon="check-square" />                                                </MDBTooltip>
                                             </MDBBtn>
                                         }
 

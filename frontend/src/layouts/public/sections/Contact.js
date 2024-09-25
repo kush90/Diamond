@@ -1,11 +1,17 @@
 import React from 'react';
 import Button from '@mui/material/Button';
 import SendIcon from '@mui/icons-material/Send';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import EmailIcon from '@mui/icons-material/Email';
+import PhoneIcon from '@mui/icons-material/Phone';
 import '../../../styles/public/main.css';
 import { ToastContainer, toast } from 'react-toastify';
 import { post } from '../../../Api';
-
-const Contact = () =>  {
+import { isValidPhoneNumber } from 'libphonenumber-js';
+import {
+  MDBIcon
+} from 'mdb-react-ui-kit';
+const Contact = () => {
   const [loading, setLoading] = React.useState(false);
   const [formData, setFormData] = React.useState({
     name: '',
@@ -13,6 +19,39 @@ const Contact = () =>  {
     phone: '',
     message: ''
   });
+  const [isPhoneValid, setIsPhoneValid] = React.useState(true);
+  const [isEmailValid, setIsEmailValid] = React.useState(true);
+
+  const handlePhoneNumberChange = (e) => {
+    const number = e.target.value;
+    setFormData({
+      ...formData,
+      phone: number,
+    });
+    // Validate phone number format for Thailand and Myanmar if not empty
+    if (number.trim() !== '') {
+      const isValidThailand = isValidPhoneNumber(number, 'TH');
+      const isValidMyanmar = isValidPhoneNumber(number, 'MM');
+      setIsPhoneValid(isValidThailand || isValidMyanmar);
+    } else {
+      setIsPhoneValid(true); // Reset to valid if empty
+    }
+  };
+
+  const handleEmailChange = (e) => {
+    const inputEmail = e.target.value;
+    setFormData({
+      ...formData,
+      email: inputEmail,
+    });
+    // Validate email format only if not empty
+    if (inputEmail.trim() === '') {
+      setIsEmailValid(true); // Empty email is considered valid
+    } else {
+      const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(inputEmail);
+      setIsEmailValid(isValidEmail);
+    }
+  };
 
   const handleChange = (e) => {
     setFormData({
@@ -23,7 +62,13 @@ const Contact = () =>  {
 
   const submitForm = async (event) => {
     event.preventDefault();
-    console.log(formData);
+    // Prevent submission if phone or email is invalid
+    if (!isPhoneValid) {
+      return;
+    }
+    if (!isEmailValid) {
+      return;
+    }
     try {
       setLoading(true);
       let response = await post('api/feedback/create', formData, 'public');
@@ -69,8 +114,10 @@ const Contact = () =>  {
                 required
                 name="email"
                 value={formData.email}
-                onChange={handleChange}
-              />
+                onChange={handleEmailChange} />
+              {!isEmailValid && (
+                <span className='custom-error'>*Invalid email</span>
+              )}
             </p>
             <p>
               <input
@@ -80,8 +127,10 @@ const Contact = () =>  {
                 required
                 name="phone"
                 value={formData.phone}
-                onChange={handleChange}
-              />
+                onChange={handlePhoneNumberChange} />
+              {!isPhoneValid && (
+                <span className='custom-error'>*Invalid phone no</span>
+              )}
             </p>
             <p>
               <textarea
@@ -95,7 +144,8 @@ const Contact = () =>  {
             </p>
             <div className="button-container">
               <Button type="submit" variant="contained" endIcon={<SendIcon />}>
-                Send
+                {loading ? 'Loading...' : 'Send'}
+
               </Button>
             </div>
           </form>
@@ -103,20 +153,28 @@ const Contact = () =>  {
 
         {/* Column 2: Main Branch Address */}
         <div className="contact-address">
-          <h3>Address</h3>
-          <p>123 Main Street,</p>
-          <p>City, State, ZIP</p>
-          <p>Email: mainbranch@example.com</p>
-          <p>Phone: (123) 456-7890</p>
+          <h3><LocationOnIcon className="icon" /> Main Branch</h3>
+          <p><strong>Address:</strong></p>
+          <p>
+            <LocationOnIcon className='icon' style={{ marginRight: '10px' }} />
+            123 Main Street,
+          </p>          
+          <p style={{ marginLeft: '35px' }} >City, State, ZIP</p>
+          <p><EmailIcon className="icon" /> branch@example.com</p>
+          <p><PhoneIcon className="icon" /> (987) 654-3210</p>
         </div>
 
         {/* Column 3: Branch Address */}
         <div className="contact-address">
-          <h3>Show Room</h3>
-          <p>456 Second Street,</p>
-          <p>City, State, ZIP</p>
-          <p>Email: branch@example.com</p>
-          <p>Phone: (987) 654-3210</p>
+          <h3><LocationOnIcon className="icon" /> Show Room</h3>
+          <p><strong>Address:</strong></p>
+          <p>
+            <LocationOnIcon className='icon' style={{ marginRight: '10px' }} />
+            123 Main Street,
+          </p>          
+          <p style={{ marginLeft: '35px' }} >City, State, ZIP</p>
+          <p><EmailIcon className="icon" /> branch@example.com</p>
+          <p><PhoneIcon className="icon" /> (987) 654-3210</p>
         </div>
       </div>
       <ToastContainer />
