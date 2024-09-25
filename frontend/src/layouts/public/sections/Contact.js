@@ -2,6 +2,7 @@ import React from 'react';
 import Button from '@mui/material/Button';
 import SendIcon from '@mui/icons-material/Send';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
+import ApartmentIcon from '@mui/icons-material/Apartment';
 import EmailIcon from '@mui/icons-material/Email';
 import PhoneIcon from '@mui/icons-material/Phone';
 import '../../../styles/public/main.css';
@@ -153,10 +154,10 @@ const Contact = () => {
 
         {/* Column 2: Main Branch Address */}
         <div className="contact-address">
-          <h3><LocationOnIcon className="icon" /> Main Branch</h3>
+          <h3><LocationOnIcon className="icon" /> Office</h3>
           <p><strong>Address:</strong></p>
           <p>
-            <LocationOnIcon className='icon' style={{ marginRight: '10px' }} />
+            <ApartmentIcon className='icon' style={{ marginRight: '10px' }} />
             123 Main Street,
           </p>          
           <p style={{ marginLeft: '35px' }} >City, State, ZIP</p>
@@ -169,7 +170,7 @@ const Contact = () => {
           <h3><LocationOnIcon className="icon" /> Show Room</h3>
           <p><strong>Address:</strong></p>
           <p>
-            <LocationOnIcon className='icon' style={{ marginRight: '10px' }} />
+            <ApartmentIcon className='icon' style={{ marginRight: '10px' }} />
             123 Main Street,
           </p>          
           <p style={{ marginLeft: '35px' }} >City, State, ZIP</p>

@@ -43,7 +43,7 @@ const ImageSlider = () => {
     return (
         <Box>
             <Box sx={{ display: 'flex', justifyContent: 'center', position: 'relative' }}>
-                <img className='image-slider' src={images[activeIndex]} alt={`Slide ${activeIndex + 1}`} style={{ maxWidth: '100%', width:'100%', height: '600px', objectFit: 'cover' }}
+                <img className='image-slider' src={images[activeIndex]} alt={`Slide ${activeIndex + 1}`} 
 
                 />
                 <Typography
