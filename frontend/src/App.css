@@ -11,7 +11,7 @@ body {
     height: 600px;
     object-fit: cover;
 }
- @media (min-width: 320px) and (max-width:375px) {
+ @media (min-width: 320px) and (max-width:390px) {
     .image-slider {
        object-fit: fill !important;
     }
@@ -27,7 +27,7 @@ body {
         margin-top:105px !important;
     }
 }
-@media (width:425px) {
+@media (min-width:400px) and (max-width:430px){
     .image-slider {
        object-fit: fill !important;
     }
