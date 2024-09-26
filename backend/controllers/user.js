@@ -15,8 +15,9 @@ const loginUser = async (req, res) => {
     console.log(req.body)
     try {
         const user = await User.login(phoneNo, password);
-        if(user){ const token = createToken(user._id);
-        res.status(200).json({ token, "user": user.name, "type": user.type,"id":user._id })
+        if (user) {
+            const token = createToken(user._id);
+            res.status(200).json({ token, "user": user.name, "type": user.type, "id": user._id, "email": user.email, "phone": user.phoneNo, "address": user.address, "profile": user.profile })
         }
     } catch (error) {
         res.status(400).json({ error: error.message })
@@ -26,10 +27,10 @@ const loginUser = async (req, res) => {
 const signupUser = async (req, res) => {
     try {
         const { name, password, phoneNo, email, address } = req.body;
-        const user = await User.signup(name, password, phoneNo, email,address, req.files);
+        const user = await User.signup(name, password, phoneNo, email, address, req.files);
         let token;
         if (user) token = createToken(user._id);
-        if (token) res.status(200).json({ token, "user": user.name,"type": user.type,"id":user._id})
+        if (token) res.status(200).json({ token, "user": user.name, "type": user.type, "id": user._id })
     } catch (error) {
         res.status(400).json({ error: error.message })
     }
@@ -70,9 +71,9 @@ const getAll = async (req, res) => {
             {
                 $project: {
                     name: 1,
-                    email:1,
-                    phoneNo:1,
-                    createdAt:1,
+                    email: 1,
+                    phoneNo: 1,
+                    createdAt: 1,
                     totalDeals: { $size: "$orders" } // Calculate the total number of orders for each user
                 }
             },
@@ -84,6 +85,7 @@ const getAll = async (req, res) => {
 }
 
 const update = async (req, res) => {
+    let profile = JSON.parse(req.body.profile)
     const { id } = req.params;
     let message = 'User is successfully updated!';
     try {
@@ -99,15 +101,30 @@ const update = async (req, res) => {
             req.body.password = hash;
             message = "Password is successfully changed!"
         }
+        let imageInfo = [];
+        if (req.files !== undefined && req.files?.length > 0) {
+            req.files.map((file) => {
+                imageInfo.push({
+                    path: file.path,
+                    name: file.filename,
+                    type: file.mimetype
+                })
+            });
+        }
+        else if (profile.length > 0) {
+            imageInfo = JSON.parse(req.body.profile);
+        }
+
         const user = await User.findOneAndUpdate({ _id: id }, {
-            ...req.body
+            ...req.body,
+            "profile": imageInfo
         }, { new: true });
 
         if (!user) {
             return res.status(404).json({ error: 'No such user' })
         }
 
-        res.status(200).json({ data: { "_id": user._id, "name": user.name, "type": user.type }, message })
+        res.status(200).json({ data: { "user": user.name, "type": user.type, "id": user._id, "email": user.email, "phone": user.phoneNo, "address": user.address, "profile": imageInfo }, message })
     } catch (error) {
         res.status(400).json({ "error": error.message })
     }

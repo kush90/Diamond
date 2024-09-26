@@ -14,6 +14,7 @@ import Deal from './pages/broker/Deal';
 import AuthGuard from './AuthGuard';
 import User from './pages/admin/User';
 import Feedback from './pages/admin/Feedback';
+import Profile from './pages/Profile';
 
 function App() {
   return (
@@ -27,8 +28,10 @@ function App() {
         <Route path="/admin/broker/dashboard" element={<BrokerDashboard/>}/>
         <Route path="/admin/broker/deal" element={<Deal/>}/>
         <Route path="/admin/feedback" element={<Feedback/>}/>
+        <Route path="/admin/profile" element={<Profile/>}/>
       </Route>
       <Route path="*" element={<Error />} />
+
     </Routes>
   </Router>
   );

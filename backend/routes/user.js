@@ -6,7 +6,7 @@ user.post('/login',loginUser);
 user.post('/signup',upload.array('files'),signupUser);
 user.post('/forgot',forgotPassword);
 user.get('/getAll',getAll);
-user.patch('/update/:id',update);
+user.patch('/update/:id',upload.array('files'),update);
 user.delete('/delete/:id',remove);
 
 

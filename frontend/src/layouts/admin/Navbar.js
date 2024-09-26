@@ -20,7 +20,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import logo from '../../assets/logo1.png';
 import '../../styles/admin/main.css';
 import { clearStorage, getStorage, createStorage } from '../../Helper';
-import { get,post } from '../../Api';
+import { get, post } from '../../Api';
 import { useWebSocket } from '../../context';
 
 
@@ -68,7 +68,17 @@ const Navbar = () => {
                 });
             });
         }
+        // Event listener for local storage changes
+        const handleStorageChange = (event) => {
+            if (event.key === 'user') {
+                setUser(JSON.parse(event.newValue));
+            }
+        };
+
+        window.addEventListener('storage', handleStorageChange);
         return () => {
+            window.removeEventListener('storage', handleStorageChange);
+
             // Clean up socket event listener
             if (socket) {
                 socket.off('new-noti');
@@ -99,11 +109,11 @@ const Navbar = () => {
         clearStorage('noti')
     }
 
-    const clearNoti = async() => {
+    const clearNoti = async () => {
         let obj = {};
         const ids = noti.map(notification => notification._id);
         obj['ids'] = ids;
-    
+
         setTimeout(async () => { // Wait for 1 second before clearing notifications
             try {
                 const response = await post('api/notification/update', obj);
@@ -199,6 +209,7 @@ const Navbar = () => {
                                 <MDBIcon icon="user" />
                             </MDBDropdownToggle>
                             <MDBDropdownMenu>
+                                <MDBDropdownItem link onClick={() => navigate('/admin/profile')}>Profile</MDBDropdownItem>
                                 <MDBDropdownItem link onClick={logout}>Logout</MDBDropdownItem>
                             </MDBDropdownMenu>
                         </MDBDropdown>
