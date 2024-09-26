@@ -20,6 +20,26 @@ export const checkStorage = (key) => {
     else return false;
 }
 
+export const updateStorage = (key, newData) => {
+    // Retrieve the current data
+    let existingData = getStorage(key);
+    
+    if (existingData) {
+        // Parse the existing data
+        existingData = JSON.parse(existingData);
+        
+        // Modify the data as needed (e.g., update token or other fields)
+        const updatedData = { ...existingData, ...newData };
+        
+        // Store the updated data
+        createStorage(key, updatedData);
+    } else {
+        // If no data exists, create a new entry with the newData
+        createStorage(key, newData);
+    }
+}
+
+
 // set token to request header
 export const setNetworkHeader = () => {
     let user = JSON.parse(getStorage('user'));
