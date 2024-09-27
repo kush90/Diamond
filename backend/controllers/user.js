@@ -99,7 +99,7 @@ const update = async (req, res) => {
             const salt = await bcrypt.genSalt(10);
             const hash = await bcrypt.hash(req.body.password, salt);
             req.body.password = hash;
-            message = "Password is successfully changed!"
+            message = "Password is successfully changed! Please login with your new password"
         }
         let imageInfo = [];
         if (req.files !== undefined && req.files?.length > 0) {

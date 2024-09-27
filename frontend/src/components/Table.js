@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { MDBTable, MDBTableHead, MDBTableBody, MDBBtn, MDBTooltip, MDBIcon, MDBBadge } from 'mdb-react-ui-kit';
 import { formatDateToLocaleString, separateAndCapitalize } from '../Helper';
 
@@ -7,6 +7,10 @@ import '../styles/table.css'
 
 const Table = ({ title, header, data, editData, deleteData, productData, confirmDeal, viewDetail, confirmDeliver, confirmPayment, viewCommission, getTotalOrder, updateFeedback }) => {
 
+    const [expandedRow, setExpandedRow] = useState(null); // Track the expanded row
+    const handleRowClick = (index) => {
+        setExpandedRow(expandedRow === index ? null : index); // Toggle the clicked row
+    };
     const editRow = (row) => {
         editData(row)
     }
@@ -42,14 +46,47 @@ const Table = ({ title, header, data, editData, deleteData, productData, confirm
                             <tr key={index} >
                                 <th scope='row'>{index + 1}</th>
                                 {title === 'product' && <td className="text-primary pointer">{value.productNumber}</td>}
-                                {(title === 'product' || title === 'category' || title === 'user' || title === 'gemType' || title === 'feedback') && <td className="text-truncate text-primary pointer" style={{ maxWidth: 116 }} onClick={title === 'user' ? () => orderViewByUser(value) : undefined}>{value.name}</td>}
+                                {(title === 'product' || title === 'category' || title === 'user' || title === 'gemType' || title === 'feedback') &&
+
+                                    <td className="text-truncate text-primary pointer" style={{ maxWidth: 116 }} onClick={title === 'user' ? () => orderViewByUser(value) : undefined}>{value.name}</td>
+
+
+                                }
                                 {title === 'product' && value?.categoryId?.name && <td>{separateAndCapitalize(value?.categoryId?.name)}</td>}
                                 {title === 'product' && value?.gemTypeId?.name && <td>{separateAndCapitalize(value?.gemTypeId?.name)}</td>}
                                 {title === 'product' && value.price && <td>{value.price}</td>}
                                 {title === 'feedback' && value.email && <td>{value.email}</td>}
                                 {title === 'feedback' && value.phone && <td>{value.phone}</td>}
-                                {title === 'feedback' && value.message && <td className="text-truncate text-primary pointer" style={{ maxWidth: 116 }}>{value.message}</td>}
-                                {title === 'product' && value.description && <td className="text-truncate text-primary pointer" style={{ maxWidth: 116 }}>{value.description}</td>}
+                                {title === 'feedback' && value.message && (
+                                    <td
+                                        className="text-truncate text-primary pointer"
+                                        style={{
+                                            maxWidth: expandedRow === index ? 'none' : 116,
+                                            overflow: expandedRow === index ? 'visible' : 'hidden',
+                                            textOverflow: expandedRow === index ? 'unset' : 'ellipsis',
+                                            whiteSpace: expandedRow === index ? 'normal' : 'nowrap',
+                                            cursor: 'pointer',
+                                        }}
+                                        onClick={() => handleRowClick(index)} // Toggle full text on click
+                                    >
+                                        {value.message}
+                                    </td>
+                                )}
+                                {title === 'product' && value.description &&
+                                    <td
+                                        className="text-truncate text-primary pointer"
+                                        style={{
+                                            maxWidth: expandedRow === index ? 'none' : 116,
+                                            overflow: expandedRow === index ? 'visible' : 'hidden',
+                                            textOverflow: expandedRow === index ? 'unset' : 'ellipsis',
+                                            whiteSpace: expandedRow === index ? 'normal' : 'nowrap',
+                                            cursor: 'pointer',
+                                        }}
+                                        onClick={() => handleRowClick(index)} // Toggle full text on click
+                                    >
+                                        {value.description}
+                                    </td>
+                                }
                                 {(title === 'product' || title === 'feedback') && value.status && <td>
 
                                     {(value.status === 'active') &&
