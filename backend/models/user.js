@@ -58,17 +58,17 @@ userSchema.statics.signup = async function (name, password, phoneNo, email,addre
     try {
         const salt = await bcrypt.genSalt(10);
         const hash = await bcrypt.hash(password, salt);
-        let imageInfo;
+        let imageInfo=[];
         if (files) {
-            imageInfo = await files.map((file) => {
-                return {
+            await files.map((file) => {
+                imageInfo.push({
                     path: file.path,
                     name: file.filename,
                     type: file.mimetype
-                }
+                })
             });
         }
-        const newUser = await this.create({ name, password: hash, profile: imageInfo, email, phoneNo,address });
+        const newUser = await this.create({ name, password: hash, "profile": imageInfo, email, phoneNo,address });
         return newUser;
     }
     catch (error) {
