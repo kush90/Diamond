@@ -7,7 +7,7 @@ import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 const images = [
     'https://savannahjewelrygallery.com/cdn/shop/files/Apr2024CoverPic_640x640.jpg?v=1713199543',
     'https://www.savannah.com/wp-content/uploads/168528831_398851991311985_7658763570048274097_n-1024x868.jpeg',
-    'https://scontent.fbkk2-7.fna.fbcdn.net/v/t39.30808-6/275943161_636197884244060_7931198161046793112_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=cc71e4&_nc_ohc=8W1gUevu_G8Q7kNvgFlrAN3&_nc_zt=23&_nc_ht=scontent.fbkk2-7.fna&oh=00_AYBDQXA7eNuGB9A7bflwO1JtVGT4yXHwPKcIjocBvmOa_w&oe=66F7E2B8'
+    'https://static.wixstatic.com/media/57b89c_a6228023c01b4e908fac4428f9380ca8~mv2.jpg/v1/fill/w_568,h_314,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/57b89c_a6228023c01b4e908fac4428f9380ca8~mv2.jpg'
 ];
 
 const ImageSlider = () => {
