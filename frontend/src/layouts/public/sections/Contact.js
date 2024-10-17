@@ -154,7 +154,7 @@ const Contact = () => {
 
         {/* Column 2: Main Branch Address */}
         <div className="contact-address">
-          <h3><LocationOnIcon className="icon" /> Office</h3>
+          <h3><LocationOnIcon className="icon" /> Office (Mogok Ruby Queen)</h3>
           <p><strong>Address:</strong></p>
           <p>
             <ApartmentIcon className='icon' style={{ marginRight: '10px' }} />

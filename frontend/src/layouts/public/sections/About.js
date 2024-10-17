@@ -1,22 +1,46 @@
 import React from 'react';
 import logo from "../../../assets/logo1.png";
+// import anotherImage from "../../../assets/anotherImage.png";
 import '../../../styles/public/main.css';
 
 const About = () => (
-  <div className="about-section" id="about">
-    <div className="about-content">
-      <div className="about-image">
-        <img src={logo} className="w3-round w3-opacity-min" alt="Table Setting" width="600" height="750" />
+  <div>
+    {/* First Section */}
+    <div className="about-section" id="about">
+      <div className="about-content">
+        <div className="about-image">
+          <img src={logo} className="w3-round w3-opacity-min" alt="Table Setting" />
+        </div>
+        <div className="about-text">
+          <h1 className="w3-center" style={{ fontWeight: 'bolder' }}>About Business Alliance Hub</h1><br />
+          <h5 style={{ fontWeight: 'bold' }}>Building Successful Businesses Since 1985</h5><br />
+          <p className="w3-large">
+            <strong>Business Alliance Hub (BAH)</strong> is Myanmar’s premier one-stop solution for foreign investors. Located on the top floor of the newly established Business Alliance Hub, our full-service business center is fully equipped to meet every business requirement—from office supplies and equipment to state-of-the-art conference rooms, private office spaces, and comprehensive secretarial services.</p>
+          <p className="w3-large">
+            Our in-house consultants are highly knowledgeable in Myanmar’s Foreign Investment Law and are ready to assist investors throughout all stages of business development. Whether you're forming your company or are still in the planning phase, BAH provides the expertise and resources to support your success.
+          </p>
+          <p className='w3-large'>We are a dynamic team of over 500 seasoned professionals, each committed to driving value for our clients. From engineers, scientists, and geologists to experts in recruitment, career development, and more, we uphold the highest standards of excellence and integrity. Our corporate values shape our culture, guiding every decision we make to ensure our clients achieve their business goals.</p>
+        </div>
       </div>
-      <div className="about-text">
-        <h1 className="w3-center">About Business Alliance Hub</h1><br />
-        <h5 className="w3-center"> Since 1889</h5>
-        <p className="w3-large">
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-        </p>
-        <p className="w3-large w3-text-grey w3-hide-medium">
-          There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.
-        </p>
+    </div>
+
+    {/* Second Section */}
+    <div className="about-section">
+      <div className="about-content">
+        <div className="about-text">
+          <h1 className="w3-center" style={{ fontWeight: 'bolder' }}>Our Vision and Mission</h1><br />
+          <h5 style={{ fontWeight: 'bold' }}>Driving Innovation and Sustainable Growth</h5><br />
+          <p className="w3-large">
+            At <strong>Business Alliance Hub (BAH)</strong>, our vision is to be the leading business consulting service for companies looking to expand in Myanmar and Southeast Asia. We aim to offer exceptional service that creates real impact for our clients and their businesses.</p>
+          <p className="w3-large">
+            Our mission is simple: to provide comprehensive, top-tier support that enables businesses to navigate the complexities of operating in Myanmar with confidence. From market entry strategies to navigating local regulations, we stand by our clients every step of the way.
+          </p>
+          <p className='w3-large'>Through innovative solutions and a commitment to excellence, we are continually evolving to meet the needs of a rapidly changing market, ensuring that every client we work with achieves sustainable growth.</p>
+        </div>
+        <div className="about-image">
+          <img src={logo} className="w3-round w3-opacity-min" alt="Vision and Mission" />
+        </div>
+
       </div>
     </div>
   </div>

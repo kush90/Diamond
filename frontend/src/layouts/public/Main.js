@@ -7,10 +7,7 @@ const Main = () => {
     return (
         <>
             <Content></Content>
-            <MDBContainer fluid>
-                <><Outlet /></>
-            </MDBContainer>
-
+            <><Outlet /></>
         </>
     )
 }
