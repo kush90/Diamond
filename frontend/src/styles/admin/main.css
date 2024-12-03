@@ -83,3 +83,12 @@
         white-space: normal;
     }
 }
+
+.custom-btn {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0 !important; /* Ensure no unnecessary spacing */
+    width: 40px !important; /* Optional: Define size */
+    height: 40px !important; /* Optional: Define size */
+}

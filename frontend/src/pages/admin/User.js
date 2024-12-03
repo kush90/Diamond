@@ -12,6 +12,8 @@ import {
 } from 'mdb-react-ui-kit';
 import '../../styles/admin/main.css'
 import TableModal from '../../components/modals/TableModal';
+import * as XLSX from "xlsx";
+
 
 const User = () => {
     const [loading, setLoading] = React.useState(true);
@@ -70,12 +72,31 @@ const User = () => {
             }
         }
     }
+    const exportExcel = () => {
+        const worksheet = XLSX.utils.json_to_sheet(userData);
+        const workbook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
+        // Export the Excel file
+        XLSX.writeFile(workbook, 'users.xlsx');
+    };
     return (
         <MDBRow className='custom-margin-top'>
             <MDBCol md='12' >
                 <MDBCard alignment='center' style={{ height: '100%' }}>
                     <MDBCardHeader>
-                        <span className='text-primary'>Users</span> <span className='text-danger'>({userData.length})</span>
+                        <span className='text-primary'>Users</span> <span className='text-danger'>({userData.length})
+                        <MDBBtn
+                                onClick={() => exportExcel()}
+                                tag="a"
+                                size='sm'
+                                className='text-primary' style={{ left: '10px', top: '3px' }} color='light'
+                                floating
+                            >
+                                <MDBTooltip tag="span" title="Export Data">
+                                    <MDBIcon fas icon="file-excel" />
+                                </MDBTooltip>
+                            </MDBBtn>
+                        </span>
                         <MDBBtn onClick={() => getUserData()} size='sm' className='text-primary position-absolute top-7 end-0 mt-1 me-3' tag='a' color='light' floating>
                             <MDBTooltip tag='span' title="Get Latest Data">
                                 <MDBIcon fas icon="sync-alt" />

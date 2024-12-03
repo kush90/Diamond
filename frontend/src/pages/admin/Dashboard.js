@@ -14,6 +14,7 @@ import CategoryForm from '../../components/modals/CategoryForm';
 import GemTypeForm from '../../components/modals/GemTypeForm';
 import ProductForm from '../../components/modals/ProductForm';
 import '../../styles/admin/main.css'
+import * as XLSX from "xlsx";
 
 import { get, post, patch, remove } from '../../Api';
 
@@ -439,6 +440,33 @@ const Dashboard = () => {
         setTempDeleteData('')
     }
 
+    const exportExcelProduct = () => {
+        // Preprocess product data
+    const formattedData = productData.map((item) => ({
+        Name: item.name,
+        Price: item.price,
+        Description: item.description,
+        "Short Description": item.shortDescription,
+        Status: item.status,
+        "Product Number": item.productNumber,
+        "Gem Type": item.gemTypeId?.name || "N/A", // Display gemTypeId name
+        "Category": item.categoryId?.name || "N/A", // Display categoryId name
+        Certificates: item.certificate.map((cert) => cert.path).join(", "), // Join certificates paths
+        Images: item.images.map((img) => img.name).join(", "), // Join image names
+        "Created By": item.createdBy,
+        "Created At": new Date(item.createdAt).toLocaleString(), // Format date
+        "Updated At": new Date(item.updatedAt).toLocaleString(), // Format date
+    }));
+
+    // Create a worksheet and workbook
+    const worksheet = XLSX.utils.json_to_sheet(formattedData);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Products");
+
+    // Export the Excel file
+    XLSX.writeFile(workbook, 'products.xlsx');
+    };
+
     return (
         <>
             <MDBRow className='custom-margin-top'>
@@ -447,7 +475,19 @@ const Dashboard = () => {
                     <MDBCard alignment='center' style={{ height: '100%' }}>
                         <MDBCardHeader>
 
-                            <span className='text-primary'>Products</span> <span className='text-danger'>({productData.length})</span>
+                            <span className='text-primary'>Products</span> <span className='text-danger'>({productData.length})
+                            <MDBBtn
+                                onClick={() => exportExcelProduct()}
+                                tag="a"
+                                size='sm'
+                                className='text-primary' style={{ left: '10px', top: '3px' }} color='light'
+                                floating
+                            >
+                                <MDBTooltip tag="span" title="Export Data">
+                                    <MDBIcon fas icon="file-excel" />
+                                </MDBTooltip>
+                            </MDBBtn>
+                            </span>
                             {
                                 categoryData.length > 0 && (<MDBBtn onClick={() => setProductModal(true)} size='sm' className='text-primary position-absolute top-0 end-0 mt-1 me-3' tag='a' color='light' floating>
 
