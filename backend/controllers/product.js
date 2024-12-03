@@ -56,10 +56,23 @@ const create = async (req, res) => {
             }
         });
         const createdBy = req.user._id;
-        const product = await Product.create({ productNumber, name, description, shortDescription, categoryId,gemTypeId, price, createdBy, "images": imageInfo, certificate });
         // const noti = await Noti.create({ noti: 'New product is available now!', createdBy:null });
         // socket.emitNewNoti(noti)
-        const newProduct = await product.populate('categoryId').populate('gemTypeId');
+        const product = await Product.create({
+            productNumber, 
+            name, 
+            description, 
+            shortDescription, 
+            categoryId, 
+            gemTypeId, 
+            price, 
+            createdBy, 
+            images: imageInfo, 
+            certificate
+        });
+        
+        // Retrieve the product again and populate the necessary fields
+        const newProduct = await Product.findById(product._id).populate('categoryId').populate('gemTypeId');
         res.status(200).json({ data: newProduct, message: 'Product is successfully created.' })
     } catch (error) {
         res.status(400).json({ error: error.message })
