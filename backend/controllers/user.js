@@ -59,6 +59,9 @@ const getAll = async (req, res) => {
         //     }
         // }
         // const users = await User.find(query).sort({ createdAt: -1 }).select('name email phoneNo createdAt'); ;
+        const limit = parseInt(req.query.limit) || 10;
+        const page = parseInt(req.query.page) || 1;
+        const totalCount = await User.countDocuments();
         const users = await User.aggregate([
             {
                 $lookup: {
@@ -77,8 +80,9 @@ const getAll = async (req, res) => {
                     totalDeals: { $size: "$orders" } // Calculate the total number of orders for each user
                 }
             },
-        ]).sort({ createdAt: 1 });
-        res.status(200).json({ data: users })
+        ]).sort({ createdAt: 1 }).skip((page - 1) * limit)
+        .limit(limit);
+        res.status(200).json({ data: users,totalCount })
     } catch (error) {
         res.status(400).json({ "error": error.message })
     }

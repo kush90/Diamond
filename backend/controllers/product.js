@@ -150,8 +150,12 @@ const getAll = async (req, res) => {
                 query.gemTypeId = req.query.gemTypeId;
             }
         }
-        const products = await Product.find(query).populate('categoryId').populate('gemTypeId').sort({ createdAt: -1 });
-        res.status(200).json({ data: products })
+        const limit = parseInt(req.query.limit) || 5;
+        const page = parseInt(req.query.page) || 1;
+        const totalCount = await Product.countDocuments();
+        const products = await Product.find(query).populate('categoryId').populate('gemTypeId').sort({ createdAt: -1 }).skip((page - 1) * limit)
+        .limit(limit);
+        res.status(200).json({ data: products,totalCount })
     } catch (error) {
         res.status(400).json({ "error": error.message })
     }
@@ -173,8 +177,12 @@ const getAllForAdmin = async (req, res) => {
                 query.categoryId = req.query.categoryId;
             }
         }
-        const products = await Product.find(query).populate('categoryId').populate('gemTypeId').sort({ createdAt: -1 });
-        res.status(200).json({ data: products })
+        const limit = parseInt(req.query.limit) || 10;
+        const page = parseInt(req.query.page) || 1;
+        const totalCount = await Product.countDocuments();
+        const products = await Product.find(query).populate('categoryId').populate('gemTypeId').sort({ createdAt: -1 }).skip((page - 1) * limit)
+        .limit(limit);
+        res.status(200).json({ data: products,totalCount })
     } catch (error) {
         res.status(400).json({ "error": error.message })
     }

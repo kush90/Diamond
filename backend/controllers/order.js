@@ -110,8 +110,12 @@ const getAll = async (req, res) => {
                 query.referenceNo = { '$regex': req.query.referenceNo, '$options': 'i' };
             }
         }
-        const orders = await Order.find(query).populate('broker').populate('product').sort({ createdAt: -1 });
-        res.status(200).json({ data: orders })
+        const limit = parseInt(req.query.limit) || 10;
+        const page = parseInt(req.query.page) || 1;
+        const totalCount = await Product.countDocuments();
+        const orders = await Order.find(query).populate('broker').populate('product').sort({ createdAt: -1 }).skip((page - 1) * limit)
+        .limit(limit);
+        res.status(200).json({ data: orders,totalCount })
     } catch (error) {
         res.status(400).json({ "error": error.message })
     }
@@ -127,8 +131,12 @@ const getAllForAdmin = async (req, res) => {
                 query.referenceNo = { '$regex': req.query.referenceNo, '$options': 'i' };
             }
         }
-        const orders = await Order.find(query).populate('broker').populate('product').sort({ createdAt: -1 });
-        res.status(200).json({ data: orders })
+        const limit = parseInt(req.query.limit) || 10;
+        const page = parseInt(req.query.page) || 1;
+        const totalCount = await Order.countDocuments();
+        const orders = await Order.find(query).populate('broker').populate('product').sort({ createdAt: -1 }).skip((page - 1) * limit)
+        .limit(limit);
+        res.status(200).json({ data: orders,totalCount })
     } catch (error) {
         res.status(400).json({ "error": error.message })
     }

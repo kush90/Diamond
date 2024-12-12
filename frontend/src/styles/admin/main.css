@@ -83,3 +83,41 @@
         white-space: normal;
     }
 }
+.pagination-container {
+    display: flex;
+    justify-content: end;
+    /* Center align the pagination */
+    align-items: center;
+    padding: 10px;
+  }
+  
+  .pagination-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .pagination-label,
+  .pagination-displayed-rows {
+    margin: 0 5px;
+    font-size: 14px;
+    color: #555;
+  }
+  
+  .pagination-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .pagination-container .MuiTablePagination-select {
+    font-size: 14px;
+    color: #333;
+  }
+  
+  .pagination-container .MuiTablePagination-actions {
+    color: #1976d2;
+    /* Customize action button color */
+  }
+  

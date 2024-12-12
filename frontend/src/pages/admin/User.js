@@ -20,15 +20,18 @@ const User = () => {
     const [tableModal, setTableModal] = React.useState(false);
     const [tableData, setTableData] = React.useState([]);
     const tableHeader = ['referenceNo', 'product', 'price', 'status', 'date'];
-
+    const [page, setPage] = React.useState(0);
+    const [rowsPerPage, setRowsPerPage] = React.useState(10);
+    const [totalCount, setTotalCount] = React.useState(null);
 
     const getUserData = async () => {
         try {
             setLoading(true)
-            const response = await get('api/user/getAll');
+            const response = await get(`api/user/getAll?page=${page + 1}&limit=${rowsPerPage}`);
             if (response.status === 200) {
                 setLoading(false);
                 setUserData(response.data.data);
+                setTotalCount(response.data.totalCount)
             }
         }
         catch (error) {
@@ -43,7 +46,7 @@ const User = () => {
     }
     useEffect(() => {
         getUserData();
-    }, []);
+    }, [page, rowsPerPage]);
 
     const getTotalOrder = (value)=>{
         setTableModal(true)
@@ -70,6 +73,14 @@ const User = () => {
             }
         }
     }
+
+    const handlePageChange = (newPage, newRowsPerPage) => {
+        console.log(newPage)
+        setPage(newPage);
+        console.log(page)
+        setRowsPerPage(newRowsPerPage);
+    };
+
     return (
         <MDBRow className='custom-margin-top'>
             <MDBCol md='12' >
@@ -83,7 +94,7 @@ const User = () => {
                         </MDBBtn>
                     </MDBCardHeader>
                     <MDBCardBody className='custom-height-setting'>
-                        {(loading === false) ? (<Table title={'user'} header={userHeader} data={userData} getTotalOrder={getTotalOrder} />)
+                        {(loading === false) ? (<Table title={'user'} header={userHeader} data={userData} getTotalOrder={getTotalOrder}  page={page} rowsPerPage={rowsPerPage} onPageChange={handlePageChange} totalCount={totalCount} />)
 
                             : (<MDBSpinner role='status'>
                                 <span className='visually-hidden'>Loading...</span>

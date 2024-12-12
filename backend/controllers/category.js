@@ -57,8 +57,12 @@ const getAll = async (req, res) => {
                 query.name = { '$regex': req.query.search, '$options': 'i' };
             }
         }
-        const categories = await Category.find(query).sort({ createdAt: -1 });
-        res.status(200).json({ data: categories })
+        const limit = parseInt(req.query.limit) || 10;
+        const page = parseInt(req.query.page) || 1;
+        const totalCount = await Category.countDocuments();
+        const categories = await Category.find(query).sort({ createdAt: -1 }).skip((page - 1) * limit)
+        .limit(limit);
+        res.status(200).json({ data: categories,totalCount })
     } catch (error) {
         res.status(400).json({ "error": error.message })
     }

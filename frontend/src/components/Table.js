@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { MDBTable, MDBTableHead, MDBTableBody, MDBBtn, MDBTooltip, MDBIcon, MDBBadge } from 'mdb-react-ui-kit';
 import { formatDateToLocaleString, separateAndCapitalize } from '../Helper';
+import Pagination from './Pagination';
 
 import '../styles/table.css'
 
 
-const Table = ({ title, header, data, editData, deleteData, productData, confirmDeal, viewDetail, confirmDeliver, confirmPayment, viewCommission, getTotalOrder, updateFeedback }) => {
+const Table = ({ title, header, data, editData, deleteData, productData, confirmDeal, viewDetail, confirmDeliver, confirmPayment, viewCommission, getTotalOrder, updateFeedback,onPageChange, page, rowsPerPage, totalCount }) => {
 
     const [expandedRow, setExpandedRow] = useState(null); // Track the expanded row
     const handleRowClick = (index) => {
@@ -25,7 +26,13 @@ const Table = ({ title, header, data, editData, deleteData, productData, confirm
     const updateStatus = (row) => {
         updateFeedback(row)
     }
+
+    const handlePageChange = (newPage, newRowsPerPage) => {
+        onPageChange(newPage, newRowsPerPage);
+    };
+
     return (
+        <>
         <MDBTable>
 
             <MDBTableHead>
@@ -250,6 +257,13 @@ const Table = ({ title, header, data, editData, deleteData, productData, confirm
             </MDBTableBody>
 
         </MDBTable>
+        <Pagination
+        page={page}
+        rowsPerPage={rowsPerPage}
+        count={totalCount}
+        onPageChange={handlePageChange}
+    />
+    </>
     );
 }
 

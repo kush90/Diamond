@@ -65,17 +65,22 @@ const getAll = async (req, res) => {
     try {
         let query = {};
         if (Object.keys(req.query).length !== 0) {
-            
+
             // Check if req.query.search is present and not empty
             if (req.query.search) {
                 query.name = { '$regex': req.query.search, '$options': 'i' };
             }
         }
-        const feedbacks = await Feedback.find(query).sort({ createdAt: -1 });
-        res.status(200).json({ data: feedbacks })
+        const limit = parseInt(req.query.limit) || 10;
+        const page = parseInt(req.query.page) || 1;
+        const totalCount = await Feedback.countDocuments();
+        const feedbacks = await Feedback.find(query).sort({ createdAt: -1 }).skip((page - 1) * limit)
+            .limit(limit);
+        res.status(200).json({ data: feedbacks, totalCount })
     } catch (error) {
         res.status(400).json({ "error": error.message })
     }
+
 }
 
 const get = async (req, res) => {

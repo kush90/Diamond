@@ -44,6 +44,17 @@ const Dashboard = () => {
     const [tempEditProductData, setTempEditProductData] = React.useState('');
     const productHeader = ['productNumber', 'name', 'category', 'gem Type', 'price', 'description', 'status', 'createdAt', 'action'];
 
+    const [productPage, setProductPage] = React.useState(0);
+    const [rowsPerProductPage, setRowsPerProductPage] = React.useState(10);
+    const [totalCountProduct, setTotalCountProduct] = React.useState(null);
+
+    const [categoryPage, setCategoryPage] = React.useState(0);
+    const [rowsPerCategoryPage, setRowsPerCategoryPage] = React.useState(10);
+    const [totalCountCategory, setTotalCountCategory] = React.useState(null);
+
+    const [gemTypePage, setGemTypePage] = React.useState(0);
+    const [rowsPerGemTypePage, setRowsPerGemTypePage] = React.useState(10);
+    const [totalCountGemType, setTotalCountGemType] = React.useState(null);
 
     const getCategoryData = async () => {
         try {
@@ -52,6 +63,7 @@ const Dashboard = () => {
             if (response.status === 200) {
                 setCatLoading(false);
                 setCategoryData(response.data.data);
+                setTotalCountCategory(response.data.totalCount)
             }
         }
         catch (error) {
@@ -72,6 +84,7 @@ const Dashboard = () => {
             if (response.status === 200) {
                 setGemTypeLoading(false);
                 setGemTypeData(response.data.data);
+                setTotalCountGemType(response.data.totalCount)
                 console.log(gemTypeData)
             }
         }
@@ -89,10 +102,11 @@ const Dashboard = () => {
     const getProductData = async () => {
         try {
             setLoading(true)
-            const response = await get('api/product/getAll/admin');
+            const response = await get(`api/product/getAll/admin?page=${productPage + 1}&limit=${rowsPerProductPage}`);
             if (response.status === 200) {
                 setLoading(false);
                 setProductData(response.data.data);
+                setTotalCountProduct(response.data.totalCount)
             }
         }
         catch (error) {
@@ -107,10 +121,16 @@ const Dashboard = () => {
     }
 
     useEffect(() => {
-        getCategoryData();
-        getProductData();
         getGemTypeData();
-    }, []);
+    }, [gemTypePage, rowsPerGemTypePage]);
+
+    useEffect(() => {
+        getCategoryData();
+    }, [categoryPage,rowsPerCategoryPage]);
+
+    useEffect(() => {
+        getProductData();
+    }, [productPage,rowsPerProductPage]);
 
     /*  ====== Product CRUD ====== */
 
@@ -439,6 +459,24 @@ const Dashboard = () => {
         setTempDeleteData('')
     }
 
+    const handlePageChangeProduct = (newPage, newRowsPerPage) => {
+        console.log(newPage)
+        setProductPage(newPage);
+        setRowsPerProductPage(newRowsPerPage);
+    };
+
+    const handlePageChangeCategory = (newPage, newRowsPerPage) => {
+        console.log(newPage)
+        setCategoryPage(newPage);
+        setRowsPerCategoryPage(newRowsPerPage);
+    };
+
+    const handlePageChangeGemType = (newPage, newRowsPerPage) => {
+        console.log(newPage)
+        setGemTypePage(newPage);
+        setRowsPerGemTypePage(newRowsPerPage);
+    };
+
     return (
         <>
             <MDBRow className='custom-margin-top'>
@@ -460,7 +498,7 @@ const Dashboard = () => {
 
                         </MDBCardHeader>
                         <MDBCardBody className='custom-height-setting'>
-                            {(loading === false) ? (<Table title={'product'} header={productHeader} data={productData} editData={openProductModal} deleteData={deleteProductConfirm} />)
+                            {(loading === false) ? (<Table title={'product'} header={productHeader} data={productData} editData={openProductModal} deleteData={deleteProductConfirm}  page={productPage} rowsPerPage={rowsPerProductPage} onPageChange={handlePageChangeProduct} totalCount={totalCountProduct}/>)
 
                                 : (<MDBSpinner role='status'>
                                     <span className='visually-hidden'>Loading...</span>
@@ -542,7 +580,7 @@ const Dashboard = () => {
 
                         </MDBCardHeader>
                         <MDBCardBody className='custom-height-setting'>
-                            {(catLoading === false) ? (<Table title={'category'} header={categoryHeader} data={categoryData} editData={openCategoryModal} deleteData={deleteCategoryConfirm} />)
+                            {(catLoading === false) ? (<Table title={'category'} header={categoryHeader} data={categoryData} editData={openCategoryModal} deleteData={deleteCategoryConfirm} page={categoryPage} rowsPerPage={rowsPerCategoryPage} onPageChange={handlePageChangeCategory} totalCount={totalCountCategory} />)
                                 : (
                                     <MDBSpinner role='status'>
                                         <span className='visually-hidden'>Loading...</span>
@@ -564,7 +602,7 @@ const Dashboard = () => {
 
                         </MDBCardHeader>
                         <MDBCardBody className='custom-height-setting'>
-                            {(gemTypeLoading === false) ? (<Table title={'gemType'} header={gemTypeHeader} data={gemTypeData} editData={openGemTypeModal} deleteData={deleteGemTypeConfirm} />)
+                            {(gemTypeLoading === false) ? (<Table title={'gemType'} header={gemTypeHeader} data={gemTypeData} editData={openGemTypeModal} deleteData={deleteGemTypeConfirm} page={gemTypePage} rowsPerPage={rowsPerGemTypePage} onPageChange={handlePageChangeGemType} totalCount={totalCountGemType}/>)
                                 : (
                                     <MDBSpinner role='status'>
                                         <span className='visually-hidden'>Loading...</span>

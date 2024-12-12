@@ -17,15 +17,19 @@ const Feedback = () => {
     const tableHeader = ['name', 'email', 'phone','message','status','date','action'];
     const [tableData, setTableData] = React.useState([]);
     const [tableModal,setTableModal] = React.useState(false)
+    const [page, setPage] = React.useState(0);
+    const [rowsPerPage, setRowsPerPage] = React.useState(10);
+    const [totalCount, setTotalCount] = React.useState(null);
 
 
     const getFeedbackData = async () => {
         try {
             setLoading(true)
-            const response = await get('api/feedback/getAll');
+            const response = await get(`api/feedback/getAll?page=${page + 1}&limit=${rowsPerPage}`);
             if (response.status === 200) {
                 setLoading(false);
                 setTableData(response.data.data);
+                setTotalCount(response.data.totalCount)
             }
         }
         catch (error) {
@@ -40,7 +44,7 @@ const Feedback = () => {
     }
     useEffect(() => {
         getFeedbackData();
-    }, []);
+    }, [page, rowsPerPage]);
 
     const updateStatus = async(value)=>{
         value.status = 'confirmed'
@@ -67,6 +71,13 @@ const Feedback = () => {
             setLoading(false);
         }
     }
+    const handlePageChange = (newPage, newRowsPerPage) => {
+        console.log(newPage)
+        setPage(newPage);
+        console.log(page)
+        setRowsPerPage(newRowsPerPage);
+    };
+
     return (
         <MDBRow className='custom-margin-top'>
             <MDBCol md='12' >
@@ -80,7 +91,7 @@ const Feedback = () => {
                         </MDBBtn>
                     </MDBCardHeader>
                     <MDBCardBody className='custom-height-setting'>
-                        {(loading === false) ? (<Table title={'feedback'} header={tableHeader} data={tableData} updateFeedback={updateStatus} />)
+                        {(loading === false) ? (<Table title={'feedback'} header={tableHeader} data={tableData} updateFeedback={updateStatus}  page={page} rowsPerPage={rowsPerPage} onPageChange={handlePageChange} totalCount={totalCount} />)
 
                             : (<MDBSpinner role='status'>
                                 <span className='visually-hidden'>Loading...</span>
