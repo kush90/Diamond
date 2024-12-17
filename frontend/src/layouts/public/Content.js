@@ -13,6 +13,7 @@ import Contact from './sections/Contact';
 import Footer from './components/Footer';
 import axios from 'axios';
 import { createStorage, API_URL, getStorage } from "../../Helper";
+import ProductSearch from './sections/ProductSearch';
 
 export default function Content() {
   const navigate = useNavigate();
@@ -132,6 +133,8 @@ export default function Content() {
             <About />
             <hr />
             <Contact />
+            <hr/>
+            <ProductSearch/>
 
             {registerModal && <Register open={registerModal} close={close} loading={loading} />}
             {loginModal && <Login open={loginModal} close={loginClose} loading={loading} forgotPasswordOpen={forgotPasswordOpenModal} />}

@@ -38,6 +38,7 @@ const Navbar = (props) => {
           <a href="#contact" className="w3-bar-item w3-button">Contact</a>
           <a href="#login" className="w3-bar-item w3-button" onClick={props.login}>Login</a>
           <a href="#register" className="w3-bar-item w3-button" onClick={props.register}>Register</a>
+          <a href="#search" className="w3-bar-item w3-button">Product Search</a>
         </div>
       </div>
 
@@ -48,6 +49,7 @@ const Navbar = (props) => {
           <a href="#contact" className="w3-bar-item w3-button" onClick={handleLinkClick}>Contact</a>
           <a href="#login" className="w3-bar-item w3-button" onClick={props.login}>Login</a>
           <a href="#register" className="w3-bar-item w3-button" onClick={props.register}>Register</a>
+          <a href="#search" className="w3-bar-item w3-button">Product Search</a>
         </div>
       )}
     </div>

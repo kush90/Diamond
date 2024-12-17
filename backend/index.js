@@ -12,6 +12,7 @@ const categoryRoutes = require('./routes/category')
 const gemTypeRoutes = require('./routes/gemType')
 const notificationRoutes = require('./routes/notification')
 const feedbackRoutes = require('./routes/feedback')
+const publicRoutes = require('./routes/public');
 
 const io = require('./middleware/socket');
 // express app
@@ -37,6 +38,7 @@ app.use('/api/category', categoryRoutes);
 app.use('/api/gemType', gemTypeRoutes);
 app.use('/api/notification',notificationRoutes);
 app.use('/api/feedback',feedbackRoutes)
+app.use('/api/public',publicRoutes)
 
 let server = app.listen(process.env.PORT, () => {
   console.log('connected to db & listening on port', process.env.PORT)

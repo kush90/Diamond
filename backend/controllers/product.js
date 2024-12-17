@@ -196,6 +196,24 @@ const get = async (req, res) => {
     }
 }
 
+const getByProductNumber = async (req, res) => {
+    try {
+        const productNumber = req.params.productNumber;
+    
+        // Search for a product using `findOne`
+        const product = await Product.findOne({ productNumber: productNumber });
+    
+        if (!product || product === null) {
+          return res.status(404).json({ message: 'Product not found' });
+        }
+    
+        res.status(200).json(product); // Send the product as a response
+      } catch (err) {
+        console.error(err);
+        res.status(400).json({ message: 'Server error' });
+      }
+}
+
 const remove = async (req, res) => {
     const { id } = req.params;
     try {
@@ -215,4 +233,4 @@ const remove = async (req, res) => {
         res.status(400).json({ "error": error.message })
     }
 }
-module.exports = { create, update, getAll, get, remove, getAllForAdmin };
+module.exports = { create, update, getAll, get, getByProductNumber, remove, getAllForAdmin };

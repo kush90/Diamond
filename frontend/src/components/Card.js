@@ -12,7 +12,7 @@ import ProductImage from '../components/modals/ProductImage';
 import defaultImage from '../assets/default.jpeg';
 import { API_URL } from '../Helper';
 
-const Card = ({ data, handleClick }) => {
+const Card = ({ data, handleClick, hideFooter = false }) => {
   const [productImageModal, setProductImageModal] = React.useState(false);
   const book = () => {
     handleClick(data);
@@ -47,9 +47,13 @@ const Card = ({ data, handleClick }) => {
           </MDBCardText>
 
         </MDBCardBody>
-        <MDBCardFooter>
-          <MDBBtn onClick={book} className="book-btn" rounded>Book</MDBBtn>
-        </MDBCardFooter>
+        {!hideFooter && (
+          <MDBCardFooter>
+            <MDBBtn onClick={book} className="book-btn" rounded>
+              Book
+            </MDBBtn>
+          </MDBCardFooter>
+        )}
       </MDBCard>
       {productImageModal && <ProductImage open={productImageModal} closeModal={closeProductImageModal} data={data.images} />}
     </>
