@@ -68,7 +68,7 @@ const ProductSearch = () => {
                             />
                         </p>
                         <div className="button-container" style={{ display: 'flex', gap: '10px', marginBottom: '10px' }}>
-                            <Button type="submit" variant="contained" endIcon={<SendIcon />}>
+                            <Button  disabled={loading} type="submit" variant="contained" endIcon={<SendIcon />}>
                                 {loading ? 'Loading...' : 'Search'}
                             </Button>
                             <Button
