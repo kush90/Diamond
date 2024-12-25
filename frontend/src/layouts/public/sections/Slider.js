@@ -10,7 +10,7 @@ import img4 from "../../../assets/img4.jpg"
 import '../../../styles/public/main.css';
 const Slider = () => (
     <div className="w3-container padding-contact" id="jewelleries">
-    <h1>jewelleries</h1>
+    <h1>Jewelleries</h1>
     <Slide slidesToScroll={1} slidesToShow={1} indicators={true} autoplay={true} pauseOnHover={true} duration={1500} responsive={[
       {
         breakpoint: 800,
@@ -40,7 +40,6 @@ const Slider = () => (
       </div>
       <div style={{
         textAlign: 'center',
-        background: 'orange',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
@@ -58,7 +57,6 @@ const Slider = () => (
       </div>
       <div style={{
         textAlign: 'center',
-        background: 'yellow',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
@@ -76,7 +74,6 @@ const Slider = () => (
       </div>
       <div style={{
         textAlign: 'center',
-        background: 'yellow',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
@@ -94,7 +91,6 @@ const Slider = () => (
       </div>
       <div style={{
         textAlign: 'center',
-        background: 'yellow',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
