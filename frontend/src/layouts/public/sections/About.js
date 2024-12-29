@@ -1,5 +1,6 @@
 import React from 'react';
 import logo from "../../../assets/logo1.png";
+import img11 from "../../../assets/img11.jpg";
 // import anotherImage from "../../../assets/anotherImage.png";
 import '../../../styles/public/main.css';
 
@@ -38,7 +39,7 @@ const About = () => (
           <p className='w3-large'>Through innovative solutions and a commitment to excellence, we are continually evolving to meet the needs of a rapidly changing market, ensuring that every client we work with achieves sustainable growth.</p>
         </div>
         <div className="about-image">
-          <img src={logo} className="w3-round w3-opacity-min" alt="Vision and Mission" />
+          <img src={img11} className="w3-round w3-opacity-min" alt="Vision and Mission" />
         </div>
 
       </div>

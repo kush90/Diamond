@@ -5,7 +5,10 @@ import img from "../../../assets/img.jpg";
 import img1 from "../../../assets/img1.jpg";
 import img2 from "../../../assets/img2.jpg";
 import img3 from "../../../assets/img3.jpg";
-import img4 from "../../../assets/img4.jpg"
+import img4 from "../../../assets/img4.jpg";
+import img6 from "../../../assets/img6.jpg";
+import img12 from "../../../assets/img12.jpg";
+
 
 import '../../../styles/public/main.css';
 const Slider = () => (
@@ -98,6 +101,40 @@ const Slider = () => (
       }}>
         <img
           src={img4} // Replace with your image URL
+          alt="Third Slide"
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+          }}
+        />
+      </div>
+      <div style={{
+        textAlign: 'center',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '400px'
+      }}>
+        <img
+          src={img6} // Replace with your image URL
+          alt="Third Slide"
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+          }}
+        />
+      </div>
+      <div style={{
+        textAlign: 'center',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '400px'
+      }}>
+        <img
+          src={img12} // Replace with your image URL
           alt="Third Slide"
           style={{
             width: '100%',
