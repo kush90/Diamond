@@ -10,7 +10,7 @@ const About = () => (
     <div className="about-section" id="about">
       <div className="about-content">
         <div className="about-image">
-          <img src={logo} className="w3-round w3-opacity-min" alt="Table Setting" />
+          <img src={logo} className="w3-round" alt="Table Setting" />
         </div>
         <div className="about-text">
           <h1 className="w3-center" style={{ fontWeight: 'bolder' }}>About Business Alliance Hub</h1><br />
@@ -39,7 +39,7 @@ const About = () => (
           <p className='w3-large'>Through innovative solutions and a commitment to excellence, we are continually evolving to meet the needs of a rapidly changing market, ensuring that every client we work with achieves sustainable growth.</p>
         </div>
         <div className="about-image">
-          <img src={img11} className="w3-round w3-opacity-min" alt="Vision and Mission" />
+          <img src={img11} className="w3-round" alt="Vision and Mission" />
         </div>
 
       </div>

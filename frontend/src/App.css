@@ -37,3 +37,10 @@ body {
     }
     
 }
+@media screen and (max-width: 319px) {
+    .image-slider {
+        object-fit: fill !important;
+        height: auto !important;
+ 
+     }
+}
