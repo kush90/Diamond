@@ -14,7 +14,7 @@ import '../../../styles/public/main.css';
 const Slider = () => (
     <div className="w3-container padding-contact" id="jewelleries">
     <h1>Jewelleries</h1>
-    <Slide slidesToScroll={1} slidesToShow={1} indicators={true} autoplay={true} pauseOnHover={true} duration={1500} responsive={[
+    <Slide slidesToScroll={1} arrows={false} slidesToShow={1} indicators={true} autoplay={true} pauseOnHover={true} duration={1500} responsive={[
       {
         breakpoint: 800,
         settings: {

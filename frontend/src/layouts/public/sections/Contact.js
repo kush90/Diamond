@@ -157,11 +157,11 @@ const Contact = () => {
           <h3><LocationOnIcon className="icon" /> Office (Mogok Ruby Queen)</h3>
           <p><strong>Address:</strong></p>
           <p>
-            <ApartmentIcon className='icon' style={{ marginRight: '10px' }} />
-            981 Silom Rd Khwaeng Silom, Khet Bang Rak,
+            <ApartmentIcon className='icon'  />
+            981 Silom Rd Khwaeng Silom, Khet Bang Rak, Bangkok, Thailand, 10500
           </p>          
-          <p style={{ marginLeft: '35px' }} >Bangkok, Thailand, 10500</p>
-          <p><EmailIcon className="icon" /> branch@example.com</p>
+          {/* <p style={{ marginLeft: '35px' }} >Bangkok, Thailand, 10500</p> */}
+          <p><EmailIcon className="icon" /> info@businessalliancehub.com</p>
           <p><PhoneIcon className="icon" /> (987) 654-3210</p>
           <p>
             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2344.9250632449525!2d100.5181148518376!3d13.722792293484636!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e29f2d53eebdc1%3A0x401d4628694c9ecd!2sHoliday%20Inn%20Bangkok%20Silom%2C%20an%20IHG%20Hotel!5e0!3m2!1sen!2sth!4v1728999914646!5m2!1sen!2sth" width="100%" height="250"  style={{ border: 0 }} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
@@ -173,11 +173,11 @@ const Contact = () => {
           <h3><LocationOnIcon className="icon" /> Show Room (Mogok Ruby Queen)</h3>
           <p><strong>Address:</strong></p>
           <p>
-            <ApartmentIcon className='icon' style={{ marginRight: '10px' }} />
-            981 Silom Rd Khwaeng Silom, Khet Bang Rak,
+            <ApartmentIcon className='icon'  />
+            981 Silom Rd Khwaeng Silom, Khet Bang Rak, Bangkok, Thailand, 10500
           </p>          
-          <p style={{ marginLeft: '35px' }} >Bangkok, Thailand, 10500</p>
-          <p><EmailIcon className="icon" /> branch@example.com</p>
+          {/* <p style={{ marginLeft: '35px' }} >Bangkok, Thailand, 10500</p> */}
+          <p><EmailIcon className="icon" /> info@businessalliancehub.com</p>
           <p><PhoneIcon className="icon" /> (987) 654-3210</p>
           <p>
             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2344.9250632449525!2d100.5181148518376!3d13.722792293484636!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e29f2d53eebdc1%3A0x401d4628694c9ecd!2sHoliday%20Inn%20Bangkok%20Silom%2C%20an%20IHG%20Hotel!5e0!3m2!1sen!2sth!4v1728999914646!5m2!1sen!2sth" width="100%" height="250"  style={{ border: 0 }} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
