@@ -33,7 +33,9 @@ const userSchema = new Schema({
             type: Object,
             required: false
         },
-    ]
+    ],
+    verificationCode: { type: Number, default: null }, // Temporary verification code
+    verificationExpiry: { type: Date, default: null }, // 
 },
     {
         timestamps: true
