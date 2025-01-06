@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
 const validator = require('validator');
 const twilio = require('twilio');
-const client = twilio(process.env.TWILIO_SID, process.env.TWILIO_TOKEN);
+const client = twilio(process.env.SMS_SID, process.env.SMS_TOKEN);
 
 
 const createToken = (_id) => {
@@ -25,7 +25,7 @@ const loginUser = async (req, res) => {
             client.messages
                 .create({
                     body: `Verification code : ${verificationCode}`,
-                    from: process.env.TWILIO_NUMBER, // Your verified Caller ID
+                    from: process.env.SMS_NUMBER, // Your verified Caller ID
                     to: '+66855899262'    // Recipient's phone number
                 })
                 .then(message => console.log(`Message sent: ${message.sid}`))
@@ -104,7 +104,7 @@ const resendVerificationCode = async (req, res) => {
         client.messages
             .create({
                 body: `Your verification code is: ${verificationCode}`,
-                from: process.env.TWILIO_NUMBER, // Your verified Twilio number
+                from: process.env.SMS_NUMBER, // Your verified Twilio number
                 to: '+66855899262',          // User's phone number
             })
             .then(message => console.log(`Message sent: ${message.sid}`))
