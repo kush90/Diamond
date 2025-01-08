@@ -91,8 +91,8 @@ const Contact = () => {
 
   return (
     <div className="w3-container padding-contact" id="contact">
-      <h1>Contact Us</h1>
-      <div className="contact-grid">
+    <h1 className="slider-heading">Contact Us</h1>
+    <div className="contact-grid">
         {/* Column 1: Contact Form */}
         <div className="contact-form">
           <form onSubmit={submitForm}>
