@@ -39,6 +39,10 @@ const About = () => (
           <p className='w3-large'>
             At our online platform, we believe in complete transparency and customer satisfaction. Every product listed on our platform comes with a 100% warranty, providing peace of mind to buyers. This warranty guarantees the authenticity, quality, and craftsmanship of our jewelry, allowing customers to shop with confidence.
           </p>
+          <h5 style={{ fontWeight: 'bold' }}>Cash on Delivery Service
+          </h5>
+          <p className='w3-large'>
+          To make your shopping experience even more convenient, we offer a Cash on Delivery (COD) service for select locations. This ensures that you can inspect your purchase before making payment, further strengthening trust and satisfaction in every transaction. COD adds an extra layer of convenience and security for our customers, making it easier than ever to shop with confidence.          </p>
           <section id="why-choose-us">
             <h5 style={{ fontWeight: 'bold' }}>Why Choose Us?</h5>
             <ul>
@@ -58,6 +62,9 @@ const About = () => (
                 <strong>Seamless Transactions: </strong>
                 Our platform simplifies the buying and selling process, making it accessible and efficient for everyone involved.
               </li>
+              <li>
+                <strong>Cash on Delivery: </strong>
+                Experience added convenience and assurance with our COD option, allowing you to pay only after inspecting your purchase.              </li>
             </ul>
           </section>
 
