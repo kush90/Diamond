@@ -29,14 +29,38 @@ const About = () => (
     <div className="about-section">
       <div className="about-content">
         <div className="about-text">
-          <h1 className="w3-center" style={{ fontWeight: 'bolder' }}>Our Vision and Mission</h1><br />
-          <h5 style={{ fontWeight: 'bold' }}>Driving Innovation and Sustainable Growth</h5><br />
+          <h1 className="w3-center" style={{ fontWeight: 'bolder' }}>A Trusted Platform for Brokers and Customers</h1><br />
           <p className="w3-large">
-            At <strong>Business Alliance Hub (BAH)</strong>, our vision is to be the leading business consulting service for companies looking to expand in Myanmar and Southeast Asia. We aim to offer exceptional service that creates real impact for our clients and their businesses.</p>
+          Welcome to our new online jewelry shop, the premier platform revolutionizing the jewelry market. Our platform not only connects buyers with exquisite jewelry but also empowers brokers to facilitate transactions seamlessly, earning substantial rewards in the process.          </p>
+          <h5 style={{ fontWeight: 'bold' }}>Broker-Friendly Platform</h5>
           <p className="w3-large">
-            Our mission is simple: to provide comprehensive, top-tier support that enables businesses to navigate the complexities of operating in Myanmar with confidence. From market entry strategies to navigating local regulations, we stand by our clients every step of the way.
+            We provide a unique opportunity for brokers to become an integral part of the jewelry industry by registering on our platform. Brokers play a pivotal role in connecting potential buyers with the jewelry they desire, and for their efforts, they earn a competitive 10% fee on every successful deal. Our platform ensures a straightforward registration process, allowing brokers to start earning quickly and efficiently while enjoying a professional and supportive environment.          </p>
+          <h5 style={{ fontWeight: 'bold' }}>Unmatched Product Assurance</h5>
+          <p className='w3-large'>
+            At our online platform, we believe in complete transparency and customer satisfaction. Every product listed on our platform comes with a 100% warranty, providing peace of mind to buyers. This warranty guarantees the authenticity, quality, and craftsmanship of our jewelry, allowing customers to shop with confidence.
           </p>
-          <p className='w3-large'>Through innovative solutions and a commitment to excellence, we are continually evolving to meet the needs of a rapidly changing market, ensuring that every client we work with achieves sustainable growth.</p>
+          <section id="why-choose-us">
+            <h5 style={{ fontWeight: 'bold' }}>Why Choose Us?</h5>
+            <ul>
+              <li>
+                <strong>Diverse Product Range: </strong>
+                Our catalog features a wide selection of high-quality jewelry, catering to every taste and occasion.
+              </li>
+              <li>
+                <strong>Broker Incentives: </strong>
+                Brokers can earn significant commissions while benefiting from an easy-to-use platform that supports their growth and success.
+              </li>
+              <li>
+                <strong>Customer Trust: </strong>
+                With our 100% warranty and  customers feel secure in every transaction.
+              </li>
+              <li>
+                <strong>Seamless Transactions: </strong>
+                Our platform simplifies the buying and selling process, making it accessible and efficient for everyone involved.
+              </li>
+            </ul>
+          </section>
+
         </div>
         <div className="about-image">
           <img src={img11} className="w3-round" alt="Vision and Mission" />
