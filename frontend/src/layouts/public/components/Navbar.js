@@ -34,22 +34,22 @@ const Navbar = (props) => {
 
         {/* Right-aligned items for larger screens */}
         <div className="w3-right w3-hide-small navbar-links">
-          <a href="#about" className="w3-bar-item w3-button">About</a>
-          <a href="#contact" className="w3-bar-item w3-button">Contact</a>
-          <a href="#jewelleries" className="w3-bar-item w3-button">Jewelleries</a>
-          <a href="#login" className="w3-bar-item w3-button" onClick={props.login}>Login</a>
-          <a href="#register" className="w3-bar-item w3-button" onClick={props.register}>Register</a>
+          <a href="#about" className="w3-bar-item w3-button input-bold">About</a>
+          <a href="#contact" className="w3-bar-item w3-button input-bold">Contact</a>
+          <a href="#jewelleries" className="w3-bar-item w3-button input-bold">Jewelleries</a>
+          <a href="#login" className="w3-bar-item w3-button input-bold" onClick={props.login}>Login</a>
+          <a href="#register" className="w3-bar-item w3-button input-bold" onClick={props.register}>Register</a>
         </div>
       </div>
 
       {/* Dropdown menu for mobile, shown when hamburger is clicked */}
       {isMobileMenuOpen && (
         <div className="w3-bar-block w3-white w3-hide-large w3-hide-medium">
-          <a href="#about" className="w3-bar-item w3-button" onClick={handleLinkClick}>About</a>
-          <a href="#contact" className="w3-bar-item w3-button" onClick={handleLinkClick}>Contact</a>
-          <a href="#jewelleries" className="w3-bar-item w3-button" onClick={handleLinkClick}>Jewelleries</a>
-          <a href="#login" className="w3-bar-item w3-button" onClick={props.login}>Login</a>
-          <a href="#register" className="w3-bar-item w3-button" onClick={props.register}>Register</a>
+          <a href="#about" className="w3-bar-item w3-button input-bold" onClick={handleLinkClick}>About</a>
+          <a href="#contact" className="w3-bar-item w3-button input-bold" onClick={handleLinkClick}>Contact</a>
+          <a href="#jewelleries" className="w3-bar-item w3-button input-bold" onClick={handleLinkClick}>Jewelleries</a>
+          <a href="#login" className="w3-bar-item w3-button input-bold" onClick={props.login}>Login</a>
+          <a href="#register" className="w3-bar-item w3-button input-bold" onClick={props.register}>Register</a>
         </div>
       )}
     </div>

@@ -115,3 +115,6 @@
     max-width: 100%; /* Ensure the image doesn’t overflow on small screens */
   }
 }
+.input-bold {
+  font-weight: bold;
+}
