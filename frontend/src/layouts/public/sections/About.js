@@ -5,7 +5,7 @@ import logo from '../../../assets/logo1.png';
 import img11 from '../../../assets/img11.jpg';
 
 const StyledSection = styled(Box)(({ theme }) => ({
-  padding: theme.spacing(8, 2),
+  padding: theme.spacing(4, 4),
   backgroundColor: theme.palette.grey?.[100] || '#f5f5f5', // Use default light grey as fallback
   borderRadius: theme.spacing(2),
   marginBottom: theme.spacing(4),

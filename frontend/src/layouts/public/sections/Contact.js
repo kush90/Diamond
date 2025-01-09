@@ -80,7 +80,7 @@ const Contact = () => {
   };
 
   return (
-    <div className="w3-container padding-contact" id="contact">
+    <div className="w3-container"  id="contact">
       <h1 className="slider-heading">Contact Us</h1>
       <div className="contact-grid">
         {/* Column 1: Contact Form */}
