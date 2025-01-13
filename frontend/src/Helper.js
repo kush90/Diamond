@@ -1,9 +1,9 @@
 // export const API_URL = "http://localhost:4000";
 // export const API_URL = "https://diamond-api-50e4.onrender.com";
 // export const API_URL = "http://52.63.48.17:4000";
-export const API_URL = "https://api.businessalliancehub.org";
-
-
+// export const API_URL = "https://api.businessalliancehub.org";
+export const API_URL = "http://54.206.205.127" // dev api
+export const IMAGINE_ART_API_KEY="vk-7edkohJFv3ASw6GAGUF8mBpF2p9YDBPUANRBPeAHVYfjpo"
 export const createStorage = (key, item) => {
     if (!localStorage.getItem(key)) localStorage.setItem(key, JSON.stringify(item));
     else localStorage.setItem(key,JSON.stringify(item))

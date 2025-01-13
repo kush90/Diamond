@@ -12,6 +12,7 @@ import About from './sections/About';
 import Contact from './sections/Contact';
 import Footer from './components/Footer';
 import Slider from './sections/Slider';
+import JewelryDesignGenerator from './sections/JewelryDesignGenerator';
 import axios from 'axios';
 import { createStorage, API_URL, getStorage } from "../../Helper";
 
@@ -135,6 +136,7 @@ export default function Content() {
             <Slider/>
             <hr/>
             <Contact />
+            <JewelryDesignGenerator />
 
             {registerModal && <Register open={registerModal} close={close} loading={loading} />}
             {loginModal && <Login open={loginModal} close={loginClose} loading={loading} forgotPasswordOpen={forgotPasswordOpenModal} />}
