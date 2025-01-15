@@ -18,18 +18,18 @@ const StyledImage = styled('img')({
 });
 
 const About = () => (
-  <Container maxWidth="xl" style={{ marginTop: '30px' }}>
+  <Container   id="about" maxWidth="xl" style={{ marginTop: '30px' }}>
     {/* First Section */}
-    <StyledSection id="about">
+    <StyledSection>
       <Grid container spacing={4} alignItems="center">
         <Grid item xs={12} md={6}>
           <StyledImage src={logo} alt="Business Alliance Hub Logo" />
         </Grid>
         <Grid item xs={12} md={6}>
-          <Typography variant="h4" fontWeight="bold" gutterBottom>
+          <Typography variant="h4" fontWeight="bold" style={{color:"#007bff"}} gutterBottom>
             About Business Alliance Hub
           </Typography>
-          <Typography variant="subtitle1" fontWeight="medium" gutterBottom>
+          <Typography variant="subtitle1" fontWeight="bold" gutterBottom>
             Building Successful Businesses Since 1985
           </Typography>
           <Typography variant="body1" paragraph>
@@ -49,7 +49,7 @@ const About = () => (
     <StyledSection>
       <Grid container spacing={4} alignItems="center">
         <Grid item xs={12} md={6}>
-          <Typography variant="h4" fontWeight="bold" gutterBottom>
+          <Typography variant="h4" fontWeight="bold" style={{color:"#007bff"}} gutterBottom>
             A Trusted Platform for Brokers and Customers
           </Typography>
           <Typography variant="body1" paragraph>

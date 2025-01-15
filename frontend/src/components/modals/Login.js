@@ -42,6 +42,12 @@ const Login = (props) => {
         props.close(obj);
     }
 
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter' && phoneNo && password && isPhoneValid) {
+            login();
+        }
+    };
+
     return (
         <>
             <MDBModal staticBackdrop open={props.open} tabIndex='-1' onClose={close}>
@@ -52,11 +58,11 @@ const Login = (props) => {
                             <MDBBtn className='btn-close' color='none' onClick={close}></MDBBtn>
                         </MDBModalHeader>
                         <MDBModalBody>
-                            <MDBInput wrapperClass='custom-input'  required onChange={handlePhoneNumberChange} value={phoneNo} label='Phone no' />
+                            <MDBInput wrapperClass='custom-input'  required onKeyDown={handleKeyDown} onChange={handlePhoneNumberChange} value={phoneNo} label='Phone no' />
                             {!isPhoneValid && phoneNo.trim() !== '' && (
                                 <span className='custom-error'>*Invalid phone no</span>
                             )}
-                            <MDBInput wrapperClass='custom-input'  type='password' required onChange={(e) => setPassword(e.target.value)} value={password} label='Password' />
+                            <MDBInput wrapperClass='custom-input'  type='password' required onKeyDown={handleKeyDown} onChange={(e) => setPassword(e.target.value)} value={password} label='Password' />
 
                             {/* Add Forgot Password link */}
                             <p className="forgot-password-link" onClick={props.forgotPasswordOpen}>

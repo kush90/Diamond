@@ -81,7 +81,7 @@ const Contact = () => {
 
   return (
     <div className="w3-container"  id="contact">
-      <h1 className="slider-heading">Contact Us</h1>
+      <h1 className="slider-heading" style={{color:"#007bff"}}>Contact Us</h1>
       <div className="contact-grid">
         {/* Column 1: Contact Form */}
         <div className="contact-form card">

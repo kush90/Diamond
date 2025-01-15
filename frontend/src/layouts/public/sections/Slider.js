@@ -14,7 +14,7 @@ const images = [img, img1, img2, img3, img4, img6, img12];
 
 const Slider = () => (
   <div className="slider-container" id="jewelleries">
-    <h1 className="slider-heading">Jewelleries</h1>
+    <h1 className="slider-heading" style={{color:"#007bff"}}>Jewelleries</h1>
     <Slide 
       slidesToScroll={1} 
       slidesToShow={1} 

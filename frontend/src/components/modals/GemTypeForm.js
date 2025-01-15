@@ -31,6 +31,15 @@ const GemTypeForm = (props) => {
         setName('')
     }
 
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter') {
+            event.preventDefault(); // Prevent the default form submission behavior
+            if (name.trim()) {
+                toggleOpenClose('save');
+            }
+        }
+    };
+
     return (
         <>
             <MDBModal staticBackdrop open={open} tabIndex='-1' onClose={toggleOpenClose} >
@@ -44,7 +53,7 @@ const GemTypeForm = (props) => {
                         </MDBModalHeader>
                         <MDBModalBody>
 
-                            <MDBInput className='mb-4' required onChange={(e) => setName(e.target.value)} value={name} label='Gem Type Name' />
+                            <MDBInput className='mb-4' required onKeyDown={handleKeyDown} onChange={(e) => setName(e.target.value)} value={name} label='Gem Type Name' />
 
                         </MDBModalBody>
 
