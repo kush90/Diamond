@@ -31,6 +31,8 @@ const Register = (props) => {
     const [isPhoneValid, setIsPhoneValid] = React.useState(true);
     const [isEmailValid, setIsEmailValid] = React.useState(true);
 
+    const [showPassword, setShowPassword] = React.useState(false); // State for password visibility
+
     const ref = useRef();
 
     const close = () => {
@@ -101,6 +103,10 @@ const Register = (props) => {
         }
     };
 
+    const toggleShowPassword = () => {
+        setShowPassword(!showPassword);
+    };
+
     return (
         <>
             <MDBModal staticBackdrop open={props.open} tabIndex='-1' onClose={close} >
@@ -112,8 +118,16 @@ const Register = (props) => {
                         </MDBModalHeader>
 
                         <MDBModalBody onKeyDown={handleKeyDown}>
-                            <MDBInput wrapperClass='custom-input'  required onChange={(e) => setName(e.target.value)} value={name} label='Name' />
-                            <MDBInput wrapperClass='custom-input'  type='password' required onChange={(e) => setPassword(e.target.value)} value={password} label='Password' />
+                            <MDBInput wrapperClass='custom-input' required onChange={(e) => setName(e.target.value)} value={name} label='Name' />
+                            <div className="password-input-wrapper custom-input">
+                                <MDBInput wrapperClass='custom-input' type={showPassword ? 'text' : 'password'} required onChange={(e) => setPassword(e.target.value)} value={password} label='Password' />
+                                <MDBIcon
+                                    fas
+                                    icon={showPassword ? 'eye-slash' : 'eye'}
+                                    className="password-toggle-icon"
+                                    onClick={toggleShowPassword}
+                                />
+                            </div>
                             <MDBInput wrapperClass='custom-input' required onChange={handlePhoneNumberChange} value={phoneNo} label='Phone No' />
                             {!isPhoneValid && phoneNo.trim() !== '' && (
                                 <span className='custom-error'>*Invalid phone no</span>

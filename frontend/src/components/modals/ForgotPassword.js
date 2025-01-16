@@ -8,7 +8,8 @@ import {
     MDBModalTitle,
     MDBModalBody,
     MDBModalFooter,
-    MDBInput
+    MDBInput,
+    MDBIcon
 } from 'mdb-react-ui-kit';
 import { isValidPhoneNumber } from 'libphonenumber-js';
 
@@ -18,6 +19,7 @@ const ForgotPassword = (props) => {
     const [phoneNo, setPhoneNo] = React.useState('');
     const [password, setPassword] = React.useState('');
     const [isPhoneValid, setIsPhoneValid] = React.useState(true);
+    const [showPassword, setShowPassword] = React.useState(false); // State for password visibility
 
     const close = () => {
         props.close(false)
@@ -48,13 +50,17 @@ const ForgotPassword = (props) => {
         }
     };
 
+    const toggleShowPassword = () => {
+        setShowPassword(!showPassword);
+    };
+
     return (
         <>
             <MDBModal staticBackdrop open={props.open} tabIndex='-1' onClose={close} >
                 <MDBModalDialog>
                     <MDBModalContent style={{ height: '313.94px' }}>
                         <MDBModalHeader>
-                            <MDBModalTitle>Forgot Password</MDBModalTitle>
+                            <MDBModalTitle className='text-primary'>Forgot Password</MDBModalTitle>
                             <MDBBtn className='btn-close' color='none' onClick={close} ></MDBBtn>
                         </MDBModalHeader>
                         <MDBModalBody >
@@ -62,7 +68,15 @@ const ForgotPassword = (props) => {
                             {!isPhoneValid && phoneNo.trim() !== '' && (
                                 <span className='custom-error'>*Invalid phone no</span>
                             )}
-                            <MDBInput wrapperClass='custom-input' type='password' onKeyDown={handleKeyDown} required onChange={(e) => setPassword(e.target.value)} value={password} label='Password' />
+                            <div className="password-input-wrapper custom-input">
+                                <MDBInput wrapperClass='custom-input' type={showPassword ? 'text' : 'password'} onKeyDown={handleKeyDown} required onChange={(e) => setPassword(e.target.value)} value={password} label='Password' />
+                                <MDBIcon
+                                    fas
+                                    icon={showPassword ? 'eye-slash' : 'eye'}
+                                    className="password-toggle-icon"
+                                    onClick={toggleShowPassword}
+                                />
+                            </div>
                         </MDBModalBody>
                         <MDBModalFooter>
                             <MDBBtn disabled={props.loading} color='secondary' onClick={close}>

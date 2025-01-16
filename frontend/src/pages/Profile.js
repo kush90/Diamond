@@ -11,6 +11,9 @@ import { patch } from '../Api';
 import { API_URL } from '../Helper';
 import defaultImage from '../assets/default.jpeg';
 import { useNavigate } from 'react-router-dom';
+import {
+  MDBIcon
+} from 'mdb-react-ui-kit';
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -19,7 +22,8 @@ const Profile = () => {
   const [loading, setLoading] = useState(false);
   const [showPasswordFields, setShowPasswordFields] = useState(false); // For toggling password fields
   const [passwords, setPasswords] = useState({ newPassword: '', confirmPassword: '' }); // For password inputs
-
+  const [showPassword, setShowPassword] = useState(false); // Toggle for new password field
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false); // Toggle for confirm password field
   const [formData, setFormData] = useState({
     id: '',
     name: '',
@@ -119,11 +123,11 @@ const Profile = () => {
       setLoading(true);
       console.log(showPasswordFields)
       let action = 'Update User';
-      if(showPasswordFields) action = 'Update Password'
+      if (showPasswordFields) action = 'Update Password'
       let response = await patch(`api/user/update/${formData.id}?action=${action}`, data);
       if (response.status === 200) {
         toast.success(response.data.message);
-        if(action === 'Update Password'){
+        if (action === 'Update Password') {
           setTimeout(() => {
             navigate('/');  // Redirect after showing the toast
           }, 1500);
@@ -137,7 +141,7 @@ const Profile = () => {
             })
           );
         }
-       
+
         setLoading(false);
       }
     } catch (error) {
@@ -149,6 +153,9 @@ const Profile = () => {
       setLoading(false);
     }
   };
+
+  const handlePasswordVisibility = () => setShowPassword(!showPassword);
+  const handleConfirmPasswordVisibility = () => setShowConfirmPassword(!showConfirmPassword);
 
   return (
     <>
@@ -178,8 +185,8 @@ const Profile = () => {
                   newImage && newImage.path
                     ? newImage.path
                     : formData.profile?.length > 0
-                    ? `${API_URL}/${formData.profile[0].path}`
-                    : defaultImage
+                      ? `${API_URL}/${formData.profile[0].path}`
+                      : defaultImage
                 }
                 alt="Profile Picture"
               />
@@ -224,8 +231,8 @@ const Profile = () => {
                         newImage && newImage.path
                           ? newImage.path
                           : formData.profile?.length > 0
-                          ? `${API_URL}/${formData.profile[0].path}`
-                          : defaultImage
+                            ? `${API_URL}/${formData.profile[0].path}`
+                            : defaultImage
                       }
                       alt="Profile Picture"
                     />
@@ -287,26 +294,44 @@ const Profile = () => {
               ) : (
                 <>
                   {/* Password Fields */}
-                  <TextField
-                    label="New Password"
-                    name="newPassword"
-                    variant="outlined"
-                    type="password"
-                    fullWidth
-                    value={passwords.newPassword}
-                    onChange={handlePasswordChange}
-                    sx={{ marginBottom: 2 }}
-                  />
-                  <TextField
-                    label="Confirm New Password"
-                    name="confirmPassword"
-                    variant="outlined"
-                    type="password"
-                    fullWidth
-                    value={passwords.confirmPassword}
-                    onChange={handlePasswordChange}
-                    sx={{ marginBottom: 2 }}
-                  />
+                  <div className="password-input-wrapper custom-input">
+                    <TextField
+                      label="New Password"
+                      name="newPassword"
+                      variant="outlined"
+                      type={showPassword ? 'text' : 'password'}
+                      fullWidth
+                      value={passwords.newPassword}
+                      onChange={handlePasswordChange}
+                      sx={{ marginBottom: 2 }}
+                    />
+                    <MDBIcon
+                      fas
+                      icon={showPassword ? 'eye-slash' : 'eye'}
+                      className="password-toggle-icon"
+                      style={{ top: '40%' }}
+                      onClick={handlePasswordVisibility}
+                    />
+                  </div>
+                  <div className="password-input-wrapper custom-input">
+                    <TextField
+                      label="Confirm New Password"
+                      name="confirmPassword"
+                      variant="outlined"
+                      type={showConfirmPassword ? 'text' : 'password'}
+                      fullWidth
+                      value={passwords.confirmPassword}
+                      onChange={handlePasswordChange}
+                      sx={{ marginBottom: 2 }}
+                    />
+                    <MDBIcon
+                      fas
+                      icon={showConfirmPassword ? 'eye-slash' : 'eye'}
+                      className="password-toggle-icon"
+                      style={{ top: '40%' }}
+                      onClick={handleConfirmPasswordVisibility}
+                    />
+                  </div>
                 </>
               )}
 
