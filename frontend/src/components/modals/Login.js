@@ -8,20 +8,22 @@ import {
     MDBModalTitle,
     MDBModalBody,
     MDBModalFooter,
-    MDBInput
+    MDBInput,
+    MDBIcon
 } from 'mdb-react-ui-kit';
 import { isValidPhoneNumber } from 'libphonenumber-js';
 
-import '../../styles/public/register.css'
+import '../../styles/public/register.css';
 
 const Login = (props) => {
     const [phoneNo, setPhoneNo] = React.useState('');
     const [password, setPassword] = React.useState('');
     const [isPhoneValid, setIsPhoneValid] = React.useState(true);
+    const [showPassword, setShowPassword] = React.useState(false); // State for password visibility
 
     const close = () => {
-        props.close(false)
-    }
+        props.close(false);
+    };
 
     const handlePhoneNumberChange = (e) => {
         const number = e.target.value;
@@ -35,12 +37,22 @@ const Login = (props) => {
         }
     };
 
+    const toggleShowPassword = () => {
+        setShowPassword(!showPassword);
+    };
+
     const login = () => {
         let obj = {};
         obj['phoneNo'] = phoneNo;
         obj['password'] = password;
         props.close(obj);
-    }
+    };
+
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter' && phoneNo && password && isPhoneValid) {
+            login();
+        }
+    };
 
     return (
         <>
@@ -52,11 +64,33 @@ const Login = (props) => {
                             <MDBBtn className='btn-close' color='none' onClick={close}></MDBBtn>
                         </MDBModalHeader>
                         <MDBModalBody>
-                            <MDBInput wrapperClass='custom-input'  required onChange={handlePhoneNumberChange} value={phoneNo} label='Phone no' />
+                            <MDBInput
+                                wrapperClass='custom-input'
+                                required
+                                onKeyDown={handleKeyDown}
+                                onChange={handlePhoneNumberChange}
+                                value={phoneNo}
+                                label='Phone no'
+                            />
                             {!isPhoneValid && phoneNo.trim() !== '' && (
                                 <span className='custom-error'>*Invalid phone no</span>
                             )}
-                            <MDBInput wrapperClass='custom-input'  type='password' required onChange={(e) => setPassword(e.target.value)} value={password} label='Password' />
+                            <div className="password-input-wrapper custom-input">
+                                <MDBInput
+                                    type={showPassword ? 'text' : 'password'}
+                                    required
+                                    onKeyDown={handleKeyDown}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    value={password}
+                                    label='Password'
+                                />
+                                <MDBIcon
+                                    fas
+                                    icon={showPassword ? 'eye-slash' : 'eye'}
+                                    className="password-toggle-icon"
+                                    onClick={toggleShowPassword}
+                                />
+                            </div>
 
                             {/* Add Forgot Password link */}
                             <p className="forgot-password-link" onClick={props.forgotPasswordOpen}>
@@ -77,6 +111,6 @@ const Login = (props) => {
             </MDBModal>
         </>
     );
-}
+};
 
 export default Login;

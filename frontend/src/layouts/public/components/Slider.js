@@ -4,10 +4,17 @@ import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import PauseIcon from '@mui/icons-material/Pause';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
+
+import img9 from "../../../assets/img9.jpg"
+import img10 from "../../../assets/img10.jpg"
+import img13 from "../../../assets/img10.jpg"
+import img14 from "../../../assets/img14.jpg"
+
 const images = [
-    'https://savannahjewelrygallery.com/cdn/shop/files/Apr2024CoverPic_640x640.jpg?v=1713199543',
-    'https://www.savannah.com/wp-content/uploads/168528831_398851991311985_7658763570048274097_n-1024x868.jpeg',
-    'https://static.wixstatic.com/media/57b89c_a6228023c01b4e908fac4428f9380ca8~mv2.jpg/v1/fill/w_568,h_314,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/57b89c_a6228023c01b4e908fac4428f9380ca8~mv2.jpg'
+     img9,
+     img10,
+     img13,
+     img14
 ];
 
 const ImageSlider = () => {

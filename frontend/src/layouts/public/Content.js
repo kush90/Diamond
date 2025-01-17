@@ -11,6 +11,7 @@ import Header from './components/Header';
 import About from './sections/About';
 import Contact from './sections/Contact';
 import Footer from './components/Footer';
+import Slider from './sections/Slider';
 import axios from 'axios';
 import { createStorage, API_URL, getStorage } from "../../Helper";
 
@@ -130,7 +131,9 @@ export default function Content() {
             <Navbar login={loginOpenModal} register={registerOpenModal} />
             <Header />
             <About />
-            <hr />
+            <hr/>
+            <Slider/>
+            <hr/>
             <Contact />
 
             {registerModal && <Register open={registerModal} close={close} loading={loading} />}
