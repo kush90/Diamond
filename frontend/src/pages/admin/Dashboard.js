@@ -541,7 +541,7 @@ const Dashboard = () => {
 
                         </MDBCardHeader>
                         <MDBCardBody className='custom-height-setting'>
-                            {(loading === false) ? (<Table title={'product'} header={productHeader} data={productData} editData={openProductModal} deleteData={deleteProductConfirm} page={productPage} rowsPerPage={rowsPerProductPage} onPageChange={handlePageChangeProduct} totalCount={totalCountProduct} />)
+                            {(loading === false) ? (<Table title={'product'} header={productHeader} data={productData} editData={openProductModal} deleteData={deleteProductConfirm} page={productPage} rowsPerPage={rowsPerProductPage} onPageChange={handlePageChangeProduct} totalCount={totalCountProduct || 0} />)
 
                                 : (<MDBSpinner role='status'>
                                     <span className='visually-hidden'>Loading...</span>
@@ -623,7 +623,7 @@ const Dashboard = () => {
 
                         </MDBCardHeader>
                         <MDBCardBody className='custom-height-setting'>
-                            {(catLoading === false) ? (<Table title={'category'} header={categoryHeader} data={categoryData} editData={openCategoryModal} deleteData={deleteCategoryConfirm} page={categoryPage} rowsPerPage={rowsPerCategoryPage} onPageChange={handlePageChangeCategory} totalCount={totalCountCategory} />)
+                            {(catLoading === false) ? (<Table title={'category'} header={categoryHeader} data={categoryData} editData={openCategoryModal} deleteData={deleteCategoryConfirm} page={categoryPage} rowsPerPage={rowsPerCategoryPage} onPageChange={handlePageChangeCategory} totalCount={totalCountCategory || 0} />)
                                 : (
                                     <MDBSpinner role='status'>
                                         <span className='visually-hidden'>Loading...</span>
@@ -645,7 +645,7 @@ const Dashboard = () => {
 
                         </MDBCardHeader>
                         <MDBCardBody className='custom-height-setting'>
-                            {(gemTypeLoading === false) ? (<Table title={'gemType'} header={gemTypeHeader} data={gemTypeData} editData={openGemTypeModal} deleteData={deleteGemTypeConfirm} page={gemTypePage} rowsPerPage={rowsPerGemTypePage} onPageChange={handlePageChangeGemType} totalCount={totalCountGemType} />)
+                            {(gemTypeLoading === false) ? (<Table title={'gemType'} header={gemTypeHeader} data={gemTypeData} editData={openGemTypeModal} deleteData={deleteGemTypeConfirm} page={gemTypePage} rowsPerPage={rowsPerGemTypePage} onPageChange={handlePageChangeGemType} totalCount={totalCountGemType || 0} />)
                                 : (
                                     <MDBSpinner role='status'>
                                         <span className='visually-hidden'>Loading...</span>

@@ -83,6 +83,15 @@
         white-space: normal;
     }
 }
+
+@media (min-width: 200px) and (max-width: 320px) {
+    .custom-margin-top {
+        margin-top: 30% !important;
+    }
+    .text-wrap a {
+        white-space: normal;
+    }
+}
 .pagination-container {
     display: flex;
     justify-content: end;
