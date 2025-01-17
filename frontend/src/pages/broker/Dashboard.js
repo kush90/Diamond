@@ -7,18 +7,22 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
+import { Box } from '@mui/material';
 
 import Card from '../../components/Card';
 
 import '../../styles/broker/main.css';
 import { get, post } from '../../Api';
-
+import Pagination from '../../components/Pagination';
 
 const BrokerDashboard = () => {
     const [loading, setLoading] = React.useState(true);
     const [productData, setProductData] = React.useState([]);
     const [type, setType] = React.useState([]);
     const [gemTypeData, setGemTypeData] = React.useState([]);
+    const [page, setPage] = React.useState(0);
+    const [rowsPerPage, setRowsPerPage] = React.useState(10);
+    const [totalCount, setTotalCount] = React.useState(null);
 
     const book = async (value) => {
         try {
@@ -43,10 +47,11 @@ const BrokerDashboard = () => {
     const getProductData = async () => {
         try {
             setLoading(true)
-            const response = await get(`api/product/getAll?gemTypeId=${type}`);
+            const response = await get(`api/product/getAll?gemTypeId=${type}&page=${page + 1}&limit=${rowsPerPage}`);
             if (response.status === 200) {
                 setLoading(false);
                 setProductData(response.data.data);
+                setTotalCount(response.data.totalCount)
             }
         }
         catch (error) {
@@ -87,12 +92,20 @@ const BrokerDashboard = () => {
     // Use useEffect to call getProductData whenever 'type' changes
     useEffect(() => {
         getProductData();
-    }, [type]);
+    }, [type,page, rowsPerPage]);
 
     const handleChange = (e) => {
         console.log(e.target.value)
         setType(e.target.value)
     }
+
+    const handlePageChange = (newPage, newRowsPerPage) => {
+        console.log(newPage)
+        setPage(newPage);
+        console.log(page)
+        setRowsPerPage(newRowsPerPage);
+    };
+
     return (
         <div className='custom-margin-top'>
 
@@ -132,7 +145,18 @@ const BrokerDashboard = () => {
                     }
                 </MDBRow>) : (<MDBSpinner className='spinner' role='status'>
                     <span className='visually-hidden'>Loading...</span>
-                </MDBSpinner>)}
+                </MDBSpinner>)
+                }
+                <MDBRow>
+                <Box display="flex" justifyContent="center" width="100%">
+        <Pagination
+            page={page}
+            rowsPerPage={rowsPerPage}
+            count={totalCount || 0}
+            onPageChange={handlePageChange}
+        />
+    </Box>
+                </MDBRow>
             <ToastContainer />
         </div>
     )

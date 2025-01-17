@@ -25,14 +25,19 @@ const Deal = () => {
     const [dealData, setDealData] = React.useState([]);
     const [tempdealData, setTempDealData] = React.useState('');
     const dealHeader = ['referenceNo', 'product', 'price', 'status', 'Date', 'action'];
+    const [page, setPage] = React.useState(0);
+    const [rowsPerPage, setRowsPerPage] = React.useState(10);
+    const [totalCount, setTotalCount] = React.useState(null);
+
     const getOrderData = async () => {
         try {
             setLoading(true)
-            const response = await get('api/order/getAll');
+            const response = await get(`api/order/getAll?page=${page + 1}&limit=${rowsPerPage}`);
             if (response.status === 200) {
                 setLoading(false);
                 const filteredData = response.data.data.filter(order => order.product !== null);
                 setDealData(filteredData);
+                setTotalCount(response.data.totalCount)
                 console.log(filteredData)
             }
         }
@@ -48,7 +53,7 @@ const Deal = () => {
     }
     useEffect(() => {
         getOrderData();
-    }, []);
+    }, [page, rowsPerPage]);
 
     const productView = (data) => {
         setProductImageModal(true);
@@ -105,6 +110,12 @@ const Deal = () => {
     const closeViewDetailModal = async () => {
         setViewDetailModal(false);
     }
+    const handlePageChange = (newPage, newRowsPerPage) => {
+        console.log(newPage)
+        setPage(newPage);
+        console.log(page)
+        setRowsPerPage(newRowsPerPage);
+    };
     return (
         <MDBRow className='custom-margin-top'>
             <MDBCol md='12' >
@@ -118,7 +129,7 @@ const Deal = () => {
                         </MDBBtn>
                     </MDBCardHeader>
                     <MDBCardBody className='custom-height-setting'>
-                        {(loading === false) ? (<Table title={'deal'} header={dealHeader} data={dealData} productData={productView} viewDetail={viewDetail} confirmDeal={confirmDeal} viewCommission={viewCommission} />)
+                        {(loading === false) ? (<Table title={'deal'} header={dealHeader} data={dealData} productData={productView} viewDetail={viewDetail} confirmDeal={confirmDeal} viewCommission={viewCommission} page={page} rowsPerPage={rowsPerPage} onPageChange={handlePageChange} totalCount={totalCount}  />)
 
                             : (<MDBSpinner role='status'>
                                 <span className='visually-hidden'>Loading...</span>

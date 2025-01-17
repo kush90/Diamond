@@ -96,30 +96,62 @@ const update = async (req, res) => {
 
 }
 
-const getAll = async (req, res) => {
-    let queryValue = req.query;
-    try {
-        const userId = req.user._id;
-        let query;
-        if(!req.query || Object.keys(req.query).length === 0) query = { broker: userId };
-        else query = queryValue;
-        if (Object.keys(req.query).length !== 0) {
+// const getAll = async (req, res) => {
+//     let queryValue = req.query;
+//     try {
+//         const userId = req.user._id;
+//         let query;
+//         if(!req.query || Object.keys(req.query).length === 0) query = { broker: userId };
+//         else query = queryValue;
+//         if (Object.keys(req.query).length !== 0) {
 
-            // Check if req.query.referenceNo is present and not empty
-            if (req.query.referenceNo) {
-                query.referenceNo = { '$regex': req.query.referenceNo, '$options': 'i' };
-            }
+//             // Check if req.query.referenceNo is present and not empty
+//             if (req.query.referenceNo) {
+//                 query.referenceNo = { '$regex': req.query.referenceNo, '$options': 'i' };
+//             }
+//         }
+//         const limit = parseInt(req.query.limit) || 10;
+//         const page = parseInt(req.query.page) || 1;
+//         const totalCount = await Product.countDocuments();
+//         const orders = await Order.find(query).populate('broker').populate('product').sort({ createdAt: -1 }).skip((page - 1) * limit)
+//         .limit(limit);
+//         res.status(200).json({ data: orders,totalCount })
+//     } catch (error) {
+//         res.status(400).json({ "error": error.message })
+//     }
+// }
+const getAll = async (req, res) => {
+    try {
+        const userId = req.user._id; // Get user ID from request, assuming `req.user` contains the authenticated user data.
+        // Default query to filter by broker (userId)
+        let query = { broker: userId };
+
+        // Check if `referenceNo` is in the query and apply regex if present
+        if (req.query.referenceNo) {
+            query.referenceNo = { '$regex': req.query.referenceNo, '$options': 'i' };
         }
+
+        // Pagination: use limit and page from the query, or default to 10 and 1 if not provided
         const limit = parseInt(req.query.limit) || 10;
         const page = parseInt(req.query.page) || 1;
-        const totalCount = await Product.countDocuments();
-        const orders = await Order.find(query).populate('broker').populate('product').sort({ createdAt: -1 }).skip((page - 1) * limit)
-        .limit(limit);
-        res.status(200).json({ data: orders,totalCount })
+
+        // Total count of orders matching the query (to calculate the total number of pages)
+        const totalCount = await Order.countDocuments(query); // Ensure you apply the filter to the count query too
+        
+        // Fetch the orders based on the query, sorted, and paginated
+        const orders = await Order.find(query)
+            .populate('broker') // Assuming `broker` is a reference in the `Order` model
+            .populate('product') // Assuming `product` is a reference in the `Order` model
+            .sort({ createdAt: -1 }) // Sort by most recent orders first
+            .skip((page - 1) * limit) // Skip the appropriate number of orders based on the page number
+            .limit(limit); // Limit the number of orders based on the limit
+        
+        // Return the orders with total count for pagination metadata
+        res.status(200).json({ data: orders, totalCount });
     } catch (error) {
-        res.status(400).json({ "error": error.message })
+        res.status(400).json({ "error": error.message });
     }
-}
+};
 
 const getAllForAdmin = async (req, res) => {
     try {

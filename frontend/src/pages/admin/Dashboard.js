@@ -59,7 +59,7 @@ const Dashboard = () => {
     const getCategoryData = async () => {
         try {
             setCatLoading(true)
-            const response = await get('api/category/getAll');
+            const response = await get(`api/category/getAll?page=${categoryPage + 1}&limit=${rowsPerCategoryPage}`);
             if (response.status === 200) {
                 setCatLoading(false);
                 setCategoryData(response.data.data);
@@ -80,7 +80,7 @@ const Dashboard = () => {
     const getGemTypeData = async () => {
         try {
             setGemTypeLoading(true)
-            const response = await get('api/gemType/getAll');
+            const response = await get(`api/gemType/getAll?page=${gemTypePage + 1}&limit=${rowsPerGemTypePage}`);
             if (response.status === 200) {
                 setGemTypeLoading(false);
                 setGemTypeData(response.data.data);
@@ -154,9 +154,10 @@ const Dashboard = () => {
                 console.log(response.data.data)
                 setProductModal(false)
                 toast.success(response.data.message);
-                let newArr = productData;
-                newArr.unshift({ ...response.data.data });
-                setProductData(newArr);
+                // let newArr = productData;
+                // newArr.unshift({ ...response.data.data });
+                // setProductData(newArr);
+                getProductData();
                 setLoading(false);
             }
         }
@@ -209,7 +210,8 @@ const Dashboard = () => {
             let response = await remove(`api/product/delete/${tempDeleteData._id}`);
             if (response.status === 200) {
                 toast.success(response.data.message);
-                setProductData(productData.filter((obj) => { return obj._id !== tempDeleteData._id }))
+                // setProductData(productData.filter((obj) => { return obj._id !== tempDeleteData._id }))
+                getProductData();
                 setLoading(false);
                 setTempDeleteData('');
                 setDeleteDataProductConfirm(false)
@@ -267,9 +269,10 @@ const Dashboard = () => {
             if (response.status === 200) {
 
                 toast.success(response.data.message);
-                let newArr = gemTypeData;
-                newArr.unshift({ ...response.data.data });
-                setGemTypeData(newArr);
+                // let newArr = gemTypeData;
+                // newArr.unshift({ ...response.data.data });
+                // setGemTypeData(newArr);
+                getGemTypeData();
                 setGemTypeLoading(false);
             }
         }
@@ -320,7 +323,8 @@ const Dashboard = () => {
             let response = await remove(`api/gemType/delete/${tempDeleteData._id}`);
             if (response.status === 200) {
                 toast.success(response.data.message);
-                setGemTypeData(gemTypeData.filter((obj) => { return obj._id !== tempDeleteData._id }))
+                // setGemTypeData(gemTypeData.filter((obj) => { return obj._id !== tempDeleteData._id }))
+                getGemTypeData();
                 setGemTypeLoading(false);
                 setTempDeleteData('');
                 setDeleteGemTypeCatConfirm(false)
@@ -371,9 +375,10 @@ const Dashboard = () => {
             if (response.status === 200) {
 
                 toast.success(response.data.message);
-                let newArr = categoryData;
-                newArr.unshift({ ...response.data.data });
-                setCategoryData(newArr);
+                // let newArr = categoryData;
+                // newArr.unshift({ ...response.data.data });
+                // setCategoryData(newArr);
+                getCategoryData()
                 setCatLoading(false);
             }
         }
@@ -424,7 +429,8 @@ const Dashboard = () => {
             let response = await remove(`api/category/delete/${tempDeleteData._id}`);
             if (response.status === 200) {
                 toast.success(response.data.message);
-                setCategoryData(categoryData.filter((obj) => { return obj._id !== tempDeleteData._id }))
+                // setCategoryData(categoryData.filter((obj) => { return obj._id !== tempDeleteData._id }))
+                getCategoryData();
                 setCatLoading(false);
                 setTempDeleteData('');
                 setDeleteDataCatConfirm(false)
@@ -485,7 +491,7 @@ const Dashboard = () => {
                     <MDBCard alignment='center' style={{ height: '100%' }}>
                         <MDBCardHeader>
 
-                            <span className='text-primary'>Products</span> <span className='text-danger'>({productData.length})</span>
+                            <span className='text-primary'>Products</span> <span className='text-danger'>({totalCountProduct})</span>
                             {
                                 categoryData.length > 0 && (<MDBBtn onClick={() => setProductModal(true)} size='sm' className='text-primary position-absolute top-0 end-0 mt-1 me-3' tag='a' color='light' floating>
 
@@ -571,7 +577,7 @@ const Dashboard = () => {
                     <MDBCard alignment='center' >
                         <MDBCardHeader>
 
-                            <span className='text-primary'>Categories</span> <span className='text-danger'>({categoryData.length})</span>
+                            <span className='text-primary'>Categories</span> <span className='text-danger'>({totalCountCategory})</span>
                             <MDBBtn onClick={() => setCatModal(true)} size='sm' className='text-primary position-absolute top-0 end-0 mt-1 me-3' tag='a' color='light' floating>
                                 <MDBTooltip tag='span' title="Add Category">
                                     <MDBIcon fas icon="add" />
@@ -593,7 +599,7 @@ const Dashboard = () => {
                     <MDBCard alignment='center' >
                         <MDBCardHeader>
 
-                            <span className='text-primary'>Gem Type</span> <span className='text-danger'>({gemTypeData.length})</span>
+                            <span className='text-primary'>Gem Type</span> <span className='text-danger'>({totalCountGemType})</span>
                             <MDBBtn onClick={() => setGemTypeModal(true)} size='sm' className='text-primary position-absolute top-0 end-0 mt-1 me-3' tag='a' color='light' floating>
                                 <MDBTooltip tag='span' title="Add Gem Type">
                                     <MDBIcon fas icon="add" />
