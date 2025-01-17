@@ -10,11 +10,12 @@ import {
     MDBBtn,
     MDBTooltip, MDBIcon,
 } from 'mdb-react-ui-kit';
+import * as XLSX from "xlsx";
 import '../../styles/admin/main.css'
 
 const Feedback = () => {
     const [loading, setLoading] = React.useState(true);
-    const tableHeader = ['name', 'email', 'phone','message','status','date','action'];
+    const tableHeader = ['name', 'email', 'phone', 'message', 'status', 'date', 'action'];
     const [tableData, setTableData] = React.useState([]);
     const [tableModal,setTableModal] = React.useState(false)
     const [page, setPage] = React.useState(0);
@@ -46,7 +47,7 @@ const Feedback = () => {
         getFeedbackData();
     }, [page, rowsPerPage]);
 
-    const updateStatus = async(value)=>{
+    const updateStatus = async (value) => {
         value.status = 'confirmed'
         setLoading(true)
         try {
@@ -78,17 +79,38 @@ const Feedback = () => {
         setRowsPerPage(newRowsPerPage);
     };
 
+
+    const exportExcel = () => {
+        const worksheet = XLSX.utils.json_to_sheet(tableData);
+        const workbook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
+        // Export the Excel file
+        XLSX.writeFile(workbook, 'feedback.xlsx');
+    };
     return (
         <MDBRow className='custom-margin-top'>
             <MDBCol md='12' >
                 <MDBCard alignment='center' style={{ height: '100%' }}>
                     <MDBCardHeader>
-                        <span className='text-primary'>Feedbacks</span> <span className='text-danger'>({tableData.length})</span>
+                        <span className='text-primary'>Feedbacks</span> <span className='text-danger'>({tableData.length})
+                            <MDBBtn
+                                onClick={() => exportExcel()}
+                                tag="a"
+                                size='sm'
+                                className='text-primary' style={{ left: '10px', top: '3px' }} color='light'
+                                floating
+                            >
+                                <MDBTooltip tag="span" title="Export Data">
+                                    <MDBIcon fas icon="file-excel" />
+                                </MDBTooltip>
+                            </MDBBtn>
+                        </span>
                         <MDBBtn onClick={() => getFeedbackData()} size='sm' className='text-primary position-absolute top-7 end-0 mt-1 me-3' tag='a' color='light' floating>
                             <MDBTooltip tag='span' title="Get Latest Data">
                                 <MDBIcon fas icon="sync-alt" />
                             </MDBTooltip>
                         </MDBBtn>
+
                     </MDBCardHeader>
                     <MDBCardBody className='custom-height-setting'>
                         {(loading === false) ? (<Table title={'feedback'} header={tableHeader} data={tableData} updateFeedback={updateStatus}  page={page} rowsPerPage={rowsPerPage} onPageChange={handlePageChange} totalCount={totalCount} />)

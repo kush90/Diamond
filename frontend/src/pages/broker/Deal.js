@@ -14,6 +14,7 @@ import {
     MDBTooltip, MDBIcon,
 } from 'mdb-react-ui-kit';
 import '../../styles/broker/main.css'
+import * as XLSX from "xlsx";
 
 const Deal = () => {
     const [loading, setLoading] = React.useState(true);
@@ -99,7 +100,7 @@ const Deal = () => {
         }
     }
 
-    const viewCommission = (value) =>{
+    const viewCommission = (value) => {
         setProductImageModal(true);
         setProductImage([value.receipt])
     }
@@ -115,13 +116,47 @@ const Deal = () => {
         setPage(newPage);
         console.log(page)
         setRowsPerPage(newRowsPerPage);
+    }
+
+    const exportExcel = () => {
+        const formattedData = dealData.map((item) => ({
+            "Reference No": item.referenceNo,
+            "Product Name": item.product?.name || "N/A", // Product name
+            "Broker Name": item.broker?.name || "N/A", // Broker name
+            "Delivery Full Name": item.deliveryAddress?.fullName || "N/A", // Full name
+            "Delivery Phone No": item.deliveryAddress?.phoneNo || "N/A", // Phone number
+            "Delivery Address": item.deliveryAddress?.address || "N/A", // Address
+            "Delivery Email": item.deliveryAddress?.email || "N/A", // Email
+            "Receipt Path": item.receipt?.path || "N/A", // Receipt file path
+            "Status": item.status,
+            "Created At": new Date(item.createdAt).toLocaleString(), // Format createdAt date
+            "Updated At": new Date(item.updatedAt).toLocaleString(), // Format updatedAt date
+        }));
+        const worksheet = XLSX.utils.json_to_sheet(formattedData);
+        const workbook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
+        // Export the Excel file
+        XLSX.writeFile(workbook, 'deals.xlsx');
     };
+
     return (
         <MDBRow className='custom-margin-top'>
             <MDBCol md='12' >
                 <MDBCard alignment='center' style={{ height: '100%' }}>
                     <MDBCardHeader>
-                        <span className='text-primary'>Deals</span> <span className='text-danger'>({dealData.length})</span>
+                        <span className='text-primary'>Deals</span> <span className='text-danger'>({dealData.length})
+                            <MDBBtn
+                                onClick={() => exportExcel()}
+                                tag="a"
+                                size='sm'
+                                className='text-primary' style={{ left: '10px', top: '3px' }} color='light'
+                                floating
+                            >
+                                <MDBTooltip tag="span" title="Export Data">
+                                    <MDBIcon fas icon="file-excel" />
+                                </MDBTooltip>
+                            </MDBBtn>
+                        </span>
                         <MDBBtn onClick={() => getOrderData()} size='sm' className='text-primary position-absolute top-7 end-0 mt-1 me-3' tag='a' color='light' floating>
                             <MDBTooltip tag='span' title="Get Latest Data">
                                 <MDBIcon fas icon="sync-alt" />
@@ -129,7 +164,7 @@ const Deal = () => {
                         </MDBBtn>
                     </MDBCardHeader>
                     <MDBCardBody className='custom-height-setting'>
-                        {(loading === false) ? (<Table title={'deal'} header={dealHeader} data={dealData} productData={productView} viewDetail={viewDetail} confirmDeal={confirmDeal} viewCommission={viewCommission} page={page} rowsPerPage={rowsPerPage} onPageChange={handlePageChange} totalCount={totalCount}  />)
+                        {(loading === false) ? (<Table title={'deal'} header={dealHeader} data={dealData} productData={productView} viewDetail={viewDetail} confirmDeal={confirmDeal} viewCommission={viewCommission} page={page} rowsPerPage={rowsPerPage} onPageChange={handlePageChange} totalCount={totalCount} />)
 
                             : (<MDBSpinner role='status'>
                                 <span className='visually-hidden'>Loading...</span>
