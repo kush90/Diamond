@@ -14,6 +14,7 @@ body {
  @media (min-width: 320px) and (max-width:390px) {
     .image-slider {
        object-fit: fill !important;
+       height: auto !important;
     }
     .header {
         margin-top:81px !important;
@@ -22,6 +23,8 @@ body {
 @media (width:320px) {
     .image-slider {
        object-fit: fill !important;
+       height: auto !important;
+
     }
     .header {
         margin-top:105px !important;
@@ -30,6 +33,87 @@ body {
 @media (min-width:400px) and (max-width:430px){
     .image-slider {
        object-fit: fill !important;
+       height: auto !important;
     }
     
 }
+@media screen and (max-width: 319px) {
+    .image-slider {
+        object-fit: fill !important;
+        height: auto !important;
+ 
+     }
+}
+/* ----- Slider container styles  ---- */
+.slider-container {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .slider-heading {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  /* Slide item styles */
+  .slide-item {
+    position: relative;
+    overflow: hidden;
+    /* border-radius: 12px; */
+  }
+  
+  .slide-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease, filter 0.4s ease;
+  }
+  
+  .slide-image:hover {
+    transform: scale(1.10);
+    filter: brightness(120%);
+  }
+  
+  /* Slide overlay styles */
+  .slide-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .slide-item:hover .slide-overlay {
+    opacity: 1;
+  }
+  
+  .slide-text {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 0;
+  }
+  
+  /* Custom indicator styles */
+  .custom-indicator {
+    width: 12px;
+    height: 12px;
+    background: #ccc;
+    border-radius: 50%;
+    margin: 0 5px;
+    cursor: pointer;
+    display: inline-block;
+    transition: background 0.3s ease;
+  }
+  
+  .custom-indicator.active {
+    background: #007bff;
+  }

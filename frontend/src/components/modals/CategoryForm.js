@@ -31,6 +31,16 @@ const CategoryForm = (props) => {
         setName('')
     }
 
+    // Handle Enter key submission
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            if (name.trim()) {
+                toggleOpenClose('save');
+            }
+        }
+    };
+
     return (
         <>
             <MDBModal staticBackdrop open={open} tabIndex='-1' onClose={toggleOpenClose} >
@@ -44,7 +54,7 @@ const CategoryForm = (props) => {
                         </MDBModalHeader>
                         <MDBModalBody>
 
-                            <MDBInput className='mb-4' required onChange={(e) => setName(e.target.value)} value={name} label='Category Name' />
+                            <MDBInput className='mb-4' required onKeyDown={handleKeyDown} onChange={(e) => setName(e.target.value)} value={name} label='Category Name' />
 
                         </MDBModalBody>
 

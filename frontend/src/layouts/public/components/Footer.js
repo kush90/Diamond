@@ -7,7 +7,7 @@ const Footer = () => (
     justifyContent: 'center',
     alignItems: 'center',
   }}>
-    <p>Powered by  <a href="" title="Business Alliance Hub" className="w3-hover-text-green">Business Alliance Hub</a></p>
+    <p>Powered by  <a href="" title="Business Alliance Hub" className="w3-hover-text-green company-title">Business Alliance Hub</a></p>
   </footer>
 );
 
