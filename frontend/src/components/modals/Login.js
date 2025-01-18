@@ -54,6 +54,12 @@ const Login = (props) => {
         }
     };
 
+    // Function to clear fields
+    const clearLoginFields = () => {
+        setPhoneNo('');
+        setPassword('');
+    };
+
     return (
         <>
             <MDBModal staticBackdrop open={props.open} tabIndex='-1' onClose={close}>
@@ -93,7 +99,10 @@ const Login = (props) => {
                             </div>
 
                             {/* Add Forgot Password link */}
-                            <p className="forgot-password-link" onClick={props.forgotPasswordOpen}>
+                            <p className="forgot-password-link" onClick={() => {
+                                    props.forgotPasswordOpen();
+                                    clearLoginFields(); // Clear fields when Forgot Password is triggered
+                                }}>
                                 Forgot Password?
                             </p>
                         </MDBModalBody>
