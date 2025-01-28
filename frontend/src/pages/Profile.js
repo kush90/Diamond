@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Avatar, Typography, Grid, Paper, Button, Box, TextField, IconButton } from '@mui/material';
-import {
-  MDBRow, MDBCol,
-} from 'mdb-react-ui-kit';
+import { MDBRow, MDBCol } from 'mdb-react-ui-kit';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { getStorage, updateStorage } from '../Helper';
@@ -11,19 +9,17 @@ import { patch } from '../Api';
 import { API_URL } from '../Helper';
 import defaultImage from '../assets/default.jpeg';
 import { useNavigate } from 'react-router-dom';
-import {
-  MDBIcon
-} from 'mdb-react-ui-kit';
+import { MDBIcon } from 'mdb-react-ui-kit';
 
 const Profile = () => {
   const navigate = useNavigate();
   const [newImage, setNewImage] = useState(null);
   const [files, setFiles] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [showPasswordFields, setShowPasswordFields] = useState(false); // For toggling password fields
-  const [passwords, setPasswords] = useState({ newPassword: '', confirmPassword: '' }); // For password inputs
-  const [showPassword, setShowPassword] = useState(false); // Toggle for new password field
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false); // Toggle for confirm password field
+  const [showPasswordFields, setShowPasswordFields] = useState(false);
+  const [passwords, setPasswords] = useState({ newPassword: '', confirmPassword: '' });
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [formData, setFormData] = useState({
     id: '',
     name: '',
@@ -35,7 +31,6 @@ const Profile = () => {
     type: '',
   });
 
-  // Handle profile image upload
   const handleImageChange = (event) => {
     const file = event.target.files[0];
     setFiles(event.target.files);
@@ -45,7 +40,6 @@ const Profile = () => {
     }
   };
 
-  // Handle remove image
   const handleRemoveImage = () => {
     setFiles(null);
     setNewImage(null);
@@ -55,7 +49,6 @@ const Profile = () => {
     });
   };
 
-  // Handle form data change
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -110,7 +103,6 @@ const Profile = () => {
       }
     }
 
-    // Handle password change
     if (showPasswordFields && passwords.newPassword) {
       if (passwords.newPassword !== passwords.confirmPassword) {
         toast.error('Passwords do not match');
@@ -121,18 +113,16 @@ const Profile = () => {
 
     try {
       setLoading(true);
-      console.log(showPasswordFields)
       let action = 'Update User';
-      if (showPasswordFields) action = 'Update Password'
+      if (showPasswordFields) action = 'Update Password';
       let response = await patch(`api/user/update/${formData.id}?action=${action}`, data);
       if (response.status === 200) {
         toast.success(response.data.message);
         if (action === 'Update Password') {
           setTimeout(() => {
-            navigate('/');  // Redirect after showing the toast
+            navigate('/');
           }, 1500);
-        }
-        else {
+        } else {
           updateStorage('user', response.data.data);
           window.dispatchEvent(
             new StorageEvent('storage', {
@@ -141,7 +131,6 @@ const Profile = () => {
             })
           );
         }
-
         setLoading(false);
       }
     } catch (error) {
@@ -169,17 +158,27 @@ const Profile = () => {
               maxWidth: 600,
               margin: 'auto',
               marginBottom: 3,
+              borderRadius: 2,
+              transition: 'box-shadow 0.3s ease-in-out',
+              '&:hover': {
+                boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.1)',
+              },
             }}
           >
-            <Typography variant="h6" className="text-primary" sx={{ fontWeight: 600, marginBottom: 2 }}>
+            <Typography variant="h6" sx={{ fontWeight: 600, marginBottom: 3, color: '#1976d2' }}>
               Profile Info
             </Typography>
-            <Grid container direction="column" alignItems="center">
+            <Grid container direction="column" alignItems="center" spacing={2}>
               <Avatar
                 sx={{
                   width: 150,
                   height: 150,
                   marginBottom: 2,
+                  border: '2px solid #1976d2',
+                  transition: 'transform 0.3s ease-in-out',
+                  '&:hover': {
+                    transform: 'scale(1.05)',
+                  },
                 }}
                 src={
                   newImage && newImage.path
@@ -190,22 +189,26 @@ const Profile = () => {
                 }
                 alt="Profile Picture"
               />
-              <Box display="flex" flexDirection="column" alignItems="flex-start" sx={{ gap: 1 }}>
-                <Typography variant="h6">
+              <Box display="flex" flexDirection="column" alignItems="flex-start" sx={{ gap: 1.5, width: '100%' }}>
+                <Typography variant="body1" sx={{ fontWeight: 500 }}>
                   Name: <span style={{ fontWeight: 400 }}>{formData.name}</span>
                 </Typography>
-                <Typography variant="h6">
+                <Typography variant="body1" sx={{ fontWeight: 500 }}>
                   Email: <span style={{ fontWeight: 400 }}>{formData.email}</span>
                 </Typography>
-                <Typography variant="h6">
+                <Typography variant="body1" sx={{ fontWeight: 500 }}>
                   Phone No: <span style={{ fontWeight: 400 }}>{formData.phoneNo}</span>
                 </Typography>
-                <Typography variant="h6">
+                <Typography variant="body1" sx={{ fontWeight: 500 }}>
                   Address: <span style={{ fontWeight: 400 }}>{formData.address}</span>
                 </Typography>
 
-                {/* Change Password Button */}
-                <Button variant="contained" color="success" onClick={() => setShowPasswordFields(!showPasswordFields)}>
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  onClick={() => setShowPasswordFields(!showPasswordFields)}
+                  sx={{ mt: 2, alignSelf: 'flex-start' }}
+                >
                   {showPasswordFields ? 'Cancel Password Change' : 'Change Password'}
                 </Button>
               </Box>
@@ -215,18 +218,28 @@ const Profile = () => {
 
         {/* Right Column - Profile Update Form */}
         <MDBCol md="6">
-          <Paper elevation={3} sx={{ padding: 4, maxWidth: 600, margin: 'auto' }}>
-            <Typography variant="h6" className="text-primary" sx={{ fontWeight: 600, marginBottom: 2 }}>
+          <Paper
+            elevation={3}
+            sx={{
+              padding: 4,
+              maxWidth: 600,
+              margin: 'auto',
+              borderRadius: 2,
+              transition: 'box-shadow 0.3s ease-in-out',
+              '&:hover': {
+                boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.1)',
+              },
+            }}
+          >
+            <Typography variant="h6" sx={{ fontWeight: 600, marginBottom: 3, color: '#1976d2' }}>
               {showPasswordFields ? 'Change Password' : 'Update Profile'}
             </Typography>
             <form>
-              {/* Conditional Rendering */}
               {!showPasswordFields ? (
                 <>
-                  {/* Image Update Section */}
-                  <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: 2 }}>
+                  <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: 3 }}>
                     <Avatar
-                      sx={{ width: 100, height: 100, marginRight: 2 }}
+                      sx={{ width: 100, height: 100, marginRight: 2, border: '2px solid #1976d2' }}
                       src={
                         newImage && newImage.path
                           ? newImage.path
@@ -242,12 +255,11 @@ const Profile = () => {
                         <PhotoCamera />
                       </IconButton>
                     </label>
-                    <IconButton color="secondary" aria-label="remove picture" onClick={handleRemoveImage}>
+                    <IconButton color="error" aria-label="remove picture" onClick={handleRemoveImage}>
                       <DeleteIcon />
                     </IconButton>
                   </Box>
 
-                  {/* Form Fields */}
                   <TextField
                     label="Name"
                     name="name"
@@ -293,7 +305,6 @@ const Profile = () => {
                 </>
               ) : (
                 <>
-                  {/* Password Fields */}
                   <div className="password-input-wrapper custom-input">
                     <TextField
                       label="New Password"
@@ -335,8 +346,7 @@ const Profile = () => {
                 </>
               )}
 
-              {/* Save Button */}
-              <Button variant="contained" color="primary" onClick={save} disabled={loading}>
+              <Button variant="contained" color="primary" onClick={save} disabled={loading} sx={{ mt: 2 }}>
                 {loading ? 'Saving...' : 'Save'}
               </Button>
             </form>
