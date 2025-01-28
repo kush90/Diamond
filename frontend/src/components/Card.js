@@ -35,21 +35,21 @@ const Card = ({ data, handleClick }) => {
           />
         </MDBTooltip>
 
-        <MDBCardBody>
-        <MDBCardText>
-            Gem Type: {data.gemTypeId.name}
+        <MDBCardBody style={{ flex: 1, padding: '1rem' }}>
+          <MDBCardText style={{ marginBottom: '0.5rem', fontSize: '0.9rem' }}>
+            <strong>Gem Type:</strong> {data.gemTypeId.name}
           </MDBCardText>
-          <MDBCardText>
-            Price: <span className='text-danger'>{data.price} USD </span>
+          <MDBCardText style={{ marginBottom: '0.5rem', fontSize: '0.9rem' }}>
+            <strong>Price:</strong> <span className="text-danger">{data.price} USD</span>
           </MDBCardText>
-          <MDBCardText>
-            Description: {data.description}
+          <MDBCardText style={{ marginBottom: '0.5rem', fontSize: '0.9rem' }}>
+            <strong>Description:</strong> {data.description}
           </MDBCardText>
-          { data.shortDescription && <MDBCardText className='text-danger text-center'>
-             {data.shortDescription}
-          </MDBCardText>
-          }
-
+          {data.shortDescription && (
+            <MDBCardText className="text-danger text-center" style={{ fontSize: '0.9rem' }}>
+              {data.shortDescription}
+            </MDBCardText>
+          )}
         </MDBCardBody>
         <MDBCardFooter>
           <MDBBtn onClick={book} className="book-btn" rounded>Book</MDBBtn>
