@@ -112,9 +112,9 @@ const Register = (props) => {
             <MDBModal staticBackdrop open={props.open} tabIndex='-1' onClose={close} >
                 <MDBModalDialog>
                     <MDBModalContent>
-                        <MDBModalHeader>
-                            <MDBModalTitle className='text-primary'>Register</MDBModalTitle>
-                            <MDBBtn className='btn-close' color='none' onClick={close} ></MDBBtn>
+                        <MDBModalHeader className='bg-primary text-white'>
+                            <MDBModalTitle className='fw-bold'>Register</MDBModalTitle>
+                            <MDBBtn className='btn-close btn-close-white' color='none' onClick={close} ></MDBBtn>
                         </MDBModalHeader>
 
                         <MDBModalBody onKeyDown={handleKeyDown}>
