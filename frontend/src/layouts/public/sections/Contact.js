@@ -9,9 +9,8 @@ import '../../../styles/public/main.css';
 import { ToastContainer, toast } from 'react-toastify';
 import { post } from '../../../Api';
 import { isValidPhoneNumber } from 'libphonenumber-js';
-import {
-  MDBIcon
-} from 'mdb-react-ui-kit';
+import { MDBIcon } from 'mdb-react-ui-kit';
+import { motion } from 'framer-motion';
 
 const Contact = () => {
   const [loading, setLoading] = React.useState(false);
@@ -80,11 +79,24 @@ const Contact = () => {
   };
 
   return (
-    <div className="w3-container"  id="contact">
-      <h1 className="slider-heading" style={{color:"#007bff"}}>Contact Us</h1>
+    <motion.div
+      className="w3-container"
+      id="contact"
+      initial={{ opacity: 0, y: 50 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
+      <h1 className="slider-heading" style={{ color: '#007bff', textAlign: 'center', marginBottom: '2rem' }}>
+        Contact Us
+      </h1>
       <div className="contact-grid">
         {/* Column 1: Contact Form */}
-        <div className="contact-form card">
+        <motion.div
+          className="contact-form card"
+          whileHover={{ scale: 1.02 }}
+          transition={{ type: 'spring', stiffness: 300 }}
+          style={{ boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)' }}
+        >
           <form onSubmit={submitForm}>
             <p>
               <input
@@ -95,6 +107,7 @@ const Contact = () => {
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
+                style={{ boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)' }}
               />
             </p>
             <p>
@@ -106,6 +119,7 @@ const Contact = () => {
                 name="email"
                 value={formData.email}
                 onChange={handleEmailChange}
+                style={{ boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)' }}
               />
               {!isEmailValid && (
                 <span className="custom-error">*Invalid email</span>
@@ -120,6 +134,7 @@ const Contact = () => {
                 name="phone"
                 value={formData.phone}
                 onChange={handlePhoneNumberChange}
+                style={{ boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)' }}
               />
               {!isPhoneValid && (
                 <span className="custom-error">*Invalid phone number</span>
@@ -133,6 +148,7 @@ const Contact = () => {
                 name="message"
                 value={formData.message}
                 onChange={handleChange}
+                style={{ boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)' }}
               />
             </p>
             <div className="button-container">
@@ -142,53 +158,71 @@ const Contact = () => {
                 color="primary"
                 endIcon={<SendIcon />}
                 fullWidth
+                disabled={loading}
+                style={{ 
+                  backgroundColor: '#007bff', 
+                  color: '#fff', 
+                  boxShadow: '0 4px 6px rgba(0, 123, 255, 0.3)' 
+                }}
               >
                 {loading ? 'Loading...' : 'Send'}
               </Button>
             </div>
           </form>
-        </div>
+        </motion.div>
 
         {/* Column 2: Main Branch Address */}
-        <div className="contact-address card">
+        <motion.div
+          className="contact-address card"
+          whileHover={{ scale: 1.02 }}
+          transition={{ type: 'spring', stiffness: 300 }}
+          style={{ boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)' }}
+        >
           <h3>
-            <LocationOnIcon className="icon" /> Office (Mogok Ruby Queen)
+            <LocationOnIcon className="icon" style={{ color: '#007bff' }} /> Office (Mogok Ruby Queen)
           </h3>
           <p><strong>Address:</strong></p>
-          <p><ApartmentIcon className="icon" /> 981 Silom Rd, Bangkok, Thailand</p>
-          <p><EmailIcon className="icon" /> info@businessalliancehub.com</p>
-          <p><PhoneIcon className="icon" /> (987) 654-3210</p>
+          <p><ApartmentIcon className="icon" style={{ color: '#007bff' }} /> 981 Silom Rd, Bangkok, Thailand</p>
+          <p><EmailIcon className="icon" style={{ color: '#007bff' }} /> info@businessalliancehub.com</p>
+          <p><PhoneIcon className="icon" style={{ color: '#007bff' }} /> (987) 654-3210</p>
           <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2344.9250632449525!2d100.5181148518376!3d13.722792293484636!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e29f2d53eebdc1%3A0x401d4628694c9ecd!2sHoliday%20Inn%20Bangkok%20Silom%2C%20an%20IHG%20Hotel!5e0!3m2!1sen!2sth!4v1728999914646!5m2!1sen!2sth" width="100%"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2344.9250632449525!2d100.5181148518376!3d13.722792293484636!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e29f2d53eebdc1%3A0x401d4628694c9ecd!2sHoliday%20Inn%20Bangkok%20Silom%2C%20an%20IHG%20Hotel!5e0!3m2!1sen!2sth!4v1728999914646!5m2!1sen!2sth"
+            width="100%"
             height="250"
-            style={{ border: 0 }}
+            style={{ border: 0, borderRadius: '8px', boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)' }}
             allowFullScreen
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
           />
-        </div>
+        </motion.div>
 
         {/* Column 3: Show Room Address */}
-        <div className="contact-address card">
+        <motion.div
+          className="contact-address card"
+          whileHover={{ scale: 1.02 }}
+          transition={{ type: 'spring', stiffness: 300 }}
+          style={{ boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)' }}
+        >
           <h3>
-            <LocationOnIcon className="icon" /> Show Room (Mogok Ruby Queen)
+            <LocationOnIcon className="icon" style={{ color: '#007bff' }} /> Show Room (Mogok Ruby Queen)
           </h3>
           <p><strong>Address:</strong></p>
-          <p><ApartmentIcon className="icon" /> 981 Silom Rd, Bangkok, Thailand</p>
-          <p><EmailIcon className="icon" /> info@businessalliancehub.com</p>
-          <p><PhoneIcon className="icon" /> (987) 654-3210</p>
+          <p><ApartmentIcon className="icon" style={{ color: '#007bff' }} /> 981 Silom Rd, Bangkok, Thailand</p>
+          <p><EmailIcon className="icon" style={{ color: '#007bff' }} /> info@businessalliancehub.com</p>
+          <p><PhoneIcon className="icon" style={{ color: '#007bff' }} /> (987) 654-3210</p>
           <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2344.9250632449525!2d100.5181148518376!3d13.722792293484636!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e29f2d53eebdc1%3A0x401d4628694c9ecd!2sHoliday%20Inn%20Bangkok%20Silom%2C%20an%20IHG%20Hotel!5e0!3m2!1sen!2sth!4v1728999914646!5m2!1sen!2sth" width="100%"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2344.9250632449525!2d100.5181148518376!3d13.722792293484636!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e29f2d53eebdc1%3A0x401d4628694c9ecd!2sHoliday%20Inn%20Bangkok%20Silom%2C%20an%20IHG%20Hotel!5e0!3m2!1sen!2sth!4v1728999914646!5m2!1sen!2sth"
+            width="100%"
             height="250"
-            style={{ border: 0 }}
+            style={{ border: 0, borderRadius: '8px', boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)' }}
             allowFullScreen
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
           />
-        </div>
+        </motion.div>
       </div>
       <ToastContainer />
-    </div>
+    </motion.div>
   );
 };
 
