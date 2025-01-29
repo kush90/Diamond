@@ -9,7 +9,6 @@ import '../../../styles/public/main.css';
 import { ToastContainer, toast } from 'react-toastify';
 import { post } from '../../../Api';
 import { isValidPhoneNumber } from 'libphonenumber-js';
-import { MDBIcon } from 'mdb-react-ui-kit';
 import { motion } from 'framer-motion';
 
 const Contact = () => {
@@ -95,7 +94,12 @@ const Contact = () => {
           className="contact-form card"
           whileHover={{ scale: 1.02 }}
           transition={{ type: 'spring', stiffness: 300 }}
-          style={{ boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)' }}
+          style={{ 
+            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)', 
+            padding: '2rem', 
+            borderRadius: '12px', 
+            backgroundColor: '#fff' 
+          }}
         >
           <form onSubmit={submitForm}>
             <p>
@@ -107,7 +111,13 @@ const Contact = () => {
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
-                style={{ boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)' }}
+                style={{ 
+                  boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)', 
+                  borderRadius: '8px', 
+                  border: '1px solid #ddd', 
+                  padding: '12px', 
+                  fontSize: '16px' 
+                }}
               />
             </p>
             <p>
@@ -119,10 +129,18 @@ const Contact = () => {
                 name="email"
                 value={formData.email}
                 onChange={handleEmailChange}
-                style={{ boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)' }}
+                style={{ 
+                  boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)', 
+                  borderRadius: '8px', 
+                  border: '1px solid #ddd', 
+                  padding: '12px', 
+                  fontSize: '16px' 
+                }}
               />
               {!isEmailValid && (
-                <span className="custom-error">*Invalid email</span>
+                <span className="custom-error" style={{ color: '#ff4444', fontSize: '14px', marginTop: '4px' }}>
+                  *Invalid email
+                </span>
               )}
             </p>
             <p>
@@ -134,10 +152,18 @@ const Contact = () => {
                 name="phone"
                 value={formData.phone}
                 onChange={handlePhoneNumberChange}
-                style={{ boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)' }}
+                style={{ 
+                  boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)', 
+                  borderRadius: '8px', 
+                  border: '1px solid #ddd', 
+                  padding: '12px', 
+                  fontSize: '16px' 
+                }}
               />
               {!isPhoneValid && (
-                <span className="custom-error">*Invalid phone number</span>
+                <span className="custom-error" style={{ color: '#ff4444', fontSize: '14px', marginTop: '4px' }}>
+                  *Invalid phone number
+                </span>
               )}
             </p>
             <p>
@@ -148,7 +174,14 @@ const Contact = () => {
                 name="message"
                 value={formData.message}
                 onChange={handleChange}
-                style={{ boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)' }}
+                style={{ 
+                  boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)', 
+                  borderRadius: '8px', 
+                  border: '1px solid #ddd', 
+                  padding: '12px', 
+                  fontSize: '16px', 
+                  minHeight: '120px' 
+                }}
               />
             </p>
             <div className="button-container">
@@ -162,7 +195,11 @@ const Contact = () => {
                 style={{ 
                   backgroundColor: '#007bff', 
                   color: '#fff', 
-                  boxShadow: '0 4px 6px rgba(0, 123, 255, 0.3)' 
+                  boxShadow: '0 4px 6px rgba(0, 123, 255, 0.3)', 
+                  padding: '12px', 
+                  fontSize: '16px', 
+                  borderRadius: '8px', 
+                  textTransform: 'none' 
                 }}
               >
                 {loading ? 'Loading...' : 'Send'}
@@ -176,15 +213,26 @@ const Contact = () => {
           className="contact-address card"
           whileHover={{ scale: 1.02 }}
           transition={{ type: 'spring', stiffness: 300 }}
-          style={{ boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)' }}
+          style={{ 
+            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)', 
+            padding: '2rem', 
+            borderRadius: '12px', 
+            backgroundColor: '#fff' 
+          }}
         >
-          <h3>
-            <LocationOnIcon className="icon" style={{ color: '#007bff' }} /> Office (Mogok Ruby Queen)
+          <h3 style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#007bff' }}>
+            <LocationOnIcon className="icon" /> Office (Mogok Ruby Queen)
           </h3>
           <p><strong>Address:</strong></p>
-          <p><ApartmentIcon className="icon" style={{ color: '#007bff' }} /> 981 Silom Rd, Bangkok, Thailand</p>
-          <p><EmailIcon className="icon" style={{ color: '#007bff' }} /> info@businessalliancehub.com</p>
-          <p><PhoneIcon className="icon" style={{ color: '#007bff' }} /> (987) 654-3210</p>
+          <p style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <ApartmentIcon className="icon" /> 981 Silom Rd, Bangkok, Thailand
+          </p>
+          <p style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <EmailIcon className="icon" /> info@businessalliancehub.com
+          </p>
+          <p style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <PhoneIcon className="icon" /> (987) 654-3210
+          </p>
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2344.9250632449525!2d100.5181148518376!3d13.722792293484636!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e29f2d53eebdc1%3A0x401d4628694c9ecd!2sHoliday%20Inn%20Bangkok%20Silom%2C%20an%20IHG%20Hotel!5e0!3m2!1sen!2sth!4v1728999914646!5m2!1sen!2sth"
             width="100%"
@@ -201,15 +249,26 @@ const Contact = () => {
           className="contact-address card"
           whileHover={{ scale: 1.02 }}
           transition={{ type: 'spring', stiffness: 300 }}
-          style={{ boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)' }}
+          style={{ 
+            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)', 
+            padding: '2rem', 
+            borderRadius: '12px', 
+            backgroundColor: '#fff' 
+          }}
         >
-          <h3>
-            <LocationOnIcon className="icon" style={{ color: '#007bff' }} /> Show Room (Mogok Ruby Queen)
+          <h3 style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#007bff' }}>
+            <LocationOnIcon className="icon" /> Show Room (Mogok Ruby Queen)
           </h3>
           <p><strong>Address:</strong></p>
-          <p><ApartmentIcon className="icon" style={{ color: '#007bff' }} /> 981 Silom Rd, Bangkok, Thailand</p>
-          <p><EmailIcon className="icon" style={{ color: '#007bff' }} /> info@businessalliancehub.com</p>
-          <p><PhoneIcon className="icon" style={{ color: '#007bff' }} /> (987) 654-3210</p>
+          <p style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <ApartmentIcon className="icon" /> 981 Silom Rd, Bangkok, Thailand
+          </p>
+          <p style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <EmailIcon className="icon" /> info@businessalliancehub.com
+          </p>
+          <p style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <PhoneIcon className="icon" /> (987) 654-3210
+          </p>
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2344.9250632449525!2d100.5181148518376!3d13.722792293484636!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e29f2d53eebdc1%3A0x401d4628694c9ecd!2sHoliday%20Inn%20Bangkok%20Silom%2C%20an%20IHG%20Hotel!5e0!3m2!1sen!2sth!4v1728999914646!5m2!1sen!2sth"
             width="100%"
