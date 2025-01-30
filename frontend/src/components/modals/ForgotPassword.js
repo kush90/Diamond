@@ -56,39 +56,112 @@ const ForgotPassword = (props) => {
 
     return (
         <>
-            <MDBModal staticBackdrop open={props.open} tabIndex='-1' onClose={close} >
-                <MDBModalDialog>
-                    <MDBModalContent style={{ height: '313.94px' }}>
-                        <MDBModalHeader>
-                            <MDBModalTitle className='text-primary'>Forgot Password</MDBModalTitle>
-                            <MDBBtn className='btn-close' color='none' onClick={close} ></MDBBtn>
-                        </MDBModalHeader>
-                        <MDBModalBody >
-                            <MDBInput wrapperClass='custom-input' required onKeyDown={handleKeyDown} onChange={handlePhoneNumberChange} value={phoneNo} label='Phone no' />
+        <MDBModal staticBackdrop open={props.open} tabIndex='-1' onClose={close} className='auth-modal'>
+            <MDBModalDialog centered>
+                <MDBModalContent className='shadow-5-strong rounded-lg' style={{height:'385px'}}>
+                    {/* Enhanced Header */}
+                    <MDBModalHeader className='bg-gradient-primary text-white py-4'>
+                        <div className="w-100 text-center position-relative">
+                            <MDBModalTitle className='fw-bold mb-1 h3'>Reset Password</MDBModalTitle>
+                            <p className="mb-0 small">Enter your details to reset password</p>
+                            <MDBBtn 
+                                className='btn-close btn-close-white position-absolute top-0 end-0 mt-2 me-2' 
+                                color='none' 
+                                onClick={close}
+                            />
+                        </div>
+                    </MDBModalHeader>
+
+                    <MDBModalBody className='px-4 py-3'>
+                        {/* Phone Input with Matching Styling */}
+                        <div className='mb-4'>
+                            <MDBInput
+                                wrapperClass='custom-input-group'
+                                required
+                                onKeyDown={handleKeyDown}
+                                onChange={handlePhoneNumberChange}
+                                value={phoneNo}
+                                label='Phone Number'
+                                size='lg'
+                                className='rounded-pill'
+                                style={{
+                                    borderColor: isPhoneValid ? '#e0e0e0' : '#ff4444',
+                                    transition: 'border-color 0.3s ease'
+                                }}
+                            />
                             {!isPhoneValid && phoneNo.trim() !== '' && (
-                                <span className='custom-error'>*Invalid phone no</span>
+                                <div className='d-flex align-items-center mt-2 text-danger small'>
+                                    <MDBIcon icon='exclamation-circle' className='me-2' />
+                                    <span>Please enter a valid phone number</span>
+                                </div>
                             )}
-                            <div className="password-input-wrapper custom-input">
-                                <MDBInput wrapperClass='custom-input' type={showPassword ? 'text' : 'password'} onKeyDown={handleKeyDown} required onChange={(e) => setPassword(e.target.value)} value={password} label='Password' />
-                                <MDBIcon
-                                    fas
-                                    icon={showPassword ? 'eye-slash' : 'eye'}
-                                    className="password-toggle-icon"
-                                    onClick={toggleShowPassword}
-                                />
-                            </div>
-                        </MDBModalBody>
-                        <MDBModalFooter>
-                            <MDBBtn disabled={props.loading} color='secondary' onClick={close}>
-                                Close
-                            </MDBBtn>
-                            <MDBBtn disabled={(props.loading || !phoneNo || !password || !isPhoneValid)} onClick={login}
-                            >{props.loading ? 'Loading...' : 'Submit'}</MDBBtn>
-                        </MDBModalFooter>
-                    </MDBModalContent>
-                </MDBModalDialog>
-            </MDBModal>
-        </>
+                        </div>
+
+                        {/* Password Input with Matching Styling */}
+                        <div className="mb-4 position-relative">
+                            <MDBInput
+                                type={showPassword ? 'text' : 'password'}
+                                required
+                                onKeyDown={handleKeyDown}
+                                onChange={(e) => setPassword(e.target.value)}
+                                value={password}
+                                label='New Password'
+                                size='lg'
+                                className='rounded-pill'
+                            />
+                            <MDBIcon
+                                fas
+                                icon={showPassword ? 'eye-slash' : 'eye'}
+                                className="position-absolute end-0 top-50 translate-middle-y me-3"
+                                style={{ 
+                                    cursor: 'pointer', 
+                                    color: '#6c757d',
+                                    transition: 'color 0.3s ease'
+                                }}
+                                onClick={toggleShowPassword}
+                            />
+                        </div>
+                    </MDBModalBody>
+
+                    {/* Enhanced Footer Matching Login Style */}
+                    <MDBModalFooter className='d-flex justify-content-between px-4 py-3 border-top-0'>
+                        <MDBBtn 
+                            color='light' 
+                            onClick={close}
+                            className='rounded-pill px-4 border-secondary'
+                            outline
+                            style={{
+                                borderColor: '#6c757d', // Explicit border color
+                                color: '#6c757d' // Darker text color
+                            }}
+                        >
+                            Close
+                        </MDBBtn>
+                        <MDBBtn 
+                            disabled={props.loading || !phoneNo || !password || !isPhoneValid} 
+                            onClick={login}
+                            className='rounded-pill px-5 gradient-btn'
+                            style={{ 
+                                background: 'linear-gradient(45deg, #3b71ca, #14a44d)',
+                                border: 'none',
+                                color: 'white',
+                                transition: 'transform 0.2s ease'
+                            }}
+                        >
+                            {props.loading ? (
+                                <div className="d-flex align-items-center">
+                                    <span className="spinner-border spinner-border-sm me-2" role="status" />
+                                    Resetting...
+                                </div>
+                            ) : (
+                                'Reset Password'
+                            )}
+                        </MDBBtn>
+                    </MDBModalFooter>
+                </MDBModalContent>
+            </MDBModalDialog>
+        </MDBModal>
+    </>
     );
 }
 
