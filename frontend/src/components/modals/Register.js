@@ -109,70 +109,196 @@ const Register = (props) => {
 
     return (
         <>
-            <MDBModal staticBackdrop open={props.open} tabIndex='-1' onClose={close} >
-                <MDBModalDialog>
-                    <MDBModalContent>
-                        <MDBModalHeader>
-                            <MDBModalTitle className='text-primary'>Register</MDBModalTitle>
-                            <MDBBtn className='btn-close' color='none' onClick={close} ></MDBBtn>
-                        </MDBModalHeader>
+        <MDBModal staticBackdrop open={props.open} tabIndex='-1' onClose={close} className='auth-modal'>
+            <MDBModalDialog centered>
+                <MDBModalContent className='shadow-5-strong rounded-lg'>
+                    {/* Enhanced Header */}
+                    <MDBModalHeader className='bg-gradient-primary text-white py-4'>
+                        <div className="w-100 text-center position-relative">
+                            <MDBModalTitle className='fw-bold mb-1 h3'>Create Account</MDBModalTitle>
+                            <p className="mb-0 small">Join our community today</p>
+                            <MDBBtn 
+                                className='btn-close btn-close-white position-absolute top-0 end-0 mt-2 me-2' 
+                                color='none' 
+                                onClick={close}
+                            />
+                        </div>
+                    </MDBModalHeader>
 
-                        <MDBModalBody onKeyDown={handleKeyDown}>
-                            <MDBInput wrapperClass='custom-input' required onChange={(e) => setName(e.target.value)} value={name} label='Name' />
-                            <div className="password-input-wrapper custom-input">
-                                <MDBInput wrapperClass='custom-input' type={showPassword ? 'text' : 'password'} required onChange={(e) => setPassword(e.target.value)} value={password} label='Password' />
-                                <MDBIcon
-                                    fas
-                                    icon={showPassword ? 'eye-slash' : 'eye'}
-                                    className="password-toggle-icon"
-                                    onClick={toggleShowPassword}
-                                />
-                            </div>
-                            <MDBInput wrapperClass='custom-input' required onChange={handlePhoneNumberChange} value={phoneNo} label='Phone No' />
+                    <MDBModalBody className='px-4 py-3' onKeyDown={handleKeyDown}>
+                        {/* Name Input */}
+                        <div className='mb-4'>
+                            <MDBInput
+                                wrapperClass='custom-input-group'
+                                required
+                                onChange={(e) => setName(e.target.value)}
+                                value={name}
+                                label='Full Name'
+                                size='lg'
+                                className='rounded-pill'
+                            />
+                        </div>
+
+                        {/* Password Input */}
+                        <div className="mb-4 position-relative">
+                            <MDBInput
+                                type={showPassword ? 'text' : 'password'}
+                                required
+                                onChange={(e) => setPassword(e.target.value)}
+                                value={password}
+                                label='Password'
+                                size='lg'
+                                className='rounded-pill'
+                            />
+                            <MDBIcon
+                                fas
+                                icon={showPassword ? 'eye-slash' : 'eye'}
+                                className="position-absolute end-0 top-50 translate-middle-y me-3"
+                                style={{ 
+                                    cursor: 'pointer', 
+                                    color: '#6c757d',
+                                    transition: 'color 0.3s ease'
+                                }}
+                                onClick={toggleShowPassword}
+                            />
+                        </div>
+
+                        {/* Phone Input */}
+                        <div className='mb-4'>
+                            <MDBInput
+                                wrapperClass='custom-input-group'
+                                required
+                                onChange={handlePhoneNumberChange}
+                                value={phoneNo}
+                                label='Phone Number'
+                                size='lg'
+                                className='rounded-pill'
+                                style={{
+                                    borderColor: isPhoneValid ? '#e0e0e0' : '#ff4444',
+                                    transition: 'border-color 0.3s ease'
+                                }}
+                            />
                             {!isPhoneValid && phoneNo.trim() !== '' && (
-                                <span className='custom-error'>*Invalid phone no</span>
+                                <div className='d-flex align-items-center mt-2 text-danger small'>
+                                    <MDBIcon icon='exclamation-circle' className='me-2' />
+                                    <span>Please enter a valid phone number</span>
+                                </div>
                             )}
-                            <MDBInput wrapperClass='custom-input' required onChange={handleEmailChange} value={email} label='Email' />
+                        </div>
+
+                        {/* Email Input */}
+                        <div className='mb-4'>
+                            <MDBInput
+                                wrapperClass='custom-input-group'
+                                required
+                                onChange={handleEmailChange}
+                                value={email}
+                                label='Email'
+                                size='lg'
+                                className='rounded-pill'
+                                style={{
+                                    borderColor: isEmailValid ? '#e0e0e0' : '#ff4444',
+                                    transition: 'border-color 0.3s ease'
+                                }}
+                            />
                             {!isEmailValid && (
-                                <span className='custom-error'>*Invalid email</span>
+                                <div className='d-flex align-items-center mt-2 text-danger small'>
+                                    <MDBIcon icon='exclamation-circle' className='me-2' />
+                                    <span>Please enter a valid email address</span>
+                                </div>
                             )}
-                            <MDBInput wrapperClass='custom-input' onChange={(e) => setAddress(e.target.value)} value={address} label='Address' />
-                            <label htmlFor="file-upload" className="custom-file-upload">
-                                <i className="fa fa-cloud-upload"></i> <span>Upload Profile Image</span>
+                        </div>
+
+                        {/* Address Input */}
+                        <div className='mb-4'>
+                            <MDBInput
+                                wrapperClass='custom-input-group'
+                                onChange={(e) => setAddress(e.target.value)}
+                                value={address}
+                                label='Address'
+                                size='lg'
+                                className='rounded-pill'
+                            />
+                        </div>
+
+                        {/* Profile Upload */}
+                        <div className='mb-4'>
+                            <label htmlFor="file-upload" className="btn btn-primary rounded-pill w-100 gradient-btn">
+                                <MDBIcon fas icon="cloud-upload-alt" className='me-2' />
+                                Upload Profile Image
                             </label>
-                            <input accept='image/*' ref={ref} id="file-upload" type="file" onChange={(e) => uploadProfile(e)} />
-                            <MDBContainer className='product-modal-img-list'>
-                                <MDBRow>
-                                    {
-                                        (imgUrl && imgUrl.length > 0) && imgUrl.map((img, index) => {
+                            <input 
+                                accept='image/*' 
+                                ref={ref} 
+                                id="file-upload" 
+                                type="file" 
+                                onChange={(e) => uploadProfile(e)}
+                                style={{ display: 'none' }}
+                            />
+                        </div>
 
-                                            return (
-                                                <MDBCol key={index} lg='4' md='12' className='mb-4 set-relative'>
-                                                    <MDBIcon fas icon="times-circle" color='danger' className='delete-btn' onClick={() => removeImage(img.name)} />
+                        {/* Image Previews */}
+                        <MDBContainer className='product-modal-img-list mt-3'>
+                            <MDBRow>
+                                {imgUrl.map((img, index) => (
+                                    <MDBCol key={index} lg='4' md='12' className='mb-4 set-relative'>
+                                        <MDBIcon 
+                                            fas 
+                                            icon="times-circle" 
+                                            color='danger' 
+                                            className='delete-btn' 
+                                            onClick={() => removeImage(img.name)} 
+                                        />
+                                        <img
+                                            src={img?.new ? img.path : `${API_URL}/${img.path}`}
+                                            className='img-fluid shadow-2-strong rounded-4 custom-img'
+                                            alt={img.name}
+                                        />
+                                    </MDBCol>
+                                ))}
+                            </MDBRow>
+                        </MDBContainer>
+                    </MDBModalBody>
 
-                                                    <img
-                                                        src={img?.new ? img.path : `${API_URL}/${img.path}`}
-                                                        className='img-fluid shadow-2-strong rounded-4 custom-img'
-                                                        alt={img.name}
-                                                    />
-                                                </MDBCol>
-                                            )
-                                        })
-                                    }
-                                </MDBRow>
-                            </MDBContainer>
-                        </MDBModalBody>
-                        <MDBModalFooter>
-                            <MDBBtn disabled={props.loading} color='secondary' onClick={close}>
-                                Close
-                            </MDBBtn>
-                            <MDBBtn disabled={(props.loading || !name || !password || !phoneNo || !isPhoneValid || !isEmailValid)} onClick={save}
-                            >{props.loading ? 'Loading...' : 'Register'}</MDBBtn>
-                        </MDBModalFooter>
-                    </MDBModalContent>
-                </MDBModalDialog>
-            </MDBModal>
-        </>
+                    {/* Enhanced Footer */}
+                    <MDBModalFooter className='d-flex justify-content-between px-4 py-3 border-top-0'>
+                        <MDBBtn 
+                            color='light' 
+                            onClick={close}
+                            className='rounded-pill px-4 border-secondary'
+                            outline
+                            style={{
+                                borderColor: '#6c757d',
+                                color: '#6c757d'
+                            }}
+                        >
+                            Close
+                        </MDBBtn>
+                        <MDBBtn 
+                            disabled={props.loading || !name || !password || !phoneNo || !isPhoneValid || !isEmailValid} 
+                            onClick={save}
+                            className='rounded-pill px-5 gradient-btn'
+                            style={{ 
+                                background: 'linear-gradient(45deg, #3b71ca, #14a44d)',
+                                border: 'none',
+                                color: 'white',
+                                transition: 'transform 0.2s ease'
+                            }}
+                        >
+                            {props.loading ? (
+                                <div className="d-flex align-items-center">
+                                    <span className="spinner-border spinner-border-sm me-2" role="status" />
+                                    Registering...
+                                </div>
+                            ) : (
+                                'Register'
+                            )}
+                        </MDBBtn>
+                    </MDBModalFooter>
+                </MDBModalContent>
+            </MDBModalDialog>
+        </MDBModal>
+    </>
     );
 }
 
