@@ -228,10 +228,10 @@ const Contact = () => {
             <ApartmentIcon className="icon" /> 981 Silom Rd, Bangkok, Thailand
           </p>
           <p style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <EmailIcon className="icon" /> info@businessalliancehub.com
+            <EmailIcon className="icon" /> <span style={{ whiteSpace: 'normal', wordBreak: 'break-word' }}>info.businessalliancehub@gmail.com</span>
           </p>
           <p style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <PhoneIcon className="icon" /> (987) 654-3210
+            <PhoneIcon className="icon" /><a href="tel:+66639206269">+66 63 920 6269</a>
           </p>
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2344.9250632449525!2d100.5181148518376!3d13.722792293484636!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e29f2d53eebdc1%3A0x401d4628694c9ecd!2sHoliday%20Inn%20Bangkok%20Silom%2C%20an%20IHG%20Hotel!5e0!3m2!1sen!2sth!4v1728999914646!5m2!1sen!2sth"
@@ -264,10 +264,10 @@ const Contact = () => {
             <ApartmentIcon className="icon" /> 981 Silom Rd, Bangkok, Thailand
           </p>
           <p style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <EmailIcon className="icon" /> info@businessalliancehub.com
+            <EmailIcon className="icon" /><span style={{ whiteSpace: 'normal', wordBreak: 'break-word' }}>info.businessalliancehub@gmail.com</span>
           </p>
           <p style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <PhoneIcon className="icon" /> (987) 654-3210
+            <PhoneIcon className="icon" /> <a href="tel:+66639206269">+66 63 920 6269</a>
           </p>
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2344.9250632449525!2d100.5181148518376!3d13.722792293484636!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e29f2d53eebdc1%3A0x401d4628694c9ecd!2sHoliday%20Inn%20Bangkok%20Silom%2C%20an%20IHG%20Hotel!5e0!3m2!1sen!2sth!4v1728999914646!5m2!1sen!2sth"
