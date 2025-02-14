@@ -94,11 +94,11 @@ const Contact = () => {
           className="contact-form card"
           whileHover={{ scale: 1.02 }}
           transition={{ type: 'spring', stiffness: 300 }}
-          style={{ 
-            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)', 
-            padding: '2rem', 
-            borderRadius: '12px', 
-            backgroundColor: '#fff' 
+          style={{
+            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+            padding: '2rem',
+            borderRadius: '12px',
+            backgroundColor: '#fff'
           }}
         >
           <form onSubmit={submitForm}>
@@ -111,12 +111,12 @@ const Contact = () => {
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
-                style={{ 
-                  boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)', 
-                  borderRadius: '8px', 
-                  border: '1px solid #ddd', 
-                  padding: '12px', 
-                  fontSize: '16px' 
+                style={{
+                  boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+                  borderRadius: '8px',
+                  border: '1px solid #ddd',
+                  padding: '12px',
+                  fontSize: '16px'
                 }}
               />
             </p>
@@ -129,12 +129,12 @@ const Contact = () => {
                 name="email"
                 value={formData.email}
                 onChange={handleEmailChange}
-                style={{ 
-                  boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)', 
-                  borderRadius: '8px', 
-                  border: '1px solid #ddd', 
-                  padding: '12px', 
-                  fontSize: '16px' 
+                style={{
+                  boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+                  borderRadius: '8px',
+                  border: '1px solid #ddd',
+                  padding: '12px',
+                  fontSize: '16px'
                 }}
               />
               {!isEmailValid && (
@@ -152,12 +152,12 @@ const Contact = () => {
                 name="phone"
                 value={formData.phone}
                 onChange={handlePhoneNumberChange}
-                style={{ 
-                  boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)', 
-                  borderRadius: '8px', 
-                  border: '1px solid #ddd', 
-                  padding: '12px', 
-                  fontSize: '16px' 
+                style={{
+                  boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+                  borderRadius: '8px',
+                  border: '1px solid #ddd',
+                  padding: '12px',
+                  fontSize: '16px'
                 }}
               />
               {!isPhoneValid && (
@@ -174,13 +174,13 @@ const Contact = () => {
                 name="message"
                 value={formData.message}
                 onChange={handleChange}
-                style={{ 
-                  boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)', 
-                  borderRadius: '8px', 
-                  border: '1px solid #ddd', 
-                  padding: '12px', 
-                  fontSize: '16px', 
-                  minHeight: '120px' 
+                style={{
+                  boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+                  borderRadius: '8px',
+                  border: '1px solid #ddd',
+                  padding: '12px',
+                  fontSize: '16px',
+                  minHeight: '120px'
                 }}
               />
             </p>
@@ -192,14 +192,14 @@ const Contact = () => {
                 endIcon={<SendIcon />}
                 fullWidth
                 disabled={loading}
-                style={{ 
-                  backgroundColor: '#007bff', 
-                  color: '#fff', 
-                  boxShadow: '0 4px 6px rgba(0, 123, 255, 0.3)', 
-                  padding: '12px', 
-                  fontSize: '16px', 
-                  borderRadius: '8px', 
-                  textTransform: 'none' 
+                style={{
+                  backgroundColor: '#007bff',
+                  color: '#fff',
+                  boxShadow: '0 4px 6px rgba(0, 123, 255, 0.3)',
+                  padding: '12px',
+                  fontSize: '16px',
+                  borderRadius: '8px',
+                  textTransform: 'none'
                 }}
               >
                 {loading ? 'Loading...' : 'Send'}
@@ -213,11 +213,11 @@ const Contact = () => {
           className="contact-address card"
           whileHover={{ scale: 1.02 }}
           transition={{ type: 'spring', stiffness: 300 }}
-          style={{ 
-            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)', 
-            padding: '2rem', 
-            borderRadius: '12px', 
-            backgroundColor: '#fff' 
+          style={{
+            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+            padding: '2rem',
+            borderRadius: '12px',
+            backgroundColor: '#fff'
           }}
         >
           <h3 style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#007bff' }}>
@@ -227,8 +227,14 @@ const Contact = () => {
           <p style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <ApartmentIcon className="icon" /> 981 Silom Rd, Bangkok, Thailand
           </p>
-          <p style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <EmailIcon className="icon" /> <span style={{ whiteSpace: 'normal', wordBreak: 'break-word' }}>info.businessalliancehub@gmail.com</span>
+          <p style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
+            <EmailIcon className="icon" />
+            <a
+              href="mailto:info.businessalliancehub@gmail.com"
+              style={{ textDecoration: 'none', color: '', whiteSpace: 'normal', wordBreak: 'break-word' }}
+            >
+              info.businessalliancehub@gmail.com
+            </a>
           </p>
           <p style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <PhoneIcon className="icon" /><a href="tel:+66639206269">+66 63 920 6269</a>
@@ -249,11 +255,11 @@ const Contact = () => {
           className="contact-address card"
           whileHover={{ scale: 1.02 }}
           transition={{ type: 'spring', stiffness: 300 }}
-          style={{ 
-            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)', 
-            padding: '2rem', 
-            borderRadius: '12px', 
-            backgroundColor: '#fff' 
+          style={{
+            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+            padding: '2rem',
+            borderRadius: '12px',
+            backgroundColor: '#fff'
           }}
         >
           <h3 style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#007bff' }}>
@@ -263,9 +269,16 @@ const Contact = () => {
           <p style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <ApartmentIcon className="icon" /> 981 Silom Rd, Bangkok, Thailand
           </p>
-          <p style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <EmailIcon className="icon" /><span style={{ whiteSpace: 'normal', wordBreak: 'break-word' }}>info.businessalliancehub@gmail.com</span>
+          <p style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
+            <EmailIcon className="icon" />
+            <a
+              href="mailto:info.businessalliancehub@gmail.com"
+              style={{ textDecoration: 'none', color: '', whiteSpace: 'normal', wordBreak: 'break-word' }}
+            >
+              info.businessalliancehub@gmail.com
+            </a>
           </p>
+
           <p style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <PhoneIcon className="icon" /> <a href="tel:+66639206269">+66 63 920 6269</a>
           </p>
